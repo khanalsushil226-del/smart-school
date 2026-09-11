@@ -30,7 +30,7 @@
                     <div class="form-group">
                         <label for="username">Username</label>
                         <div class="input-wrapper">
-                            
+                            <span class="input-icon">👤</span>
                             <input
                                 type="text"
                                 id="username"
@@ -44,8 +44,9 @@
 
                     <div class="form-group">
                         <label for="password">Password</label>
+
                         <div class="input-wrapper">
-                           
+                            <span class="input-icon">🔒</span>
                             <input
                                 type="password"
                                 id="password"
@@ -54,10 +55,12 @@
                                 autocomplete="current-password"
                                 required
                             >
-                            <button type="button" class="password-toggle" id="passwordToggle">
-                                👁
-                            </button>
                         </div>
+
+                        <label class="show-password">
+                            <input type="checkbox" id="showPassword">
+                            <span>Show password</span>
+                        </label>
                     </div>
 
                     <div class="login-options">

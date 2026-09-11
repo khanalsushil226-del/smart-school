@@ -1,13 +1,10 @@
 const loginForm = document.getElementById("loginForm");
 const passwordInput = document.getElementById("password");
-const passwordToggle = document.getElementById("passwordToggle");
+const showPassword = document.getElementById("showPassword");
 const loginMessage = document.getElementById("loginMessage");
 
-passwordToggle.addEventListener("click", () => {
-    const isPassword = passwordInput.type === "password";
-
-    passwordInput.type = isPassword ? "text" : "password";
-    passwordToggle.textContent = isPassword ? "🙈" : "👁";
+showPassword.addEventListener("change", () => {
+    passwordInput.type = showPassword.checked ? "text" : "password";
 });
 
 loginForm.addEventListener("submit", (event) => {

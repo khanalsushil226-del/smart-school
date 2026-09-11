@@ -108,6 +108,23 @@ body {
     display: flex;
     align-items: center;
 }
+.show-password {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    font-size: 13px;
+    color: #64748b;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.show-password input {
+    width: 15px;
+    height: 15px;
+    accent-color: #056c24;
+    cursor: pointer;
+}
 
 .input-icon {
     position: absolute;
