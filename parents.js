@@ -1,6 +1,640 @@
+const parents = [
+    {
+        id: "PAR001",
+        firstName: "Rajesh",
+        lastName: "Sharma",
+        relationship: "Father",
+        phone: "9800000000",
+        email: "rajesh@example.com",
+        username: "rajesh.sharma",
+        verification: "Verified",
+        status: "Active",
+        emergencyName: "Sita Sharma",
+        emergencyNumber: "9812345678",
+        children: [
+            {
+                name: "Rahul Sharma",
+                id: "STU001",
+                className: "Grade 10",
+                section: "A"
+            }
+        ]
+    },
+    {
+        id: "PAR002",
+        firstName: "Sita",
+        lastName: "Sharma",
+        relationship: "Mother",
+        phone: "9812345678",
+        email: "sita@example.com",
+        username: "sita.sharma",
+        verification: "Verified",
+        status: "Active",
+        emergencyName: "Rajesh Sharma",
+        emergencyNumber: "9800000000",
+        children: [
+            {
+                name: "Rahul Sharma",
+                id: "STU001",
+                className: "Grade 10",
+                section: "A"
+            },
+            {
+                name: "Anisha Sharma",
+                id: "STU006",
+                className: "Grade 6",
+                section: "B"
+            }
+        ]
+    },
+    {
+        id: "PAR003",
+        firstName: "Suresh",
+        lastName: "Shrestha",
+        relationship: "Father",
+        phone: "9822222222",
+        email: "suresh@example.com",
+        username: "suresh.shrestha",
+        verification: "Verified",
+        status: "Active",
+        emergencyName: "Mina Shrestha",
+        emergencyNumber: "9833333333",
+        children: [
+            {
+                name: "Anisha Shrestha",
+                id: "STU002",
+                className: "Grade 9",
+                section: "B"
+            }
+        ]
+    },
+    {
+        id: "PAR004",
+        firstName: "Kamala",
+        lastName: "Magar",
+        relationship: "Mother",
+        phone: "9833333333",
+        email: "kamala@example.com",
+        username: "kamala.magar",
+        verification: "Verified",
+        status: "Active",
+        emergencyName: "Dinesh Magar",
+        emergencyNumber: "9844444444",
+        children: [
+            {
+                name: "Sabina Magar",
+                id: "STU004",
+                className: "Grade 9",
+                section: "A"
+            }
+        ]
+    },
+    {
+        id: "PAR005",
+        firstName: "Ramesh",
+        lastName: "Singh",
+        relationship: "Father",
+        phone: "9844444444",
+        email: "ramesh@example.com",
+        username: "ramesh.singh",
+        verification: "Pending",
+        status: "Active",
+        emergencyName: "Sunita Singh",
+        emergencyNumber: "9855555555",
+        children: [
+            {
+                name: "Arjun Singh",
+                id: "STU005",
+                className: "Grade 10",
+                section: "B"
+            }
+        ]
+    },
+    {
+        id: "PAR006",
+        firstName: "Mina",
+        lastName: "Gurung",
+        relationship: "Guardian",
+        phone: "9866666666",
+        email: "mina@example.com",
+        username: "mina.gurung",
+        verification: "Pending",
+        status: "Disabled",
+        emergencyName: "Hari Gurung",
+        emergencyNumber: "9877777777",
+        children: [
+            {
+                name: "Prakash Gurung",
+                id: "STU007",
+                className: "Grade 8",
+                section: "A"
+            }
+        ]
+    }
+];
+
+let selectedParent = null;
+
+const parentTableBody = document.getElementById("parentTableBody");
+const parentSearch = document.getElementById("parentSearch");
+const topSearch = document.getElementById("topSearch");
+const relationshipFilter = document.getElementById("relationshipFilter");
+const verificationFilter = document.getElementById("verificationFilter");
+const statusFilter = document.getElementById("statusFilter");
+const emptyState = document.getElementById("emptyState");
+
+const parentModal = document.getElementById("parentModal");
+const profileModal = document.getElementById("profileModal");
+
+const addParentButton = document.getElementById("addParentButton");
+const closeParentModal = document.getElementById("closeParentModal");
+const cancelParent = document.getElementById("cancelParent");
+const closeProfileModal = document.getElementById("closeProfileModal");
+
+const parentForm = document.getElementById("parentForm");
+
 const menuButton = document.getElementById("menuButton");
 const sidebar = document.getElementById("sidebar");
 const sidebarOverlay = document.getElementById("sidebarOverlay");
+
+const profileName = document.getElementById("profileName");
+const profileAvatar = document.getElementById("profileAvatar");
+const profileRelationship = document.getElementById("profileRelationship");
+const profileVerification = document.getElementById("profileVerification");
+const profileStatus = document.getElementById("profileStatus");
+const profilePhone = document.getElementById("profilePhone");
+const profileEmail = document.getElementById("profileEmail");
+const profileUsername = document.getElementById("profileUsername");
+const profileEmergency = document.getElementById("profileEmergency");
+const childrenList = document.getElementById("childrenList");
+
+const resetAccessButton = document.getElementById("resetAccessButton");
+const toggleAccountButton = document.getElementById("toggleAccountButton");
+const linkChildButton = document.getElementById("linkChildButton");
+
+function getInitials(firstName, lastName) {
+    return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
+}
+
+function renderParents(data = parents) {
+    parentTableBody.innerHTML = "";
+
+    if (!data.length) {
+        emptyState.classList.add("show");
+        return;
+    }
+
+    emptyState.classList.remove("show");
+
+    data.forEach(parent => {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>
+                <div class="parent-info">
+                    <div class="parent-avatar">${getInitials(parent.firstName, parent.lastName)}</div>
+                    <div>
+                        <strong>${parent.firstName} ${parent.lastName}</strong>
+                        <span>${parent.email || "No email address"}</span>
+                    </div>
+                </div>
+            </td>
+
+            <td>${parent.relationship}</td>
+
+            <td>${parent.phone}</td>
+
+            <td>
+                <span class="children-count">
+                    ${parent.children.length} ${parent.children.length === 1 ? "Child" : "Children"}
+                </span>
+            </td>
+
+            <td>
+                <span class="status-badge ${parent.verification.toLowerCase()}">
+                    ${parent.verification}
+                </span>
+            </td>
+
+            <td>
+                <span class="status-badge ${parent.status.toLowerCase()}">
+                    ${parent.status}
+                </span>
+            </td>
+
+            <td>
+                <div class="action-buttons">
+                    <button class="action-button view-button" data-id="${parent.id}">
+                        View
+                    </button>
+                    <button class="action-button link-button" data-id="${parent.id}">
+                        Link Child
+                    </button>
+                </div>
+            </td>
+        `;
+
+        parentTableBody.appendChild(row);
+    });
+
+    document.querySelectorAll(".view-button").forEach(button => {
+        button.addEventListener("click", () => {
+            openProfile(button.dataset.id);
+        });
+    });
+
+    document.querySelectorAll(".link-button").forEach(button => {
+        button.addEventListener("click", () => {
+            linkChild(button.dataset.id);
+        });
+    });
+}
+
+function filterParents() {
+    const searchValue = parentSearch.value.toLowerCase().trim();
+    const relationshipValue = relationshipFilter.value;
+    const verificationValue = verificationFilter.value;
+    const statusValue = statusFilter.value;
+
+    const filtered = parents.filter(parent => {
+        const fullName = `${parent.firstName} ${parent.lastName}`.toLowerCase();
+
+        const matchesSearch =
+            fullName.includes(searchValue) ||
+            parent.phone.toLowerCase().includes(searchValue) ||
+            parent.email.toLowerCase().includes(searchValue) ||
+            parent.username.toLowerCase().includes(searchValue) ||
+            parent.children.some(child =>
+                child.name.toLowerCase().includes(searchValue)
+            );
+
+        const matchesRelationship =
+            !relationshipValue || parent.relationship === relationshipValue;
+
+        const matchesVerification =
+            !verificationValue || parent.verification === verificationValue;
+
+        const matchesStatus =
+            !statusValue || parent.status === statusValue;
+
+        return (
+            matchesSearch &&
+            matchesRelationship &&
+            matchesVerification &&
+            matchesStatus
+        );
+    });
+
+    renderParents(filtered);
+}
+
+function syncSearch(source, target) {
+    target.value = source.value;
+    filterParents();
+}
+
+parentSearch.addEventListener("input", () => {
+    syncSearch(parentSearch, topSearch);
+});
+
+topSearch.addEventListener("input", () => {
+    syncSearch(topSearch, parentSearch);
+});
+
+relationshipFilter.addEventListener("change", filterParents);
+verificationFilter.addEventListener("change", filterParents);
+statusFilter.addEventListener("change", filterParents);
+
+function openModal(modal) {
+    modal.classList.add("show");
+    document.body.style.overflow = "hidden";
+}
+
+function closeModal(modal) {
+    modal.classList.remove("show");
+
+    if (!parentModal.classList.contains("show") && !profileModal.classList.contains("show")) {
+        document.body.style.overflow = "";
+    }
+}
+
+addParentButton.addEventListener("click", () => {
+    parentForm.reset();
+    openModal(parentModal);
+});
+
+closeParentModal.addEventListener("click", () => {
+    closeModal(parentModal);
+});
+
+cancelParent.addEventListener("click", () => {
+    closeModal(parentModal);
+});
+
+closeProfileModal.addEventListener("click", () => {
+    closeModal(profileModal);
+});
+
+parentModal.addEventListener("click", event => {
+    if (event.target === parentModal) {
+        closeModal(parentModal);
+    }
+});
+
+profileModal.addEventListener("click", event => {
+    if (event.target === profileModal) {
+        closeModal(profileModal);
+    }
+});
+
+parentForm.addEventListener("submit", event => {
+    event.preventDefault();
+
+    const firstName = document.getElementById("firstName").value.trim();
+    const lastName = document.getElementById("lastName").value.trim();
+    const relationship = document.getElementById("relationship").value;
+    const phone = document.getElementById("contactNumber").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const username = document.getElementById("username").value.trim();
+    const status = document.getElementById("accountStatus").value;
+    const emergencyName = document.getElementById("emergencyName").value.trim();
+    const emergencyNumber = document.getElementById("emergencyNumber").value.trim();
+
+    const newParent = {
+        id: `PAR${String(parents.length + 1).padStart(3, "0")}`,
+        firstName,
+        lastName,
+        relationship,
+        phone,
+        email,
+        username,
+        verification: "Pending",
+        status,
+        emergencyName,
+        emergencyNumber,
+        children: []
+    };
+
+    parents.unshift(newParent);
+
+    closeModal(parentModal);
+    renderParents();
+    updateStatistics();
+
+    alert(`${firstName} ${lastName} has been added successfully.`);
+});
+
+function openProfile(parentId) {
+    selectedParent = parents.find(parent => parent.id === parentId);
+
+    if (!selectedParent) {
+        return;
+    }
+
+    const fullName = `${selectedParent.firstName} ${selectedParent.lastName}`;
+
+    profileName.textContent = fullName;
+    profileAvatar.textContent = getInitials(
+        selectedParent.firstName,
+        selectedParent.lastName
+    );
+
+    profileRelationship.textContent = selectedParent.relationship;
+
+    profileVerification.textContent = selectedParent.verification;
+    profileVerification.className = `status-badge ${selectedParent.verification.toLowerCase()}`;
+
+    profileStatus.textContent = selectedParent.status;
+    profileStatus.className = `status-badge ${selectedParent.status.toLowerCase()}`;
+
+    profilePhone.textContent = selectedParent.phone;
+    profileEmail.textContent = selectedParent.email || "No email address";
+    profileUsername.textContent = selectedParent.username;
+
+    profileEmergency.textContent =
+        selectedParent.emergencyName && selectedParent.emergencyNumber
+            ? `${selectedParent.emergencyName} · ${selectedParent.emergencyNumber}`
+            : "Not provided";
+
+    renderChildren();
+
+    toggleAccountButton.textContent =
+        selectedParent.status === "Active"
+            ? "Disable Account"
+            : "Enable Account";
+
+    openModal(profileModal);
+}
+
+function renderChildren() {
+    childrenList.innerHTML = "";
+
+    if (!selectedParent.children.length) {
+        childrenList.innerHTML = `
+            <div class="child-item">
+                <div class="child-info">
+                    <div class="child-avatar">+</div>
+                    <div>
+                        <strong>No linked children</strong>
+                        <span>Link a student to this parent account.</span>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        return;
+    }
+
+    selectedParent.children.forEach(child => {
+        const item = document.createElement("div");
+        item.className = "child-item";
+
+        item.innerHTML = `
+            <div class="child-info">
+                <div class="child-avatar">${getInitials(child.name.split(" ")[0], child.name.split(" ").slice(1).join(" "))}</div>
+                <div>
+                    <strong>${child.name}</strong>
+                    <span>${child.id} · ${child.className} · Section ${child.section}</span>
+                </div>
+            </div>
+
+            <button class="child-action" data-student="${child.id}">
+                View Student
+            </button>
+        `;
+
+        childrenList.appendChild(item);
+    });
+
+    document.querySelectorAll(".child-action").forEach(button => {
+        button.addEventListener("click", () => {
+            window.location.href = `student-profile.html?id=${encodeURIComponent(button.dataset.student)}`;
+        });
+    });
+}
+
+function linkChild(parentId) {
+    const parent = parents.find(item => item.id === parentId);
+
+    if (!parent) {
+        return;
+    }
+
+    const studentName = prompt("Enter the student name to link:");
+
+    if (!studentName) {
+        return;
+    }
+
+    const studentId = prompt("Enter the student ID:");
+
+    if (!studentId) {
+        return;
+    }
+
+    const className = prompt("Enter the student's class:");
+
+    if (!className) {
+        return;
+    }
+
+    const section = prompt("Enter the student's section:");
+
+    if (!section) {
+        return;
+    }
+
+    parent.children.push({
+        name: studentName.trim(),
+        id: studentId.trim(),
+        className: className.trim(),
+        section: section.trim()
+    });
+
+    renderParents();
+    updateStatistics();
+
+    if (selectedParent && selectedParent.id === parent.id) {
+        renderChildren();
+    }
+
+    alert(`${studentName} has been linked successfully.`);
+}
+
+linkChildButton.addEventListener("click", () => {
+    if (!selectedParent) {
+        return;
+    }
+
+    linkChild(selectedParent.id);
+});
+
+resetAccessButton.addEventListener("click", () => {
+    if (!selectedParent) {
+        return;
+    }
+
+    const confirmed = confirm(
+        `Reset account access for ${selectedParent.firstName} ${selectedParent.lastName}?`
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
+    alert(`Access reset instructions have been generated for ${selectedParent.firstName} ${selectedParent.lastName}.`);
+});
+
+toggleAccountButton.addEventListener("click", () => {
+    if (!selectedParent) {
+        return;
+    }
+
+    if (selectedParent.status === "Active") {
+        const confirmed = confirm(
+            `Disable the account for ${selectedParent.firstName} ${selectedParent.lastName}?`
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        selectedParent.status = "Disabled";
+    } else {
+        selectedParent.status = "Active";
+    }
+
+    profileStatus.textContent = selectedParent.status;
+    profileStatus.className = `status-badge ${selectedParent.status.toLowerCase()}`;
+
+    toggleAccountButton.textContent =
+        selectedParent.status === "Active"
+            ? "Disable Account"
+            : "Enable Account";
+
+    renderParents();
+    updateStatistics();
+});
+
+function updateStatistics() {
+    const total = parents.length;
+    const verified = parents.filter(parent => parent.verification === "Verified").length;
+    const active = parents.filter(parent => parent.status === "Active").length;
+
+    document.getElementById("totalParents").textContent = 280 + total;
+    document.getElementById("verifiedParents").textContent = 266 + verified;
+    document.getElementById("activeParents").textContent = 272 + active;
+}
+
+document.getElementById("exportButton").addEventListener("click", () => {
+    const headers = [
+        "Parent ID",
+        "Parent Name",
+        "Relationship",
+        "Phone",
+        "Email",
+        "Username",
+        "Children",
+        "Verification",
+        "Account Status"
+    ];
+
+    const rows = parents.map(parent => [
+        parent.id,
+        `${parent.firstName} ${parent.lastName}`,
+        parent.relationship,
+        parent.phone,
+        parent.email,
+        parent.username,
+        parent.children.map(child => child.name).join("; "),
+        parent.verification,
+        parent.status
+    ]);
+
+    const csv = [
+        headers,
+        ...rows
+    ]
+        .map(row =>
+            row
+                .map(value => `"${String(value).replace(/"/g, '""')}"`)
+                .join(",")
+        )
+        .join("\n");
+
+    const blob = new Blob([csv], {
+        type: "text/csv;charset=utf-8;"
+    });
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "parent-records.csv";
+    link.click();
+
+    URL.revokeObjectURL(url);
+});
 
 menuButton.addEventListener("click", () => {
     sidebar.classList.toggle("open");
@@ -12,7 +646,14 @@ sidebarOverlay.addEventListener("click", () => {
     sidebarOverlay.classList.remove("show");
 });
 
-document.querySelectorAll(".nav-link").forEach(link => {
+window.addEventListener("resize", () => {
+    if (window.innerWidth > 900) {
+        sidebar.classList.remove("open");
+        sidebarOverlay.classList.remove("show");
+    }
+});
+
+document.querySelectorAll(".sidebar-nav a, .sidebar-bottom a").forEach(link => {
     link.addEventListener("click", () => {
         if (window.innerWidth <= 900) {
             sidebar.classList.remove("open");
@@ -21,365 +662,5 @@ document.querySelectorAll(".nav-link").forEach(link => {
     });
 });
 
-const parentSearch = document.getElementById("parentSearch");
-const topSearch = document.getElementById("topSearch");
-const relationshipFilter = document.getElementById("relationshipFilter");
-const statusFilter = document.getElementById("statusFilter");
-const parentTableBody = document.getElementById("parentTableBody");
-const emptyState = document.getElementById("emptyState");
-const showingCount = document.getElementById("showingCount");
-
-function filterParents() {
-    const searchValue = parentSearch.value.toLowerCase().trim();
-    const relationshipValue = relationshipFilter.value;
-    const statusValue = statusFilter.value;
-
-    let visibleCount = 0;
-
-    parentTableBody.querySelectorAll("tr").forEach(row => {
-        const parentText = row.textContent.toLowerCase();
-        const relationship = row.dataset.relationship;
-        const status = row.dataset.status;
-
-        const matchesSearch = parentText.includes(searchValue);
-        const matchesRelationship = !relationshipValue || relationship === relationshipValue;
-        const matchesStatus = !statusValue || status === statusFilter.value;
-
-        if (matchesSearch && matchesRelationship && matchesStatus) {
-            row.style.display = "";
-            visibleCount++;
-        } else {
-            row.style.display = "none";
-        }
-    });
-
-    showingCount.textContent = visibleCount;
-
-    if (visibleCount === 0) {
-        emptyState.classList.add("show");
-    } else {
-        emptyState.classList.remove("show");
-    }
-}
-
-parentSearch.addEventListener("input", filterParents);
-relationshipFilter.addEventListener("change", filterParents);
-statusFilter.addEventListener("change", filterParents);
-
-topSearch.addEventListener("input", () => {
-    parentSearch.value = topSearch.value;
-    filterParents();
-});
-
-const parentModal = document.getElementById("parentModal");
-const addParentButton = document.getElementById("addParentButton");
-const closeModal = document.getElementById("closeModal");
-const cancelButton = document.getElementById("cancelButton");
-const parentForm = document.getElementById("parentForm");
-
-function openParentModal() {
-    parentModal.classList.add("show");
-    document.body.style.overflow = "hidden";
-}
-
-function closeParentModal() {
-    parentModal.classList.remove("show");
-    document.body.style.overflow = "";
-}
-
-addParentButton.addEventListener("click", openParentModal);
-closeModal.addEventListener("click", closeParentModal);
-cancelButton.addEventListener("click", closeParentModal);
-
-parentModal.addEventListener("click", event => {
-    if (event.target === parentModal) {
-        closeParentModal();
-    }
-});
-
-parentForm.addEventListener("submit", event => {
-    event.preventDefault();
-
-    const firstName = document.getElementById("firstName").value.trim();
-    const lastName = document.getElementById("lastName").value.trim();
-    const relationship = document.getElementById("relationship").value;
-    const phone = document.getElementById("phone").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const username = document.getElementById("username").value.trim();
-
-    const initials = `${firstName.charAt(0)}${lastName.charAt(0)}`;
-    const parentId = `PAR-2026-${String(parentTableBody.children.length + 1).padStart(3, "0")}`;
-
-    const row = document.createElement("tr");
-
-    row.dataset.relationship = relationship;
-    row.dataset.status = "Pending";
-
-    row.innerHTML = `
-        <td>
-            <div class="parent-info">
-                <div class="parent-avatar avatar-1">${initials}</div>
-                <div>
-                    <strong>${firstName} ${lastName}</strong>
-                    <span>${email || "No email provided"}</span>
-                </div>
-            </div>
-        </td>
-        <td>${parentId}</td>
-        <td>${relationship}</td>
-        <td>
-            <div class="children-count">
-                <strong>0 Children</strong>
-                <span>No children linked</span>
-            </div>
-        </td>
-        <td>${phone}</td>
-        <td><span class="verification pending">Pending</span></td>
-        <td><span class="status pending">Pending</span></td>
-        <td>
-            <div class="action-buttons">
-                <button class="view-button" title="View">◉</button>
-                <button class="edit-button" title="Edit">✎</button>
-                <button class="more-button" title="More">⋮</button>
-            </div>
-        </td>
-    `;
-
-    parentTableBody.prepend(row);
-    parentForm.reset();
-    closeParentModal();
-
-    attachRowActions(row);
-    filterParents();
-
-    alert(`Parent account created successfully.\nUsername: ${username}`);
-});
-
-const profileModal = document.getElementById("profileModal");
-const closeProfileModal = document.getElementById("closeProfileModal");
-const profileName = document.getElementById("profileName");
-const profileId = document.getElementById("profileId");
-const profileRelationship = document.getElementById("profileRelationship");
-const profilePhone = document.getElementById("profilePhone");
-const profileEmail = document.getElementById("profileEmail");
-const profileStatus = document.getElementById("profileStatus");
-const profileAvatar = document.getElementById("profileAvatar");
-const disableAccountButton = document.getElementById("disableAccountButton");
-const resetPasswordButton = document.getElementById("resetPasswordButton");
-const linkChildButton = document.getElementById("linkChildButton");
-
-let selectedParentRow = null;
-
-function openProfile(row) {
-    selectedParentRow = row;
-
-    const name = row.querySelector(".parent-info strong").textContent;
-    const email = row.querySelector(".parent-info span").textContent;
-    const id = row.children[1].textContent;
-    const relationship = row.children[2].textContent;
-    const phone = row.children[4].textContent;
-    const statusText = row.children[6].textContent.trim();
-    const initials = row.querySelector(".parent-avatar").textContent;
-
-    profileName.textContent = name;
-    profileEmail.textContent = email;
-    profileId.textContent = id;
-    profileRelationship.textContent = relationship;
-    profilePhone.textContent = phone;
-    profileAvatar.textContent = initials;
-
-    profileStatus.textContent = statusText;
-    profileStatus.className = `status ${statusText.toLowerCase()}`;
-
-    if (statusText === "Disabled") {
-        disableAccountButton.textContent = "Enable Account";
-    } else {
-        disableAccountButton.textContent = "Disable Account";
-    }
-
-    profileModal.classList.add("show");
-    document.body.style.overflow = "hidden";
-}
-
-function closeProfile() {
-    profileModal.classList.remove("show");
-    document.body.style.overflow = "";
-}
-
-closeProfileModal.addEventListener("click", closeProfile);
-
-profileModal.addEventListener("click", event => {
-    if (event.target === profileModal) {
-        closeProfile();
-    }
-});
-
-function attachRowActions(row) {
-    const viewButton = row.querySelector(".view-button");
-    const editButton = row.querySelector(".edit-button");
-    const moreButton = row.querySelector(".more-button");
-
-    viewButton.addEventListener("click", () => {
-        openProfile(row);
-    });
-
-    editButton.addEventListener("click", () => {
-        alert("Edit parent feature will be connected to the parent profile module.");
-    });
-
-    moreButton.addEventListener("click", () => {
-        const name = row.querySelector(".parent-info strong").textContent;
-        const currentStatus = row.dataset.status;
-
-        if (currentStatus === "Disabled") {
-            if (confirm(`Enable ${name}'s account?`)) {
-                row.dataset.status = "Active";
-                row.querySelector(".status").textContent = "Active";
-                row.querySelector(".status").className = "status active";
-                filterParents();
-            }
-        } else {
-            if (confirm(`Disable ${name}'s account?`)) {
-                row.dataset.status = "Disabled";
-                row.querySelector(".status").textContent = "Disabled";
-                row.querySelector(".status").className = "status disabled";
-                filterParents();
-            }
-        }
-    });
-}
-
-parentTableBody.querySelectorAll("tr").forEach(row => {
-    attachRowActions(row);
-});
-
-disableAccountButton.addEventListener("click", () => {
-    if (!selectedParentRow) {
-        return;
-    }
-
-    const name = selectedParentRow.querySelector(".parent-info strong").textContent;
-    const currentStatus = selectedParentRow.dataset.status;
-
-    if (currentStatus === "Disabled") {
-        selectedParentRow.dataset.status = "Active";
-        selectedParentRow.querySelector(".status").textContent = "Active";
-        selectedParentRow.querySelector(".status").className = "status active";
-        profileStatus.textContent = "Active";
-        profileStatus.className = "status active";
-        disableAccountButton.textContent = "Disable Account";
-        alert(`${name}'s account has been enabled.`);
-    } else {
-        if (confirm(`Disable ${name}'s account?`)) {
-            selectedParentRow.dataset.status = "Disabled";
-            selectedParentRow.querySelector(".status").textContent = "Disabled";
-            selectedParentRow.querySelector(".status").className = "status disabled";
-            profileStatus.textContent = "Disabled";
-            profileStatus.className = "status disabled";
-            disableAccountButton.textContent = "Enable Account";
-            alert(`${name}'s account has been disabled.`);
-        }
-    }
-
-    filterParents();
-});
-
-resetPasswordButton.addEventListener("click", () => {
-    if (!selectedParentRow) {
-        return;
-    }
-
-    const name = selectedParentRow.querySelector(".parent-info strong").textContent;
-
-    if (confirm(`Reset account access for ${name}?`)) {
-        alert(`A password reset request has been created for ${name}.`);
-    }
-});
-
-linkChildButton.addEventListener("click", () => {
-    if (!selectedParentRow) {
-        return;
-    }
-
-    const childName = prompt("Enter the student name to link:");
-
-    if (!childName || !childName.trim()) {
-        return;
-    }
-
-    const childrenList = document.getElementById("childrenList");
-
-    const childItem = document.createElement("div");
-    childItem.className = "child-item";
-
-    const initials = childName
-        .trim()
-        .split(" ")
-        .map(word => word.charAt(0))
-        .slice(0, 2)
-        .join("")
-        .toUpperCase();
-
-    childItem.innerHTML = `
-        <div class="child-avatar">${initials}</div>
-        <div>
-            <strong>${childName.trim()}</strong>
-            <span>Student record linked to parent account</span>
-        </div>
-        <span class="verification verified">Verified</span>
-    `;
-
-    childrenList.appendChild(childItem);
-
-    const childrenCell = selectedParentRow.children[3];
-    const childrenStrong = childrenCell.querySelector("strong");
-    const childrenSpan = childrenCell.querySelector("span");
-
-    const currentText = childrenStrong.textContent;
-    const currentCount = parseInt(currentText) || 0;
-    const newCount = currentCount + 1;
-
-    childrenStrong.textContent = `${newCount} ${newCount === 1 ? "Child" : "Children"}`;
-    childrenSpan.textContent = `${childName.trim()}`;
-
-    alert(`${childName.trim()} has been linked successfully.`);
-});
-
-document.getElementById("exportButton").addEventListener("click", () => {
-    const rows = parentTableBody.querySelectorAll("tr");
-
-    let csv = "Parent Name,Parent ID,Relationship,Linked Children,Contact,Verification,Status\n";
-
-    rows.forEach(row => {
-        if (row.style.display === "none") {
-            return;
-        }
-
-        const name = row.querySelector(".parent-info strong").textContent;
-        const id = row.children[1].textContent;
-        const relationship = row.children[2].textContent;
-        const children = row.children[3].textContent.trim().replace(/\s+/g, " ");
-        const contact = row.children[4].textContent;
-        const verification = row.children[5].textContent.trim();
-        const status = row.children[6].textContent.trim();
-
-        csv += `"${name}","${id}","${relationship}","${children}","${contact}","${verification}","${status}"\n`;
-    });
-
-    const blob = new Blob([csv], { type: "text/csv" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-
-    link.href = url;
-    link.download = "parents.csv";
-    link.click();
-
-    URL.revokeObjectURL(url);
-});
-
-window.addEventListener("resize", () => {
-    if (window.innerWidth > 900) {
-        sidebar.classList.remove("open");
-        sidebarOverlay.classList.remove("show");
-    }
-});
+renderParents();
+updateStatistics();

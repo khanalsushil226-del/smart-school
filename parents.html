@@ -8,112 +8,126 @@
 </head>
 <body>
 
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
     <aside class="sidebar" id="sidebar">
-        <div class="sidebar-brand">
+        <div class="brand">
             <div class="brand-logo">SS</div>
-            <div>
-                <h2>Hamro School</h2>
+            <div class="brand-text">
+                <strong>Hamro School</strong>
                 <span>School Management</span>
             </div>
         </div>
 
         <nav class="sidebar-nav">
-            <div class="nav-title">MAIN MENU</div>
+            <div class="nav-section">
+                <span class="nav-label">MAIN</span>
+                <a href="dashboard.html">
+                    <span>⌂</span>
+                    Dashboard
+                </a>
+            </div>
 
-            <a href="dashboard.html" class="nav-link">
-                <span class="nav-icon">⌂</span>
-                <span>Dashboard</span>
-            </a>
+            <div class="nav-section">
+                <span class="nav-label">SCHOOL & ACCOUNTS</span>
+                <a href="#">
+                    <span>⚙</span>
+                    School Setup
+                </a>
+                <a href="#">
+                    <span>♙</span>
+                    Users & Accounts
+                </a>
+                <a href="#">
+                    <span>◈</span>
+                    Roles & Permissions
+                </a>
+                <a href="students.html">
+                    <span>♙</span>
+                    Students
+                </a>
+                <a href="parents.html" class="active">
+                    <span>♧</span>
+                    Parents
+                </a>
+            </div>
 
-            <a href="students.html" class="nav-link">
-                <span class="nav-icon">♙</span>
-                <span>Students</span>
-            </a>
+            <div class="nav-section">
+                <span class="nav-label">DAILY OPERATIONS</span>
+                <a href="#">
+                    <span>✓</span>
+                    Attendance
+                </a>
+                <a href="#">
+                    <span>▦</span>
+                    Timetable
+                </a>
+            </div>
 
-            <a href="parents.html" class="nav-link active">
-                <span class="nav-icon">♧</span>
-                <span>Parents</span>
-            </a>
+            <div class="nav-section">
+                <span class="nav-label">ACADEMIC DELIVERY</span>
+                <a href="#">
+                    <span>▤</span>
+                    Class Diary
+                </a>
+                <a href="#">
+                    <span>▣</span>
+                    Homework
+                </a>
+            </div>
 
-            <a href="#" class="nav-link">
-                <span class="nav-icon">♙</span>
-                <span>Teachers</span>
-            </a>
-
-            <a href="#" class="nav-link">
-                <span class="nav-icon">▦</span>
-                <span>Classes</span>
-            </a>
-
-            <div class="nav-title">ACADEMICS</div>
-
-            <a href="#" class="nav-link">
-                <span class="nav-icon">✓</span>
-                <span>Attendance</span>
-            </a>
-
-            <a href="#" class="nav-link">
-                <span class="nav-icon">▤</span>
-                <span>Exams & Results</span>
-            </a>
-
-            <a href="#" class="nav-link">
-                <span class="nav-icon">□</span>
-                <span>Assignments</span>
-            </a>
-
-            <a href="#" class="nav-link">
-                <span class="nav-icon">▦</span>
-                <span>Timetable</span>
-            </a>
-
-            <div class="nav-title">ADMINISTRATION</div>
-
-            <a href="#" class="nav-link">
-                <span class="nav-icon">◇</span>
-                <span>Fees</span>
-            </a>
-
-            <a href="#" class="nav-link">
-                <span class="nav-icon">♢</span>
-                <span>Notices</span>
-            </a>
-
-            <a href="#" class="nav-link">
-                <span class="nav-icon">⚙</span>
-                <span>Settings</span>
-            </a>
-
-            <a href="index.html" class="nav-link logout-link">
-                <span class="nav-icon">↪</span>
-                <span>Logout</span>
-            </a>
+            <div class="nav-section">
+                <span class="nav-label">COMMUNICATION</span>
+                <a href="#">
+                    <span>▤</span>
+                    Parent Dashboard
+                </a>
+                <a href="#">
+                    <span>◉</span>
+                    Announcements
+                </a>
+                <a href="#">
+                    <span>▣</span>
+                    School Calendar
+                </a>
+            </div>
         </nav>
+
+        <div class="sidebar-bottom">
+            <a href="#">
+                <span>⚙</span>
+                Settings
+            </a>
+            <a href="index.html">
+                <span>↪</span>
+                Logout
+            </a>
+        </div>
     </aside>
 
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
     <main class="main-content">
+
         <header class="topbar">
             <div class="topbar-left">
                 <button class="menu-button" id="menuButton">☰</button>
+
                 <div>
                     <h1>Parents</h1>
-                    <p>Manage parent accounts and relationships</p>
+                    <p>Manage parent and guardian accounts</p>
                 </div>
             </div>
 
             <div class="topbar-right">
-                <div class="search-box">
+                <div class="top-search">
                     <span>⌕</span>
-                    <input type="text" id="topSearch" placeholder="Search parents...">
+                    <input type="text" id="topSearch" placeholder="Search...">
                 </div>
 
-                <button class="notification-button">♢<span></span></button>
+                <button class="notification-button">♧</button>
 
-                <div class="profile">
-                    <div class="profile-avatar">SA</div>
-                    <div class="profile-info">
+                <div class="admin-profile">
+                    <div class="admin-avatar">A</div>
+                    <div>
                         <strong>Administrator</strong>
                         <span>Super Admin</span>
                     </div>
@@ -121,72 +135,77 @@
             </div>
         </header>
 
-        <section class="page-content">
+        <section class="content">
 
             <div class="page-heading">
                 <div>
                     <h2>Parent Management</h2>
-                    <p>Manage parent accounts, linked children and contact information.</p>
+                    <p>Create, manage and link parent accounts with their children.</p>
                 </div>
 
                 <button class="primary-button" id="addParentButton">
-                    <span>+</span>
-                    Add Parent
+                    + Add Parent
                 </button>
             </div>
 
             <div class="stats-grid">
+
                 <div class="stat-card">
-                    <div class="stat-icon green">♧</div>
+                    <div class="stat-icon">♧</div>
                     <div>
-                        <span class="stat-label">Total Parents</span>
-                        <strong class="stat-number" id="totalParents">842</strong>
-                        <span class="stat-change positive">+18 <small>this month</small></span>
+                        <span>Total Parents</span>
+                        <strong id="totalParents">286</strong>
                     </div>
                 </div>
 
                 <div class="stat-card">
-                    <div class="stat-icon blue">✓</div>
+                    <div class="stat-icon">✓</div>
                     <div>
-                        <span class="stat-label">Active Accounts</span>
-                        <strong class="stat-number" id="activeParents">816</strong>
-                        <span class="stat-change positive">96.9% <small>of parents</small></span>
+                        <span>Verified Parents</span>
+                        <strong id="verifiedParents">271</strong>
                     </div>
                 </div>
 
                 <div class="stat-card">
-                    <div class="stat-icon orange">♙</div>
+                    <div class="stat-icon">●</div>
                     <div>
-                        <span class="stat-label">Linked Children</span>
-                        <strong class="stat-number">1,248</strong>
-                        <span class="stat-change positive">1.48 <small>avg. children</small></span>
+                        <span>Active Accounts</span>
+                        <strong id="activeParents">278</strong>
                     </div>
                 </div>
 
                 <div class="stat-card">
-                    <div class="stat-icon purple">✓</div>
+                    <div class="stat-icon">+</div>
                     <div>
-                        <span class="stat-label">Verified Relationships</span>
-                        <strong class="stat-number">97.4%</strong>
-                        <span class="stat-change positive">+1.2% <small>this month</small></span>
+                        <span>New This Month</span>
+                        <strong id="newParents">14</strong>
                     </div>
                 </div>
+
             </div>
 
-            <div class="content-card">
-                <div class="card-header">
+            <section class="parent-card">
+
+                <div class="card-heading">
                     <div>
-                        <h3>Parent Directory</h3>
-                        <p><span id="showingCount">6</span> parents displayed</p>
+                        <h3>Parent Records</h3>
+                        <p>View and manage registered parents and guardians.</p>
                     </div>
 
-                    <button class="secondary-button" id="exportButton">Export CSV</button>
+                    <button class="export-button" id="exportButton">
+                        Export CSV
+                    </button>
                 </div>
 
-                <div class="filter-bar">
-                    <div class="filter-search">
+                <div class="filters">
+
+                    <div class="search-box">
                         <span>⌕</span>
-                        <input type="text" id="parentSearch" placeholder="Search by name, phone or parent ID">
+                        <input
+                            type="text"
+                            id="parentSearch"
+                            placeholder="Search by parent name, phone or email..."
+                        >
                     </div>
 
                     <select id="relationshipFilter">
@@ -196,253 +215,84 @@
                         <option value="Guardian">Guardian</option>
                     </select>
 
+                    <select id="verificationFilter">
+                        <option value="">All Verification</option>
+                        <option value="Verified">Verified</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+
                     <select id="statusFilter">
                         <option value="">All Status</option>
                         <option value="Active">Active</option>
                         <option value="Disabled">Disabled</option>
-                        <option value="Pending">Pending</option>
                     </select>
+
                 </div>
 
                 <div class="table-wrapper">
+
                     <table>
                         <thead>
                             <tr>
-                                <th>Parent</th>
-                                <th>Parent ID</th>
+                                <th>Parent / Guardian</th>
                                 <th>Relationship</th>
-                                <th>Linked Children</th>
                                 <th>Contact</th>
+                                <th>Children</th>
                                 <th>Verification</th>
-                                <th>Status</th>
+                                <th>Account Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
 
                         <tbody id="parentTableBody">
-
-                            <tr data-relationship="Father" data-status="Active">
-                                <td>
-                                    <div class="parent-info">
-                                        <div class="parent-avatar avatar-1">RS</div>
-                                        <div>
-                                            <strong>Rajesh Sharma</strong>
-                                            <span>rajesh.sharma@example.com</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>PAR-2026-001</td>
-                                <td>Father</td>
-                                <td>
-                                    <div class="children-count">
-                                        <strong>2 Children</strong>
-                                        <span>Rahul, Riya</span>
-                                    </div>
-                                </td>
-                                <td>+977 9841234567</td>
-                                <td><span class="verification verified">Verified</span></td>
-                                <td><span class="status active">Active</span></td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="view-button" title="View">◉</button>
-                                        <button class="edit-button" title="Edit">✎</button>
-                                        <button class="more-button" title="More">⋮</button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr data-relationship="Mother" data-status="Active">
-                                <td>
-                                    <div class="parent-info">
-                                        <div class="parent-avatar avatar-2">AS</div>
-                                        <div>
-                                            <strong>Anita Sharma</strong>
-                                            <span>anita.sharma@example.com</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>PAR-2026-002</td>
-                                <td>Mother</td>
-                                <td>
-                                    <div class="children-count">
-                                        <strong>2 Children</strong>
-                                        <span>Rahul, Riya</span>
-                                    </div>
-                                </td>
-                                <td>+977 9812345678</td>
-                                <td><span class="verification verified">Verified</span></td>
-                                <td><span class="status active">Active</span></td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="view-button" title="View">◉</button>
-                                        <button class="edit-button" title="Edit">✎</button>
-                                        <button class="more-button" title="More">⋮</button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr data-relationship="Father" data-status="Active">
-                                <td>
-                                    <div class="parent-info">
-                                        <div class="parent-avatar avatar-3">KS</div>
-                                        <div>
-                                            <strong>Kiran Shrestha</strong>
-                                            <span>kiran.shrestha@example.com</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>PAR-2026-003</td>
-                                <td>Father</td>
-                                <td>
-                                    <div class="children-count">
-                                        <strong>1 Child</strong>
-                                        <span>Aarav Shrestha</span>
-                                    </div>
-                                </td>
-                                <td>+977 9860123456</td>
-                                <td><span class="verification verified">Verified</span></td>
-                                <td><span class="status active">Active</span></td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="view-button" title="View">◉</button>
-                                        <button class="edit-button" title="Edit">✎</button>
-                                        <button class="more-button" title="More">⋮</button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr data-relationship="Mother" data-status="Active">
-                                <td>
-                                    <div class="parent-info">
-                                        <div class="parent-avatar avatar-4">MP</div>
-                                        <div>
-                                            <strong>Meena Poudel</strong>
-                                            <span>meena.poudel@example.com</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>PAR-2026-004</td>
-                                <td>Mother</td>
-                                <td>
-                                    <div class="children-count">
-                                        <strong>3 Children</strong>
-                                        <span>Samir, Sita, Suman</span>
-                                    </div>
-                                </td>
-                                <td>+977 9801234567</td>
-                                <td><span class="verification verified">Verified</span></td>
-                                <td><span class="status active">Active</span></td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="view-button" title="View">◉</button>
-                                        <button class="edit-button" title="Edit">✎</button>
-                                        <button class="more-button" title="More">⋮</button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr data-relationship="Guardian" data-status="Pending">
-                                <td>
-                                    <div class="parent-info">
-                                        <div class="parent-avatar avatar-5">BP</div>
-                                        <div>
-                                            <strong>Bikash Pradhan</strong>
-                                            <span>bikash.pradhan@example.com</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>PAR-2026-005</td>
-                                <td>Guardian</td>
-                                <td>
-                                    <div class="children-count">
-                                        <strong>1 Child</strong>
-                                        <span>Nisha Pradhan</span>
-                                    </div>
-                                </td>
-                                <td>+977 9823456789</td>
-                                <td><span class="verification pending">Pending</span></td>
-                                <td><span class="status pending">Pending</span></td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="view-button" title="View">◉</button>
-                                        <button class="edit-button" title="Edit">✎</button>
-                                        <button class="more-button" title="More">⋮</button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr data-relationship="Father" data-status="Disabled">
-                                <td>
-                                    <div class="parent-info">
-                                        <div class="parent-avatar avatar-6">DT</div>
-                                        <div>
-                                            <strong>Dinesh Thapa</strong>
-                                            <span>dinesh.thapa@example.com</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>PAR-2026-006</td>
-                                <td>Father</td>
-                                <td>
-                                    <div class="children-count">
-                                        <strong>1 Child</strong>
-                                        <span>Ayush Thapa</span>
-                                    </div>
-                                </td>
-                                <td>+977 9856789012</td>
-                                <td><span class="verification verified">Verified</span></td>
-                                <td><span class="status disabled">Disabled</span></td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="view-button" title="View">◉</button>
-                                        <button class="edit-button" title="Edit">✎</button>
-                                        <button class="more-button" title="More">⋮</button>
-                                    </div>
-                                </td>
-                            </tr>
-
                         </tbody>
                     </table>
+
                 </div>
 
                 <div class="empty-state" id="emptyState">
-                    <div>⌕</div>
+                    <div>♧</div>
                     <h3>No parents found</h3>
-                    <p>Try changing your search or filter.</p>
+                    <p>Try changing your search or filter options.</p>
                 </div>
-            </div>
+
+            </section>
 
         </section>
     </main>
 
-    <div class="modal" id="parentModal">
-        <div class="modal-content">
+    <div class="modal-overlay" id="parentModal">
+
+        <div class="modal">
+
             <div class="modal-header">
                 <div>
                     <h3>Add New Parent</h3>
-                    <p>Create a parent account and link children.</p>
+                    <p>Create a parent or guardian account.</p>
                 </div>
-                <button class="close-button" id="closeModal">×</button>
+
+                <button class="close-button" id="closeParentModal">×</button>
             </div>
 
             <form id="parentForm">
 
                 <div class="form-section">
-                    <h4>Personal Information</h4>
+                    <h4>Parent Information</h4>
 
                     <div class="form-grid">
+
                         <div class="form-group">
-                            <label for="firstName">First Name</label>
+                            <label>First Name</label>
                             <input type="text" id="firstName" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="lastName">Last Name</label>
+                            <label>Last Name</label>
                             <input type="text" id="lastName" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="relationship">Relationship</label>
+                            <label>Relationship</label>
                             <select id="relationship" required>
                                 <option value="">Select relationship</option>
                                 <option value="Father">Father</option>
@@ -452,14 +302,36 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" required>
+                            <label>Contact Number</label>
+                            <input type="tel" id="contactNumber" required>
                         </div>
 
                         <div class="form-group full-width">
-                            <label for="email">Email Address</label>
+                            <label>Email Address</label>
                             <input type="email" id="email">
                         </div>
+
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h4>Account Information</h4>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" id="username" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Account Status</label>
+                            <select id="accountStatus">
+                                <option value="Active">Active</option>
+                                <option value="Disabled">Disabled</option>
+                            </select>
+                        </div>
+
                     </div>
                 </div>
 
@@ -467,130 +339,120 @@
                     <h4>Emergency Contact</h4>
 
                     <div class="form-grid">
+
                         <div class="form-group">
-                            <label for="emergencyName">Contact Name</label>
+                            <label>Emergency Contact Name</label>
                             <input type="text" id="emergencyName">
                         </div>
 
                         <div class="form-group">
-                            <label for="emergencyPhone">Contact Number</label>
-                            <input type="tel" id="emergencyPhone">
+                            <label>Emergency Contact Number</label>
+                            <input type="tel" id="emergencyNumber">
                         </div>
+
                     </div>
-                </div>
-
-                <div class="form-section">
-                    <h4>Account</h4>
-
-                    <div class="form-grid">
-                        <div class="form-group full-width">
-                            <label for="username">Username</label>
-                            <input type="text" id="username" required>
-                        </div>
-                    </div>
-
-                    <label class="checkbox-row">
-                        <input type="checkbox" id="sendCredentials" checked>
-                        <span>Send account credentials to parent</span>
-                    </label>
                 </div>
 
                 <div class="modal-actions">
-                    <button type="button" class="cancel-button" id="cancelButton">Cancel</button>
-                    <button type="submit" class="primary-button">Create Parent</button>
+                    <button type="button" class="secondary-button" id="cancelParent">
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="primary-button">
+                        Create Parent
+                    </button>
                 </div>
 
             </form>
+
         </div>
+
     </div>
 
-    <div class="modal" id="profileModal">
-        <div class="modal-content profile-modal">
+    <div class="modal-overlay" id="profileModal">
+
+        <div class="modal profile-modal">
+
             <div class="modal-header">
                 <div>
                     <h3>Parent Profile</h3>
-                    <p>Parent account and relationship details.</p>
+                    <p>Parent account and linked children</p>
                 </div>
+
                 <button class="close-button" id="closeProfileModal">×</button>
             </div>
 
-            <div class="profile-header">
-                <div class="profile-large-avatar" id="profileAvatar">RS</div>
+            <div class="profile-summary">
+
+                <div class="parent-avatar-large" id="profileAvatar">RS</div>
+
                 <div>
-                    <h2 id="profileName">Rajesh Sharma</h2>
-                    <p id="profileId">PAR-2026-001</p>
-                    <span class="status active" id="profileStatus">Active</span>
+                    <h3 id="profileName">Rajesh Sharma</h3>
+                    <span id="profileRelationship">Father</span>
+                    <div class="profile-status-row">
+                        <span class="status-badge verified" id="profileVerification">Verified</span>
+                        <span class="status-badge active" id="profileStatus">Active</span>
+                    </div>
                 </div>
+
             </div>
 
-            <div class="profile-grid">
-                <div class="profile-box">
-                    <span>Relationship</span>
-                    <strong id="profileRelationship">Father</strong>
-                </div>
+            <div class="profile-info-grid">
 
-                <div class="profile-box">
+                <div>
                     <span>Phone</span>
-                    <strong id="profilePhone">+977 9841234567</strong>
+                    <strong id="profilePhone">9800000000</strong>
                 </div>
 
-                <div class="profile-box">
+                <div>
                     <span>Email</span>
-                    <strong id="profileEmail">rajesh.sharma@example.com</strong>
+                    <strong id="profileEmail">rajesh@example.com</strong>
                 </div>
 
-                <div class="profile-box">
-                    <span>Verification</span>
-                    <strong class="verified-text">Verified</strong>
-                </div>
-            </div>
-
-            <div class="linked-children">
-                <div class="section-title">
-                    <div>
-                        <h4>Linked Children</h4>
-                        <p>Students connected to this parent account</p>
-                    </div>
-                    <button class="secondary-button" id="linkChildButton">+ Link Child</button>
+                <div>
+                    <span>Username</span>
+                    <strong id="profileUsername">rajesh.sharma</strong>
                 </div>
 
-                <div id="childrenList">
-                    <div class="child-item">
-                        <div class="child-avatar">RS</div>
-                        <div>
-                            <strong>Rahul Sharma</strong>
-                            <span>STU-2026-001 · Grade 10 · Section A</span>
-                        </div>
-                        <span class="verification verified">Verified</span>
-                    </div>
-
-                    <div class="child-item">
-                        <div class="child-avatar">RS</div>
-                        <div>
-                            <strong>Riya Sharma</strong>
-                            <span>STU-2026-018 · Grade 7 · Section B</span>
-                        </div>
-                        <span class="verification verified">Verified</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="emergency-box">
                 <div>
                     <span>Emergency Contact</span>
-                    <strong id="profileEmergencyName">Sunita Sharma</strong>
+                    <strong id="profileEmergency">Sita Sharma · 9812345678</strong>
                 </div>
-                <div>
-                    <span>Phone</span>
-                    <strong id="profileEmergencyPhone">+977 9801234567</strong>
+
+            </div>
+
+            <div class="children-section">
+
+                <div class="children-heading">
+                    <div>
+                        <h4>Linked Children</h4>
+                        <p>Students connected to this parent account.</p>
+                    </div>
+
+                    <button class="small-button" id="linkChildButton">
+                        + Link Child
+                    </button>
                 </div>
+
+                <div class="children-list" id="childrenList">
+                </div>
+
             </div>
 
             <div class="profile-actions">
-                <button class="secondary-button" id="resetPasswordButton">Reset Access</button>
-                <button class="danger-button" id="disableAccountButton">Disable Account</button>
+
+                <button class="secondary-button" id="resetAccessButton">
+                    Reset Access
+                </button>
+
+                <button class="secondary-button" id="toggleAccountButton">
+                    Disable Account
+                </button>
+
             </div>
+
         </div>
+
     </div>
 
     <script src="parents.js"></script>
