@@ -226,6 +226,24 @@ body {
     min-height: 18px;
 }
 
+@media (max-width: 900px) {
+    .login-container {
+        max-width: 850px;
+    }
+
+    .login-form-container {
+        padding: 45px;
+    }
+
+    .login-brand {
+        padding: 40px;
+    }
+
+    .login-brand h1 {
+        font-size: 30px;
+    }
+}
+
 @media (max-width: 768px) {
     .login-page {
         padding: 20px 15px;
@@ -235,33 +253,40 @@ body {
         grid-template-columns: 1fr;
         max-width: 500px;
         min-height: auto;
+        border-radius: 20px;
     }
 
     .login-brand {
+        min-height: 280px;
         padding: 40px 25px;
     }
 
     .brand-icon {
-        width: 70px;
-        height: 70px;
+        width: 75px;
+        height: 75px;
         border-radius: 20px;
         margin-bottom: 18px;
     }
 
     .brand-icon span {
-        font-size: 24px;
+        font-size: 25px;
     }
 
     .login-brand h1 {
         font-size: 28px;
+        margin-bottom: 8px;
     }
 
     .login-brand p {
-        font-size: 14px;
+        font-size: 13px;
     }
 
     .login-form-container {
-        padding: 40px 25px;
+        padding: 40px 30px;
+    }
+
+    .login-header {
+        margin-bottom: 30px;
     }
 
     .login-header h2 {
@@ -269,18 +294,96 @@ body {
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 480px) {
+    .login-page {
+        min-height: 100vh;
+        padding: 15px;
+    }
+
+    .login-container {
+        border-radius: 16px;
+    }
+
     .login-brand {
+        min-height: 230px;
         padding: 30px 20px;
+    }
+
+    .brand-icon {
+        width: 65px;
+        height: 65px;
+        border-radius: 18px;
+        margin-bottom: 15px;
+    }
+
+    .brand-icon span {
+        font-size: 22px;
+    }
+
+    .login-brand h1 {
+        font-size: 25px;
+    }
+
+    .login-brand p {
+        font-size: 11px;
     }
 
     .login-form-container {
         padding: 30px 20px;
     }
 
+    .login-header {
+        margin-bottom: 25px;
+    }
+
+    .login-header h2 {
+        font-size: 24px;
+    }
+
+    .login-header p {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .input-wrapper input {
+        height: 50px;
+        font-size: 14px;
+    }
+
     .login-options {
+        flex-direction: column;
         align-items: flex-start;
         gap: 15px;
-        flex-direction: column;
+        margin-bottom: 22px;
+    }
+
+    .login-button {
+        height: 50px;
+    }
+}
+
+@media (max-width: 360px) {
+    .login-page {
+        padding: 10px;
+    }
+
+    .login-brand {
+        min-height: 210px;
+    }
+
+    .login-form-container {
+        padding: 25px 18px;
+    }
+
+    .login-brand h1 {
+        font-size: 23px;
+    }
+
+    .login-header h2 {
+        font-size: 22px;
     }
 }
