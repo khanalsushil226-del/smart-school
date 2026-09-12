@@ -14,12 +14,6 @@ sidebarOverlay.addEventListener("click", () => {
 
 document.querySelectorAll(".nav-link").forEach(link => {
     link.addEventListener("click", () => {
-        document.querySelectorAll(".nav-link").forEach(item => {
-            item.classList.remove("active");
-        });
-
-        link.classList.add("active");
-
         if (window.innerWidth <= 900) {
             sidebar.classList.remove("open");
             sidebarOverlay.classList.remove("show");
@@ -27,14 +21,24 @@ document.querySelectorAll(".nav-link").forEach(link => {
     });
 });
 
+window.addEventListener("resize", () => {
+    if (window.innerWidth > 900) {
+        sidebar.classList.remove("open");
+        sidebarOverlay.classList.remove("show");
+    }
+});
+
 const studentSearch = document.getElementById("studentSearch");
 const topSearch = document.getElementById("topSearch");
 const classFilter = document.getElementById("classFilter");
 const sectionFilter = document.getElementById("sectionFilter");
 const statusFilter = document.getElementById("statusFilter");
-const studentRows = document.querySelectorAll("#studentTableBody tr");
 const emptyState = document.getElementById("emptyState");
 const showingCount = document.getElementById("showingCount");
+
+function getStudentRows() {
+    return document.querySelectorAll("#studentTableBody tr");
+}
 
 function filterStudents() {
     const searchValue = studentSearch.value.toLowerCase().trim();
@@ -44,7 +48,7 @@ function filterStudents() {
 
     let visibleCount = 0;
 
-    studentRows.forEach(row => {
+    getStudentRows().forEach(row => {
         const studentText = row.textContent.toLowerCase();
         const studentClass = row.dataset.class;
         const studentSection = row.dataset.section;
@@ -72,15 +76,19 @@ function filterStudents() {
     }
 }
 
-studentSearch.addEventListener("input", filterStudents);
-classFilter.addEventListener("change", filterStudents);
-sectionFilter.addEventListener("change", filterStudents);
-statusFilter.addEventListener("change", filterStudents);
+studentSearch.addEventListener("input", () => {
+    topSearch.value = studentSearch.value;
+    filterStudents();
+});
 
 topSearch.addEventListener("input", () => {
     studentSearch.value = topSearch.value;
     filterStudents();
 });
+
+classFilter.addEventListener("change", filterStudents);
+sectionFilter.addEventListener("change", filterStudents);
+statusFilter.addEventListener("change", filterStudents);
 
 const modal = document.getElementById("studentModal");
 const addStudentButton = document.getElementById("addStudentButton");
@@ -111,16 +119,17 @@ modal.addEventListener("click", event => {
 studentForm.addEventListener("submit", event => {
     event.preventDefault();
 
-    const firstName = document.getElementById("firstName").value;
-    const lastName = document.getElementById("lastName").value;
-    const studentId = document.getElementById("studentId").value;
+    const firstName = document.getElementById("firstName").value.trim();
+    const lastName = document.getElementById("lastName").value.trim();
+    const studentId = document.getElementById("studentId").value.trim();
+    const admissionNumber = document.getElementById("admissionNumber").value.trim();
     const gender = document.getElementById("gender").value;
     const studentClass = document.getElementById("studentClass").value;
     const studentSection = document.getElementById("studentSection").value;
-    const phone = document.getElementById("phone").value;
-    const email = document.getElementById("email").value;
+    const parentName = document.getElementById("parentName").value.trim();
+    const email = document.getElementById("email").value.trim();
 
-    const initials = `${firstName.charAt(0)}${lastName.charAt(0)}`;
+    const initials = `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
 
     const row = document.createElement("tr");
 
@@ -131,19 +140,25 @@ studentForm.addEventListener("submit", event => {
     row.innerHTML = `
         <td>
             <div class="student-info">
-                <div class="student-avatar avatar-1">${initials}</div>
+                <div class="student-avatar">${initials}</div>
                 <div>
                     <strong>${firstName} ${lastName}</strong>
                     <span>${email || "No email provided"}</span>
                 </div>
             </div>
         </td>
+
         <td>${studentId}</td>
+        <td>${admissionNumber}</td>
         <td>${studentClass}</td>
         <td>${studentSection}</td>
         <td>${gender}</td>
-        <td>${phone}</td>
-        <td><span class="status active">Active</span></td>
+        <td>${parentName}</td>
+
+        <td>
+            <span class="status active">Active</span>
+        </td>
+
         <td>
             <div class="action-buttons">
                 <button class="view-button" title="View">◉</button>
@@ -156,10 +171,12 @@ studentForm.addEventListener("submit", event => {
     document.getElementById("studentTableBody").prepend(row);
 
     studentForm.reset();
-    closeStudentModal();
+    document.getElementById("academicYear").value = "2026";
 
+    closeStudentModal();
     attachRowActions(row);
-    location.reload();
+    updateStatistics();
+    filterStudents();
 });
 
 function attachRowActions(row) {
@@ -170,6 +187,7 @@ function attachRowActions(row) {
 
         if (confirm(`Are you sure you want to delete ${studentName}?`)) {
             row.remove();
+            updateStatistics();
             filterStudents();
         }
     });
@@ -177,10 +195,8 @@ function attachRowActions(row) {
     const viewButton = row.querySelector(".view-button");
 
     viewButton.addEventListener("click", () => {
-        const studentName = row.querySelector(".student-info strong").textContent;
-        const studentId = row.children[1].textContent;
-
-        alert(`Student: ${studentName}\nStudent ID: ${studentId}`);
+        const studentId = row.children[1].textContent.trim();
+        window.location.href = `student-profile.html?id=${encodeURIComponent(studentId)}`;
     });
 
     const editButton = row.querySelector(".edit-button");
@@ -190,13 +206,34 @@ function attachRowActions(row) {
     });
 }
 
+function updateStatistics() {
+    const rows = getStudentRows();
+
+    let activeCount = 0;
+    let inactiveCount = 0;
+
+    rows.forEach(row => {
+        if (row.dataset.status === "Active") {
+            activeCount++;
+        }
+
+        if (row.dataset.status === "Inactive") {
+            inactiveCount++;
+        }
+    });
+
+    document.getElementById("totalStudents").textContent = 1248 + rows.length - 5;
+    document.getElementById("activeStudents").textContent = 1198 + activeCount - 4;
+    document.getElementById("inactiveStudents").textContent = 50 + inactiveCount - 1;
+}
+
 document.querySelectorAll("#studentTableBody tr").forEach(row => {
     attachRowActions(row);
 });
 
 document.getElementById("exportButton").addEventListener("click", () => {
-    const rows = document.querySelectorAll("#studentTableBody tr");
-    let csv = "Student Name,Student ID,Class,Section,Gender,Contact,Status\n";
+    const rows = getStudentRows();
+    let csv = "Student Name,Student ID,Admission Number,Class,Section,Gender,Parent/Guardian,Status\n";
 
     rows.forEach(row => {
         if (row.style.display === "none") {
@@ -205,16 +242,20 @@ document.getElementById("exportButton").addEventListener("click", () => {
 
         const name = row.querySelector(".student-info strong").textContent;
         const id = row.children[1].textContent;
-        const studentClass = row.children[2].textContent;
-        const section = row.children[3].textContent;
-        const gender = row.children[4].textContent;
-        const contact = row.children[5].textContent;
-        const status = row.children[6].textContent.trim();
+        const admissionNumber = row.children[2].textContent;
+        const studentClass = row.children[3].textContent;
+        const section = row.children[4].textContent;
+        const gender = row.children[5].textContent;
+        const parent = row.children[6].textContent;
+        const status = row.children[7].textContent.trim();
 
-        csv += `"${name}","${id}","${studentClass}","${section}","${gender}","${contact}","${status}"\n`;
+        csv += `"${name}","${id}","${admissionNumber}","${studentClass}","${section}","${gender}","${parent}","${status}"\n`;
     });
 
-    const blob = new Blob([csv], { type: "text/csv" });
+    const blob = new Blob([csv], {
+        type: "text/csv;charset=utf-8;"
+    });
+
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
 
@@ -225,9 +266,4 @@ document.getElementById("exportButton").addEventListener("click", () => {
     URL.revokeObjectURL(url);
 });
 
-window.addEventListener("resize", () => {
-    if (window.innerWidth > 900) {
-        sidebar.classList.remove("open");
-        sidebarOverlay.classList.remove("show");
-    }
-});
+filterStudents();
