@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile - Hamro School</title>
+    <link rel="stylesheet" href="student-profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <div class="dashboard-layout">
+
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-logo">SS</div>
+                <div>
+                    <h2>Hamro School</h2>
+                    <span>School Management</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-title">MAIN</div>
+
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fa-solid fa-grid-2"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="students.html" class="nav-link active">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <span>Students</span>
+                </a>
+
+                <a href="#" class="nav-link">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                    <span>Teachers</span>
+                </a>
+
+                <a href="#" class="nav-link">
+                    <i class="fa-solid fa-school"></i>
+                    <span>Classes</span>
+                </a>
+
+                <div class="nav-title">ACADEMIC</div>
+
+                <a href="#" class="nav-link">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>Attendance</span>
+                </a>
+
+                <a href="#" class="nav-link">
+                    <i class="fa-solid fa-clock"></i>
+                    <span>Timetable</span>
+                </a>
+
+                <a href="#" class="nav-link">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>Class Diary</span>
+                </a>
+
+                <a href="#" class="nav-link">
+                    <i class="fa-solid fa-house-chimney"></i>
+                    <span>Homework</span>
+                </a>
+
+                <div class="nav-title">COMMUNICATION</div>
+
+                <a href="#" class="nav-link">
+                    <i class="fa-solid fa-bullhorn"></i>
+                    <span>Notices</span>
+                </a>
+
+                <a href="#" class="nav-link">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <span>Calendar</span>
+                </a>
+
+                <div class="nav-title">SYSTEM</div>
+
+                <a href="#" class="nav-link">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+
+                <a href="index.html" class="nav-link logout-link">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+            </nav>
+        </aside>
+
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <main class="main-content">
+
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="menu-button" id="menuButton">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+
+                    <div>
+                        <h1>Student Profile</h1>
+                        <p>View and manage student information</p>
+                    </div>
+                </div>
+
+                <div class="topbar-right">
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Search">
+                    </div>
+
+                    <button class="icon-button">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="notification-dot"></span>
+                    </button>
+
+                    <div class="profile-menu">
+                        <div class="profile-avatar">A</div>
+                        <div class="profile-info">
+                            <strong>Administrator</strong>
+                            <span>Super Admin</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-content">
+
+                <div class="breadcrumb">
+                    <a href="dashboard.html">Dashboard</a>
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <a href="students.html">Students</a>
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <span>Student Profile</span>
+                </div>
+
+                <section class="student-header-card">
+
+                    <div class="student-main-info">
+                        <div class="student-photo">
+                            <span>RS</span>
+                        </div>
+
+                        <div class="student-heading">
+                            <div class="student-name-row">
+                                <h2>Rahul Sharma</h2>
+                                <span class="status active-status">Active</span>
+                            </div>
+
+                            <p class="student-id">Student ID: STU-2026-001</p>
+
+                            <div class="student-meta">
+                                <span>
+                                    <i class="fa-solid fa-graduation-cap"></i>
+                                    Class 10
+                                </span>
+                                <span>
+                                    <i class="fa-solid fa-layer-group"></i>
+                                    Section A
+                                </span>
+                                <span>
+                                    <i class="fa-solid fa-calendar"></i>
+                                    Academic Year 2026
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="header-actions">
+                        <button class="secondary-button" id="editStudent">
+                            <i class="fa-solid fa-pen"></i>
+                            Edit Student
+                        </button>
+
+                        <button class="primary-button" id="moreButton">
+                            <i class="fa-solid fa-ellipsis"></i>
+                        </button>
+                    </div>
+
+                </section>
+
+                <div class="profile-grid">
+
+                    <section class="profile-card personal-card">
+                        <div class="card-header">
+                            <div>
+                                <h3>Personal Information</h3>
+                                <p>Basic student details</p>
+                            </div>
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span>First Name</span>
+                                <strong>Rahul</strong>
+                            </div>
+
+                            <div class="info-item">
+                                <span>Last Name</span>
+                                <strong>Sharma</strong>
+                            </div>
+
+                            <div class="info-item">
+                                <span>Date of Birth</span>
+                                <strong>15 March 2011</strong>
+                            </div>
+
+                            <div class="info-item">
+                                <span>Gender</span>
+                                <strong>Male</strong>
+                            </div>
+
+                            <div class="info-item">
+                                <span>Admission Number</span>
+                                <strong>ADM-2026-001</strong>
+                            </div>
+
+                            <div class="info-item">
+                                <span>Roll Number</span>
+                                <strong>01</strong>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="profile-card academic-card">
+                        <div class="card-header">
+                            <div>
+                                <h3>Academic Information</h3>
+                                <p>Current academic details</p>
+                            </div>
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span>Class</span>
+                                <strong>Class 10</strong>
+                            </div>
+
+                            <div class="info-item">
+                                <span>Section</span>
+                                <strong>A</strong>
+                            </div>
+
+                            <div class="info-item">
+                                <span>Academic Year</span>
+                                <strong>2026</strong>
+                            </div>
+
+                            <div class="info-item">
+                                <span>Admission Date</span>
+                                <strong>15 April 2024</strong>
+                            </div>
+
+                            <div class="info-item">
+                                <span>Previous Class</span>
+                                <strong>Class 9</strong>
+                            </div>
+
+                            <div class="info-item">
+                                <span>House</span>
+                                <strong>Green House</strong>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="profile-card contact-card">
+                        <div class="card-header">
+                            <div>
+                                <h3>Contact Information</h3>
+                                <p>Student contact details</p>
+                            </div>
+                            <i class="fa-solid fa-address-book"></i>
+                        </div>
+
+                        <div class="contact-list">
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div>
+                                    <span>Phone</span>
+                                    <strong>+977 9800000000</strong>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <span>Email</span>
+                                    <strong>rahul@example.com</strong>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <span>Address</span>
+                                    <strong>Birtamode, Jhapa, Nepal</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="profile-card parent-card">
+                        <div class="card-header">
+                            <div>
+                                <h3>Parent / Guardian</h3>
+                                <p>Parent and guardian information</p>
+                            </div>
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+
+                        <div class="parent-info">
+                            <div class="parent-avatar">RS</div>
+
+                            <div class="parent-details">
+                                <strong>Rajesh Sharma</strong>
+                                <span>Father</span>
+                            </div>
+
+                            <button class="contact-parent">
+                                <i class="fa-solid fa-phone"></i>
+                            </button>
+                        </div>
+
+                        <div class="parent-contact">
+                            <div>
+                                <span>Phone</span>
+                                <strong>+977 9811111111</strong>
+                            </div>
+
+                            <div>
+                                <span>Email</span>
+                                <strong>rajesh@example.com</strong>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+                <div class="bottom-grid">
+
+                    <section class="profile-card attendance-card">
+                        <div class="card-header">
+                            <div>
+                                <h3>Attendance</h3>
+                                <p>Current academic year</p>
+                            </div>
+                            <a href="#">View Details</a>
+                        </div>
+
+                        <div class="attendance-content">
+
+                            <div class="attendance-circle">
+                                <div>
+                                    <strong>94.6%</strong>
+                                    <span>Attendance</span>
+                                </div>
+                            </div>
+
+                            <div class="attendance-stats">
+                                <div>
+                                    <span class="attendance-dot present"></span>
+                                    <div>
+                                        <strong>118</strong>
+                                        <small>Present</small>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <span class="attendance-dot absent"></span>
+                                    <div>
+                                        <strong>5</strong>
+                                        <small>Absent</small>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <span class="attendance-dot leave"></span>
+                                    <div>
+                                        <strong>2</strong>
+                                        <small>Leave</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <section class="profile-card academic-history-card">
+                        <div class="card-header">
+                            <div>
+                                <h3>Academic History</h3>
+                                <p>Previous academic records</p>
+                            </div>
+                        </div>
+
+                        <div class="history-table">
+                            <div class="history-row history-heading">
+                                <span>Academic Year</span>
+                                <span>Class</span>
+                                <span>Section</span>
+                                <span>Result</span>
+                            </div>
+
+                            <div class="history-row">
+                                <span>2025</span>
+                                <span>Class 9</span>
+                                <span>A</span>
+                                <strong class="passed">Passed</strong>
+                            </div>
+
+                            <div class="history-row">
+                                <span>2024</span>
+                                <span>Class 8</span>
+                                <span>B</span>
+                                <strong class="passed">Passed</strong>
+                            </div>
+
+                            <div class="history-row">
+                                <span>2023</span>
+                                <span>Class 7</span>
+                                <span>B</span>
+                                <strong class="passed">Passed</strong>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="profile-card remarks-card">
+                        <div class="card-header">
+                            <div>
+                                <h3>Teacher Remarks</h3>
+                                <p>Recent teacher observations</p>
+                            </div>
+                            <button class="add-remark" id="addRemark">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+
+                        <div class="remark">
+                            <div class="remark-avatar">AS</div>
+                            <div class="remark-content">
+                                <div class="remark-top">
+                                    <strong>Anita Sharma</strong>
+                                    <span>2 days ago</span>
+                                </div>
+                                <p>Shows good participation in class and consistently completes assigned work.</p>
+                            </div>
+                        </div>
+
+                        <div class="remark">
+                            <div class="remark-avatar">RK</div>
+                            <div class="remark-content">
+                                <div class="remark-top">
+                                    <strong>Ramesh Karki</strong>
+                                    <span>1 week ago</span>
+                                </div>
+                                <p>Excellent performance in mathematics. Needs to participate more actively in group activities.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="profile-card activities-card">
+                        <div class="card-header">
+                            <div>
+                                <h3>ECA & Achievements</h3>
+                                <p>Student activities and achievements</p>
+                            </div>
+                            <button class="add-activity">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fa-solid fa-trophy"></i>
+                                </div>
+                                <div>
+                                    <strong>Inter-School Quiz Competition</strong>
+                                    <span>First Runner-up · 2026</span>
+                                </div>
+                            </div>
+
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fa-solid fa-futbol"></i>
+                                </div>
+                                <div>
+                                    <strong>School Football Team</strong>
+                                    <span>Team Member · 2025</span>
+                                </div>
+                            </div>
+
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fa-solid fa-medal"></i>
+                                </div>
+                                <div>
+                                    <strong>Science Exhibition</strong>
+                                    <span>Participant · 2025</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+                <section class="profile-card documents-card">
+                    <div class="card-header">
+                        <div>
+                            <h3>Documents</h3>
+                            <p>Student documents and records</p>
+                        </div>
+
+                        <button class="primary-button" id="uploadDocument">
+                            <i class="fa-solid fa-upload"></i>
+                            Upload Document
+                        </button>
+                    </div>
+
+                    <div class="documents-list">
+
+                        <div class="document-item">
+                            <div class="document-icon">
+                                <i class="fa-solid fa-file-pdf"></i>
+                            </div>
+
+                            <div class="document-info">
+                                <strong>Birth Certificate</strong>
+                                <span>PDF · 1.2 MB · Uploaded 15 Apr 2024</span>
+                            </div>
+
+                            <button class="document-action">
+                                <i class="fa-solid fa-download"></i>
+                            </button>
+                        </div>
+
+                        <div class="document-item">
+                            <div class="document-icon">
+                                <i class="fa-solid fa-file-lines"></i>
+                            </div>
+
+                            <div class="document-info">
+                                <strong>Previous School Certificate</strong>
+                                <span>PDF · 2.4 MB · Uploaded 15 Apr 2024</span>
+                            </div>
+
+                            <button class="document-action">
+                                <i class="fa-solid fa-download"></i>
+                            </button>
+                        </div>
+
+                        <div class="document-item">
+                            <div class="document-icon">
+                                <i class="fa-solid fa-file-image"></i>
+                            </div>
+
+                            <div class="document-info">
+                                <strong>Student Photo</strong>
+                                <span>JPG · 850 KB · Uploaded 15 Apr 2024</span>
+                            </div>
+
+                            <button class="document-action">
+                                <i class="fa-solid fa-download"></i>
+                            </button>
+                        </div>
+
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="edit-modal" id="editModal">
+        <div class="modal-overlay"></div>
+
+        <div class="modal-box">
+            <div class="modal-header">
+                <div>
+                    <h3>Edit Student</h3>
+                    <p>Update student information</p>
+                </div>
+
+                <button class="modal-close" id="modalClose">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form id="editStudentForm">
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" value="Rahul">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" value="Sharma">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Student ID</label>
+                        <input type="text" value="STU-2026-001">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Admission Number</label>
+                        <input type="text" value="ADM-2026-001">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Class</label>
+                        <select>
+                            <option>Class 10</option>
+                            <option>Class 9</option>
+                            <option>Class 8</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Section</label>
+                        <select>
+                            <option>A</option>
+                            <option>B</option>
+                            <option>C</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="text" value="+977 9800000000">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" value="rahul@example.com">
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="cancel-button" id="cancelEdit">Cancel</button>
+                    <button type="submit" class="primary-button">Save Changes</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <script src="student-profile.js"></script>
+</body>
+</html>
