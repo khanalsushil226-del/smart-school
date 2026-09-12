@@ -1,7 +1,6 @@
 const loginForm = document.getElementById("loginForm");
 const passwordInput = document.getElementById("password");
 const showPassword = document.getElementById("showPassword");
-const loginMessage = document.getElementById("loginMessage");
 
 showPassword.addEventListener("change", () => {
     passwordInput.type = showPassword.checked ? "text" : "password";
@@ -11,14 +10,11 @@ loginForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const username = document.getElementById("username").value.trim();
-    const password = passwordInput.value.trim();
+    const password = passwordInput.value;
 
-    if (!username || !password) {
-        loginMessage.textContent = "Please enter your username and password.";
-        loginMessage.style.color = "#dc2626";
-        return;
+    if (username === "admin" && password === "admin@123") {
+        window.location.href = "dashboard.html";
+    } else {
+        alert("Invalid username or password");
     }
-
-    loginMessage.textContent = "Login successful!";
-    loginMessage.style.color = "#056c24";
 });

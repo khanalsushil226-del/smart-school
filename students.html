@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students - Hamro School</title>
+    <link rel="stylesheet" href="students.css">
+</head>
+<body>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-logo">SS</div>
+            <div>
+                <h2>Hamro School</h2>
+                <span>YOUR SCHOOL DIGITAL PLATFORM</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-title">MAIN MENU</div>
+
+            <a href="dashboard.html" class="nav-link">
+                <span class="nav-icon">▦</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="students.html" class="nav-link active">
+                <span class="nav-icon">♙</span>
+                <span>Students</span>
+            </a>
+
+            <a href="#" class="nav-link">
+                <span class="nav-icon">♙</span>
+                <span>Teachers</span>
+            </a>
+
+            <a href="#" class="nav-link">
+                <span class="nav-icon">▤</span>
+                <span>Classes</span>
+            </a>
+
+            <a href="#" class="nav-link">
+                <span class="nav-icon">✓</span>
+                <span>Attendance</span>
+            </a>
+
+            <a href="#" class="nav-link">
+                <span class="nav-icon">▣</span>
+                <span>Exams & Results</span>
+            </a>
+
+            <a href="#" class="nav-link">
+                <span class="nav-icon">▤</span>
+                <span>Assignments</span>
+            </a>
+
+            <a href="#" class="nav-link">
+                <span class="nav-icon">◷</span>
+                <span>Timetable</span>
+            </a>
+
+            <a href="#" class="nav-link">
+                <span class="nav-icon">◉</span>
+                <span>Fees</span>
+            </a>
+
+            <a href="#" class="nav-link">
+                <span class="nav-icon">◧</span>
+                <span>Notices</span>
+            </a>
+
+            <div class="nav-title">SYSTEM</div>
+
+            <a href="#" class="nav-link">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+            <a href="index.html" class="nav-link logout">
+                <span class="nav-icon">↪</span>
+                <span>Logout</span>
+            </a>
+        </nav>
+    </aside>
+
+    <main class="main-area">
+
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-button" id="menuButton">☰</button>
+                <div>
+                    <h1>Students</h1>
+                    <p>Manage and monitor all students</p>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <div class="search-box">
+                    <span>⌕</span>
+                    <input type="text" id="topSearch" placeholder="Search...">
+                </div>
+
+                <button class="notification-button">♢</button>
+
+                <div class="profile">
+                    <div class="profile-avatar">A</div>
+                    <div class="profile-info">
+                        <strong>Administrator</strong>
+                        <span>Super Admin</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="content">
+
+            <div class="page-heading">
+                <div>
+                    <h2>Students</h2>
+                    <p>View, add, edit and manage student information.</p>
+                </div>
+
+                <button class="primary-button" id="addStudentButton">
+                    <span>+</span>
+                    Add Student
+                </button>
+            </div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon">♙</div>
+                    <div>
+                        <span class="stat-label">Total Students</span>
+                        <strong class="stat-number">1,248</strong>
+                        <span class="stat-change positive">+8.2% <small>this month</small></span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">✓</div>
+                    <div>
+                        <span class="stat-label">Active Students</span>
+                        <strong class="stat-number">1,198</strong>
+                        <span class="stat-change positive">+5.4% <small>this month</small></span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">+</div>
+                    <div>
+                        <span class="stat-label">New Admissions</span>
+                        <strong class="stat-number">38</strong>
+                        <span class="stat-change positive">+12.5% <small>this month</small></span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">!</div>
+                    <div>
+                        <span class="stat-label">Inactive Students</span>
+                        <strong class="stat-number">50</strong>
+                        <span class="stat-change neutral">4.0% <small>of total</small></span>
+                    </div>
+                </div>
+
+            </div>
+
+            <section class="students-card">
+
+                <div class="card-header">
+                    <div>
+                        <h3>Student List</h3>
+                        <p>All registered students in your school</p>
+                    </div>
+
+                    <button class="export-button" id="exportButton">
+                        ↓ Export
+                    </button>
+                </div>
+
+                <div class="filters">
+
+                    <div class="student-search">
+                        <span>⌕</span>
+                        <input type="text" id="studentSearch" placeholder="Search by name or student ID">
+                    </div>
+
+                    <select id="classFilter">
+                        <option value="">All Classes</option>
+                        <option value="Grade 10">Grade 10</option>
+                        <option value="Grade 9">Grade 9</option>
+                        <option value="Grade 8">Grade 8</option>
+                        <option value="Grade 7">Grade 7</option>
+                        <option value="Grade 6">Grade 6</option>
+                    </select>
+
+                    <select id="sectionFilter">
+                        <option value="">All Sections</option>
+                        <option value="A">Section A</option>
+                        <option value="B">Section B</option>
+                        <option value="C">Section C</option>
+                    </select>
+
+                    <select id="statusFilter">
+                        <option value="">All Status</option>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Student ID</th>
+                                <th>Class</th>
+                                <th>Section</th>
+                                <th>Gender</th>
+                                <th>Contact</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="studentTableBody">
+
+                            <tr data-class="Grade 10" data-section="A" data-status="Active">
+                                <td>
+                                    <div class="student-info">
+                                        <div class="student-avatar avatar-1">AS</div>
+                                        <div>
+                                            <strong>Aarav Sharma</strong>
+                                            <span>aarav@example.com</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>STU-1001</td>
+                                <td>Grade 10</td>
+                                <td>A</td>
+                                <td>Male</td>
+                                <td>9801234567</td>
+                                <td><span class="status active">Active</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-button" title="View">◉</button>
+                                        <button class="edit-button" title="Edit">✎</button>
+                                        <button class="delete-button" title="Delete">×</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-class="Grade 9" data-section="B" data-status="Active">
+                                <td>
+                                    <div class="student-info">
+                                        <div class="student-avatar avatar-2">SP</div>
+                                        <div>
+                                            <strong>Shreya Pandey</strong>
+                                            <span>shreya@example.com</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>STU-1002</td>
+                                <td>Grade 9</td>
+                                <td>B</td>
+                                <td>Female</td>
+                                <td>9812345678</td>
+                                <td><span class="status active">Active</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-button" title="View">◉</button>
+                                        <button class="edit-button" title="Edit">✎</button>
+                                        <button class="delete-button" title="Delete">×</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-class="Grade 8" data-section="A" data-status="Active">
+                                <td>
+                                    <div class="student-info">
+                                        <div class="student-avatar avatar-3">RS</div>
+                                        <div>
+                                            <strong>Rohan Singh</strong>
+                                            <span>rohan@example.com</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>STU-1003</td>
+                                <td>Grade 8</td>
+                                <td>A</td>
+                                <td>Male</td>
+                                <td>9823456789</td>
+                                <td><span class="status active">Active</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-button" title="View">◉</button>
+                                        <button class="edit-button" title="Edit">✎</button>
+                                        <button class="delete-button" title="Delete">×</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-class="Grade 10" data-section="C" data-status="Active">
+                                <td>
+                                    <div class="student-info">
+                                        <div class="student-avatar avatar-4">AN</div>
+                                        <div>
+                                            <strong>Anisha Nepal</strong>
+                                            <span>anisha@example.com</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>STU-1004</td>
+                                <td>Grade 10</td>
+                                <td>C</td>
+                                <td>Female</td>
+                                <td>9834567890</td>
+                                <td><span class="status active">Active</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-button" title="View">◉</button>
+                                        <button class="edit-button" title="Edit">✎</button>
+                                        <button class="delete-button" title="Delete">×</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-class="Grade 7" data-section="B" data-status="Inactive">
+                                <td>
+                                    <div class="student-info">
+                                        <div class="student-avatar avatar-5">BM</div>
+                                        <div>
+                                            <strong>Binod Magar</strong>
+                                            <span>binod@example.com</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>STU-1005</td>
+                                <td>Grade 7</td>
+                                <td>B</td>
+                                <td>Male</td>
+                                <td>9845678901</td>
+                                <td><span class="status inactive">Inactive</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-button" title="View">◉</button>
+                                        <button class="edit-button" title="Edit">✎</button>
+                                        <button class="delete-button" title="Delete">×</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-class="Grade 6" data-section="A" data-status="Active">
+                                <td>
+                                    <div class="student-info">
+                                        <div class="student-avatar avatar-6">KS</div>
+                                        <div>
+                                            <strong>Kritika Shah</strong>
+                                            <span>kritika@example.com</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>STU-1006</td>
+                                <td>Grade 6</td>
+                                <td>A</td>
+                                <td>Female</td>
+                                <td>9856789012</td>
+                                <td><span class="status active">Active</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-button" title="View">◉</button>
+                                        <button class="edit-button" title="Edit">✎</button>
+                                        <button class="delete-button" title="Delete">×</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="empty-state" id="emptyState">
+                    <div>⌕</div>
+                    <h3>No students found</h3>
+                    <p>Try changing your search or filter options.</p>
+                </div>
+
+                <div class="table-footer">
+                    <span>Showing <strong id="showingCount">6</strong> of 1,248 students</span>
+
+                    <div class="pagination">
+                        <button disabled>‹</button>
+                        <button class="current">1</button>
+                        <button>2</button>
+                        <button>3</button>
+                        <span>...</span>
+                        <button>42</button>
+                        <button>›</button>
+                    </div>
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+    <div class="modal" id="studentModal">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <div>
+                    <h3>Add New Student</h3>
+                    <p>Enter student information below.</p>
+                </div>
+                <button class="close-button" id="closeModal">×</button>
+            </div>
+
+            <form id="studentForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" id="firstName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" id="lastName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Student ID</label>
+                        <input type="text" id="studentId" placeholder="STU-1007" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select id="gender" required>
+                            <option value="">Select Gender</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Class</label>
+                        <select id="studentClass" required>
+                            <option value="">Select Class</option>
+                            <option>Grade 6</option>
+                            <option>Grade 7</option>
+                            <option>Grade 8</option>
+                            <option>Grade 9</option>
+                            <option>Grade 10</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Section</label>
+                        <select id="studentSection" required>
+                            <option value="">Select Section</option>
+                            <option>A</option>
+                            <option>B</option>
+                            <option>C</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="email">
+                    </div>
+
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="cancel-button" id="cancelButton">Cancel</button>
+                    <button type="submit" class="save-button">Add Student</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <script src="students.js"></script>
+</body>
+</html>
