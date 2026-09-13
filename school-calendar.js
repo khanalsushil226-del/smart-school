@@ -44,16 +44,6 @@ const nepaliWeekdays = [
     "शनिबार"
 ];
 
-const nepaliWeekdaysShort = [
-    "आइत",
-    "सोम",
-    "मंगल",
-    "बुध",
-    "बिहि",
-    "शुक्र",
-    "शनि"
-];
-
 const nepaliNumbers = [
     "०",
     "१",
@@ -68,11 +58,9 @@ const nepaliNumbers = [
 ];
 
 const bsCalendar = {
-    2080: [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-    2081: [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-    2082: [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-    2083: [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-    2084: [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 32],
+    2082: [31, 32, 31, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+    2083: [31, 32, 31, 32, 31, 30, 30, 29, 29, 30, 30, 30],
+    2084: [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
     2085: [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
     2086: [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
     2087: [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
@@ -82,18 +70,12 @@ const bsCalendar = {
 };
 
 function toNepaliNumber(value) {
-    return String(value).replace(/[0-9]/g, digit => nepaliNumbers[Number(digit)]);
-}
-
-function toEnglishNumber(value) {
-    const nepaliDigits = "०१२३४५६७८९";
-
-    return String(value).replace(/[०-९]/g, digit => {
-        return nepaliDigits.indexOf(digit);
+    return String(value).replace(/[0-9]/g, digit => {
+        return nepaliNumbers[Number(digit)];
     });
 }
 
-function getBsMonthDays(year, month) {
+function getMonthDays(year, month) {
     if (bsCalendar[year] && bsCalendar[year][month - 1]) {
         return bsCalendar[year][month - 1];
     }
@@ -101,36 +83,39 @@ function getBsMonthDays(year, month) {
     return 30;
 }
 
-function bsToAd(bsYear, bsMonth, bsDay) {
-    const referenceBs = {
-        year: 2082,
-        month: 1,
-        day: 1
-    };
+function getYearDays(year) {
+    let total = 0;
 
+    for (let month = 1; month <= 12; month++) {
+        total += getMonthDays(year, month);
+    }
+
+    return total;
+}
+
+function bsToAd(year, month, day) {
+    const referenceYear = 2082;
+    const referenceMonth = 1;
+    const referenceDay = 1;
     const referenceAd = new Date(2025, 3, 14);
 
     let totalDays = 0;
 
-    if (bsYear >= referenceBs.year) {
-        for (let year = referenceBs.year; year < bsYear; year++) {
-            for (let month = 1; month <= 12; month++) {
-                totalDays += getBsMonthDays(year, month);
-            }
+    if (year >= referenceYear) {
+        for (let y = referenceYear; y < year; y++) {
+            totalDays += getYearDays(y);
         }
     } else {
-        for (let year = bsYear; year < referenceBs.year; year++) {
-            for (let month = 1; month <= 12; month++) {
-                totalDays -= getBsMonthDays(year, month);
-            }
+        for (let y = year; y < referenceYear; y++) {
+            totalDays -= getYearDays(y);
         }
     }
 
-    for (let month = 1; month < bsMonth; month++) {
-        totalDays += getBsMonthDays(bsYear, month);
+    for (let m = 1; m < month; m++) {
+        totalDays += getMonthDays(year, m);
     }
 
-    totalDays += bsDay - 1;
+    totalDays += day - referenceDay;
 
     const result = new Date(referenceAd);
     result.setDate(result.getDate() + totalDays);
@@ -139,12 +124,6 @@ function bsToAd(bsYear, bsMonth, bsDay) {
 }
 
 function adToBs(adDate) {
-    const referenceBs = {
-        year: 2082,
-        month: 1,
-        day: 1
-    };
-
     const referenceAd = new Date(2025, 3, 14);
     const target = new Date(
         adDate.getFullYear(),
@@ -156,22 +135,24 @@ function adToBs(adDate) {
         (target - referenceAd) / 86400000
     );
 
-    let year = referenceBs.year;
+    let year = 2082;
 
-    while (difference >= getYearDays(year)) {
-        difference -= getYearDays(year);
-        year++;
-    }
-
-    while (difference < 0) {
-        year--;
-        difference += getYearDays(year);
+    if (difference >= 0) {
+        while (difference >= getYearDays(year)) {
+            difference -= getYearDays(year);
+            year++;
+        }
+    } else {
+        while (difference < 0) {
+            year--;
+            difference += getYearDays(year);
+        }
     }
 
     let month = 1;
 
-    while (difference >= getBsMonthDays(year, month)) {
-        difference -= getBsMonthDays(year, month);
+    while (difference >= getMonthDays(year, month)) {
+        difference -= getMonthDays(year, month);
         month++;
     }
 
@@ -182,28 +163,35 @@ function adToBs(adDate) {
     };
 }
 
-function getYearDays(year) {
-    let total = 0;
-
-    for (let month = 1; month <= 12; month++) {
-        total += getBsMonthDays(year, month);
-    }
-
-    return total;
+function getDateKey(date) {
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 }
 
-function formatBsDate(date) {
+function formatTime(time) {
+    if (!time) {
+        return "";
+    }
+
+    const [hours, minutes] = time.split(":");
+    const date = new Date();
+
+    date.setHours(Number(hours), Number(minutes));
+
+    return date.toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit"
+    });
+}
+
+function formatBsDate(dateString) {
+    const date = new Date(`${dateString}T00:00:00`);
     const bs = adToBs(date);
 
     return `${toNepaliNumber(bs.day)} ${nepaliMonths[bs.month - 1]} ${toNepaliNumber(bs.year)}`;
 }
 
-function formatBsMonthYear(year, month) {
-    return `${nepaliMonths[month - 1]} ${toNepaliNumber(year)}`;
-}
-
-function getDateKey(date) {
-    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+function getEventClass(category) {
+    return category.toLowerCase();
 }
 
 const events = [
@@ -297,8 +285,10 @@ const events = [
     }
 ];
 
-let currentBsYear = 2083;
-let currentBsMonth = 5;
+let todayBs = adToBs(new Date());
+
+let currentBsYear = todayBs.year;
+let currentBsMonth = todayBs.month;
 let editingEventId = null;
 
 const calendarGrid = document.getElementById("calendarGrid");
@@ -313,29 +303,13 @@ const eventModal = document.getElementById("eventModal");
 const viewModal = document.getElementById("viewModal");
 const eventForm = document.getElementById("eventForm");
 
-function formatTime(time) {
-    if (!time) {
-        return "";
-    }
-
-    const [hours, minutes] = time.split(":");
-    const date = new Date();
-
-    date.setHours(Number(hours), Number(minutes));
-
-    return date.toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "2-digit"
-    });
-}
-
-function getEventClass(category) {
-    return category.toLowerCase();
-}
+const eventDateInput = document.getElementById("eventDate");
 
 function getMonthEvents(year, month) {
     return events.filter(event => {
-        const bs = adToBs(new Date(`${event.date}T00:00:00`));
+        const bs = adToBs(
+            new Date(`${event.date}T00:00:00`)
+        );
 
         return bs.year === year && bs.month === month;
     });
@@ -343,109 +317,149 @@ function getMonthEvents(year, month) {
 
 function renderCalendar() {
     calendarMonth.textContent =
-        formatBsMonthYear(currentBsYear, currentBsMonth);
+        `${nepaliMonths[currentBsMonth - 1]} ${toNepaliNumber(currentBsYear)}`;
 
     calendarSubtitle.textContent =
-        `वि.सं. ${toNepaliNumber(currentBsYear)} · ${nepaliMonths[currentBsMonth - 1]}`;
+        `वि.सं. ${toNepaliNumber(currentBsYear)} · ${nepaliWeekdays.join(" · ")}`;
 
     calendarGrid.innerHTML = "";
 
-    const monthStart = bsToAd(currentBsYear, currentBsMonth, 1);
-    const firstDay = monthStart.getDay();
-    const daysInMonth = getBsMonthDays(currentBsYear, currentBsMonth);
+    const firstDayDate =
+        bsToAd(currentBsYear, currentBsMonth, 1);
 
-    const previousMonth =
-        currentBsMonth === 1 ? 12 : currentBsMonth - 1;
+    const firstDay = firstDayDate.getDay();
 
-    const previousYear =
-        currentBsMonth === 1 ? currentBsYear - 1 : currentBsYear;
+    const daysInMonth =
+        getMonthDays(currentBsYear, currentBsMonth);
 
-    const previousMonthDays =
-        getBsMonthDays(previousYear, previousMonth);
+    const totalCells =
+        Math.ceil((firstDay + daysInMonth) / 7) * 7;
 
-    const todayBs = adToBs(new Date());
+    for (let index = 0; index < totalCells; index++) {
+        const dayElement =
+            document.createElement("div");
 
-    const totalCells = Math.ceil((firstDay + daysInMonth) / 7) * 7;
-
-    for (let i = 0; i < totalCells; i++) {
-        const dayElement = document.createElement("div");
         dayElement.className = "calendar-day";
 
         let displayDay;
-        let cellBsYear;
-        let cellBsMonth;
+        let cellYear;
+        let cellMonth;
 
-        if (i < firstDay) {
-            displayDay = previousMonthDays - firstDay + i + 1;
-            cellBsYear = previousYear;
-            cellBsMonth = previousMonth;
-            dayElement.classList.add("other-month");
-        } else if (i >= firstDay + daysInMonth) {
-            displayDay = i - firstDay - daysInMonth + 1;
+        if (index < firstDay) {
+            const previousMonth =
+                currentBsMonth === 1
+                    ? 12
+                    : currentBsMonth - 1;
 
-            cellBsYear =
-                currentBsMonth === 12
-                    ? currentBsYear + 1
+            const previousYear =
+                currentBsMonth === 1
+                    ? currentBsYear - 1
                     : currentBsYear;
 
-            cellBsMonth =
+            const previousDays =
+                getMonthDays(
+                    previousYear,
+                    previousMonth
+                );
+
+            displayDay =
+                previousDays - firstDay + index + 1;
+
+            cellYear = previousYear;
+            cellMonth = previousMonth;
+
+            dayElement.classList.add("other-month");
+        } else if (
+            index >= firstDay + daysInMonth
+        ) {
+            const nextMonth =
                 currentBsMonth === 12
                     ? 1
                     : currentBsMonth + 1;
 
+            const nextYear =
+                currentBsMonth === 12
+                    ? currentBsYear + 1
+                    : currentBsYear;
+
+            displayDay =
+                index - firstDay - daysInMonth + 1;
+
+            cellYear = nextYear;
+            cellMonth = nextMonth;
+
             dayElement.classList.add("other-month");
         } else {
-            displayDay = i - firstDay + 1;
-            cellBsYear = currentBsYear;
-            cellBsMonth = currentBsMonth;
+            displayDay =
+                index - firstDay + 1;
+
+            cellYear = currentBsYear;
+            cellMonth = currentBsMonth;
         }
 
-        const cellAdDate = bsToAd(
-            cellBsYear,
-            cellBsMonth,
-            displayDay
-        );
+        const cellAdDate =
+            bsToAd(
+                cellYear,
+                cellMonth,
+                displayDay
+            );
 
-        const dateKey = getDateKey(cellAdDate);
+        const dateKey =
+            getDateKey(cellAdDate);
+
+        const today =
+            adToBs(new Date());
 
         if (
-            todayBs.year === cellBsYear &&
-            todayBs.month === cellBsMonth &&
-            todayBs.day === displayDay
+            today.year === cellYear &&
+            today.month === cellMonth &&
+            today.day === displayDay
         ) {
             dayElement.classList.add("today");
         }
 
-        const dayNumber = document.createElement("div");
-        dayNumber.className = "day-number";
-        dayNumber.textContent = toNepaliNumber(displayDay);
+        const number =
+            document.createElement("div");
 
-        dayElement.appendChild(dayNumber);
+        number.className = "day-number";
+        number.textContent =
+            toNepaliNumber(displayDay);
 
-        const dayEvents = events.filter(event => {
-            return event.date === dateKey;
-        });
+        dayElement.appendChild(number);
+
+        const dayEvents =
+            events.filter(event => {
+                return event.date === dateKey;
+            });
 
         dayEvents.slice(0, 3).forEach(event => {
-            const eventElement = document.createElement("div");
+            const eventElement =
+                document.createElement("div");
 
             eventElement.className =
                 `calendar-event ${getEventClass(event.category)}`;
 
-            eventElement.textContent = event.title;
+            eventElement.textContent =
+                event.title;
 
-            eventElement.addEventListener("click", clickEvent => {
-                clickEvent.stopPropagation();
-                openViewModal(event);
-            });
+            eventElement.addEventListener(
+                "click",
+                clickEvent => {
+                    clickEvent.stopPropagation();
+                    openViewModal(event);
+                }
+            );
 
             dayElement.appendChild(eventElement);
         });
 
         if (dayEvents.length > 3) {
-            const more = document.createElement("div");
+            const more =
+                document.createElement("div");
 
-            more.className = "calendar-event";
+            more.className =
+                "calendar-event";
+
             more.textContent =
                 `+${toNepaliNumber(dayEvents.length - 3)} थप`;
 
@@ -461,54 +475,73 @@ function renderCalendar() {
 }
 
 function renderEvents() {
-    const search = eventSearch.value.toLowerCase().trim();
-    const category = categoryFilter.value;
+    const search =
+        eventSearch.value.toLowerCase().trim();
 
-    const filteredEvents = [...events]
-        .filter(event => {
-            const searchableText = [
-                event.title,
-                event.category,
-                event.audience,
-                event.location,
-                event.description
-            ].join(" ").toLowerCase();
+    const category =
+        categoryFilter.value;
 
-            const matchesSearch =
-                !search || searchableText.includes(search);
+    const filteredEvents =
+        [...events]
+            .filter(event => {
+                const searchableText = [
+                    event.title,
+                    event.category,
+                    event.audience,
+                    event.location,
+                    event.description
+                ].join(" ").toLowerCase();
 
-            const matchesCategory =
-                category === "all" ||
-                event.category === category;
+                const matchesSearch =
+                    !search ||
+                    searchableText.includes(search);
 
-            return matchesSearch && matchesCategory;
-        })
-        .sort((a, b) => {
-            return new Date(a.date) - new Date(b.date);
-        });
+                const matchesCategory =
+                    category === "all" ||
+                    event.category === category;
+
+                return matchesSearch &&
+                    matchesCategory;
+            })
+            .sort((a, b) => {
+                return new Date(a.date) -
+                    new Date(b.date);
+            });
 
     eventsList.innerHTML = "";
 
     filteredEvents.forEach(event => {
-        const item = document.createElement("div");
+        const item =
+            document.createElement("div");
+
         item.className = "event-item";
 
-        const bs = adToBs(
-            new Date(`${event.date}T00:00:00`)
-        );
+        const bs =
+            adToBs(
+                new Date(`${event.date}T00:00:00`)
+            );
 
-        const time = event.startTime
-            ? `${formatTime(event.startTime)}${event.endTime ? ` - ${formatTime(event.endTime)}` : ""}`
-            : "पूरै दिन";
+        const time =
+            event.startTime
+                ? `${formatTime(event.startTime)}${event.endTime ? ` - ${formatTime(event.endTime)}` : ""}`
+                : "पूरै दिन";
 
         item.innerHTML = `
             <div class="event-date-row">
                 <span class="event-date">
-                    ${toNepaliNumber(bs.day)} ${nepaliMonths[bs.month - 1]} ${toNepaliNumber(bs.year)}
+                    ${toNepaliNumber(bs.day)}
+                    ${nepaliMonths[bs.month - 1]}
+                    ${toNepaliNumber(bs.year)}
                 </span>
-                <span class="event-category">${event.category}</span>
+                <span class="event-category">
+                    ${event.category}
+                </span>
             </div>
-            <div class="event-item-title">${event.title}</div>
+
+            <div class="event-item-title">
+                ${event.title}
+            </div>
+
             <div class="event-item-details">
                 ${time} · ${event.location || "विद्यालय"}
             </div>
@@ -528,85 +561,295 @@ function renderEvents() {
 }
 
 function updateStatistics() {
-    const total = events.length;
+    const total =
+        events.length;
 
-    const monthEvents = getMonthEvents(
-        currentBsYear,
-        currentBsMonth
-    ).length;
+    const monthCount =
+        getMonthEvents(
+            currentBsYear,
+            currentBsMonth
+        ).length;
 
-    const today = new Date();
+    const today =
+        new Date();
+
     today.setHours(0, 0, 0, 0);
 
-    const upcoming = events.filter(event => {
-        const date = new Date(`${event.date}T00:00:00`);
-        return date >= today;
-    }).length;
+    const upcoming =
+        events.filter(event => {
+            const date =
+                new Date(`${event.date}T00:00:00`);
 
-    const holidays = events.filter(event => {
-        return event.category === "Holiday";
-    }).length;
+            return date >= today;
+        }).length;
 
-    document.getElementById("totalEvents").textContent =
+    const holidays =
+        events.filter(event => {
+            return event.category === "Holiday";
+        }).length;
+
+    document.getElementById("totalEvents")
+        .textContent =
         toNepaliNumber(total);
 
-    document.getElementById("monthEvents").textContent =
-        toNepaliNumber(monthEvents);
+    document.getElementById("monthEvents")
+        .textContent =
+        toNepaliNumber(monthCount);
 
-    document.getElementById("upcomingEvents").textContent =
+    document.getElementById("upcomingEvents")
+        .textContent =
         toNepaliNumber(upcoming);
 
-    document.getElementById("holidayEvents").textContent =
+    document.getElementById("holidayEvents")
+        .textContent =
         toNepaliNumber(holidays);
+}
+
+function createBsDatePicker() {
+    if (!eventDateInput) {
+        return;
+    }
+
+    eventDateInput.style.display = "none";
+
+    const wrapper =
+        document.createElement("div");
+
+    wrapper.className =
+        "bs-date-picker";
+
+    wrapper.innerHTML = `
+        <div class="bs-date-row">
+            <select id="bsYear"></select>
+            <select id="bsMonth"></select>
+            <select id="bsDay"></select>
+        </div>
+        <div class="bs-date-preview" id="bsDatePreview"></div>
+    `;
+
+    eventDateInput.parentNode.appendChild(wrapper);
+
+    const yearSelect =
+        document.getElementById("bsYear");
+
+    const monthSelect =
+        document.getElementById("bsMonth");
+
+    const daySelect =
+        document.getElementById("bsDay");
+
+    for (let year = 2082; year <= 2090; year++) {
+        const option =
+            document.createElement("option");
+
+        option.value = year;
+        option.textContent =
+            `वि.सं. ${toNepaliNumber(year)}`;
+
+        yearSelect.appendChild(option);
+    }
+
+    nepaliMonths.forEach((month, index) => {
+        const option =
+            document.createElement("option");
+
+        option.value = index + 1;
+        option.textContent = month;
+
+        monthSelect.appendChild(option);
+    });
+
+    function updateDays() {
+        const year =
+            Number(yearSelect.value);
+
+        const month =
+            Number(monthSelect.value);
+
+        const selectedDay =
+            Number(daySelect.value || 1);
+
+        const days =
+            getMonthDays(year, month);
+
+        daySelect.innerHTML = "";
+
+        for (let day = 1; day <= days; day++) {
+            const option =
+                document.createElement("option");
+
+            option.value = day;
+            option.textContent =
+                toNepaliNumber(day);
+
+            daySelect.appendChild(option);
+        }
+
+        daySelect.value =
+            String(Math.min(selectedDay, days));
+
+        updatePreview();
+    }
+
+    function updatePreview() {
+        const year =
+            Number(yearSelect.value);
+
+        const month =
+            Number(monthSelect.value);
+
+        const day =
+            Number(daySelect.value);
+
+        if (!year || !month || !day) {
+            return;
+        }
+
+        const adDate =
+            bsToAd(
+                year,
+                month,
+                day
+            );
+
+        eventDateInput.value =
+            getDateKey(adDate);
+
+        document.getElementById(
+            "bsDatePreview"
+        ).textContent =
+            `${toNepaliNumber(day)} ${nepaliMonths[month - 1]} ${toNepaliNumber(year)}`;
+    }
+
+    yearSelect.addEventListener(
+        "change",
+        updateDays
+    );
+
+    monthSelect.addEventListener(
+        "change",
+        updateDays
+    );
+
+    daySelect.addEventListener(
+        "change",
+        updatePreview
+    );
+
+    window.setBsDate =
+        dateString => {
+            const date =
+                dateString
+                    ? new Date(`${dateString}T00:00:00`)
+                    : new Date();
+
+            const bs =
+                adToBs(date);
+
+            yearSelect.value =
+                String(bs.year);
+
+            monthSelect.value =
+                String(bs.month);
+
+            updateDays();
+
+            daySelect.value =
+                String(bs.day);
+
+            updatePreview();
+        };
+
+    window.getBsDate =
+        () => {
+            return {
+                year: Number(yearSelect.value),
+                month: Number(monthSelect.value),
+                day: Number(daySelect.value)
+            };
+        };
+
+    window.setBsDate(
+        eventDateInput.value
+    );
 }
 
 function openCreateModal(date = "") {
     editingEventId = null;
 
-    document.getElementById("modalTitle").textContent =
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
         "नयाँ कार्यक्रम थप्नुहोस्";
 
     eventForm.reset();
 
-    if (date) {
-        document.getElementById("eventDate").value = date;
-    }
+    document.getElementById(
+        "eventCategory"
+    ).value = "Academic";
 
-    document.getElementById("eventCategory").value = "Academic";
-    document.getElementById("eventAudience").value = "Everyone";
+    document.getElementById(
+        "eventAudience"
+    ).value = "Everyone";
+
+    if (date) {
+        window.setBsDate(date);
+    } else {
+        window.setBsDate(
+            getDateKey(new Date())
+        );
+    }
 
     eventModal.classList.add("show");
 }
 
 function openEditModal(event) {
-    editingEventId = event.id;
+    editingEventId =
+        event.id;
 
-    document.getElementById("modalTitle").textContent =
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
         "कार्यक्रम सम्पादन गर्नुहोस्";
 
-    document.getElementById("eventTitle").value =
+    document.getElementById(
+        "eventTitle"
+    ).value =
         event.title;
 
-    document.getElementById("eventDate").value =
-        event.date;
-
-    document.getElementById("eventCategory").value =
+    document.getElementById(
+        "eventCategory"
+    ).value =
         event.category;
 
-    document.getElementById("eventStartTime").value =
+    document.getElementById(
+        "eventStartTime"
+    ).value =
         event.startTime;
 
-    document.getElementById("eventEndTime").value =
+    document.getElementById(
+        "eventEndTime"
+    ).value =
         event.endTime;
 
-    document.getElementById("eventAudience").value =
+    document.getElementById(
+        "eventAudience"
+    ).value =
         event.audience;
 
-    document.getElementById("eventLocation").value =
+    document.getElementById(
+        "eventLocation"
+    ).value =
         event.location;
 
-    document.getElementById("eventDescription").value =
+    document.getElementById(
+        "eventDescription"
+    ).value =
         event.description;
+
+    window.setBsDate(
+        event.date
+    );
 
     eventModal.classList.add("show");
 }
@@ -617,94 +860,147 @@ function closeEventModal() {
 }
 
 function openViewModal(event) {
-    const bs = adToBs(
-        new Date(`${event.date}T00:00:00`)
-    );
+    const bs =
+        adToBs(
+            new Date(`${event.date}T00:00:00`)
+        );
 
-    document.getElementById("viewCategory").textContent =
+    document.getElementById(
+        "viewCategory"
+    ).textContent =
         event.category;
 
-    document.getElementById("viewTitle").textContent =
+    document.getElementById(
+        "viewTitle"
+    ).textContent =
         event.title;
 
-    document.getElementById("viewDate").textContent =
+    document.getElementById(
+        "viewDate"
+    ).textContent =
         `${toNepaliNumber(bs.day)} ${nepaliMonths[bs.month - 1]} ${toNepaliNumber(bs.year)}`;
 
-    const time = event.startTime
-        ? `${formatTime(event.startTime)}${event.endTime ? ` - ${formatTime(event.endTime)}` : ""}`
-        : "पूरै दिन";
+    const time =
+        event.startTime
+            ? `${formatTime(event.startTime)}${event.endTime ? ` - ${formatTime(event.endTime)}` : ""}`
+            : "पूरै दिन";
 
-    document.getElementById("viewTime").textContent =
+    document.getElementById(
+        "viewTime"
+    ).textContent =
         time;
 
-    document.getElementById("viewAudience").textContent =
+    document.getElementById(
+        "viewAudience"
+    ).textContent =
         event.audience;
 
-    document.getElementById("viewLocation").textContent =
-        event.location || "उल्लेख गरिएको छैन";
+    document.getElementById(
+        "viewLocation"
+    ).textContent =
+        event.location ||
+        "उल्लेख गरिएको छैन";
 
-    document.getElementById("viewDescription").textContent =
-        event.description || "कुनै विवरण उपलब्ध छैन।";
+    document.getElementById(
+        "viewDescription"
+    ).textContent =
+        event.description ||
+        "कुनै विवरण उपलब्ध छैन।";
 
     const existingActions =
-        document.querySelector(".view-actions");
+        document.querySelector(
+            ".view-actions"
+        );
 
     if (existingActions) {
         existingActions.remove();
     }
 
-    const actions = document.createElement("div");
-    actions.className = "view-actions";
-    actions.style.cssText =
-        "display:flex;gap:8px;margin-right:auto;";
+    const actions =
+        document.createElement("div");
 
-    const editButton = document.createElement("button");
-    editButton.className = "secondary-button";
-    editButton.textContent = "Edit";
+    actions.className =
+        "view-actions";
 
-    const deleteButton = document.createElement("button");
-    deleteButton.className = "secondary-button";
-    deleteButton.textContent = "Delete";
-    deleteButton.style.color = "#dc3545";
+    const editButton =
+        document.createElement("button");
 
-    editButton.addEventListener("click", () => {
-        closeViewModal();
-        openEditModal(event);
-    });
+    editButton.className =
+        "secondary-button";
 
-    deleteButton.addEventListener("click", () => {
-        const confirmed =
-            confirm("Are you sure you want to delete this event?");
+    editButton.textContent =
+        "Edit";
 
-        if (!confirmed) {
-            return;
+    const deleteButton =
+        document.createElement("button");
+
+    deleteButton.className =
+        "secondary-button";
+
+    deleteButton.textContent =
+        "Delete";
+
+    deleteButton.style.color =
+        "#dc3545";
+
+    editButton.addEventListener(
+        "click",
+        () => {
+            closeViewModal();
+            openEditModal(event);
         }
+    );
 
-        const index =
-            events.findIndex(item => item.id === event.id);
+    deleteButton.addEventListener(
+        "click",
+        () => {
+            const confirmed =
+                confirm(
+                    "Are you sure you want to delete this event?"
+                );
 
-        if (index !== -1) {
-            events.splice(index, 1);
+            if (!confirmed) {
+                return;
+            }
+
+            const index =
+                events.findIndex(
+                    item =>
+                        item.id === event.id
+                );
+
+            if (index !== -1) {
+                events.splice(index, 1);
+            }
+
+            closeViewModal();
+            renderCalendar();
+            renderEvents();
+            updateStatistics();
+
+            alert(
+                "कार्यक्रम सफलतापूर्वक हटाइयो।"
+            );
         }
-
-        closeViewModal();
-        renderCalendar();
-        renderEvents();
-        updateStatistics();
-
-        alert("Calendar event deleted successfully.");
-    });
+    );
 
     const footer =
-        viewModal.querySelector(".modal-footer");
+        viewModal.querySelector(
+            ".modal-footer"
+        );
+
+    actions.appendChild(
+        editButton
+    );
+
+    actions.appendChild(
+        deleteButton
+    );
 
     footer.insertBefore(
         actions,
         footer.firstChild
     );
-
-    actions.appendChild(editButton);
-    actions.appendChild(deleteButton);
 
     viewModal.classList.add("show");
 }
@@ -713,78 +1009,150 @@ function closeViewModal() {
     viewModal.classList.remove("show");
 
     const actions =
-        document.querySelector(".view-actions");
+        document.querySelector(
+            ".view-actions"
+        );
 
     if (actions) {
         actions.remove();
     }
 }
 
-document.getElementById("addEventButton")
-    .addEventListener("click", () => {
+document.getElementById(
+    "addEventButton"
+).addEventListener(
+    "click",
+    () => {
         openCreateModal();
-    });
-
-document.getElementById("closeModal")
-    .addEventListener("click", closeEventModal);
-
-document.getElementById("cancelModal")
-    .addEventListener("click", closeEventModal);
-
-document.getElementById("closeViewModal")
-    .addEventListener("click", closeViewModal);
-
-document.getElementById("closeViewButton")
-    .addEventListener("click", closeViewModal);
-
-eventModal.addEventListener("click", event => {
-    if (event.target === eventModal) {
-        closeEventModal();
     }
-});
+);
 
-viewModal.addEventListener("click", event => {
-    if (event.target === viewModal) {
-        closeViewModal();
+document.getElementById(
+    "closeModal"
+).addEventListener(
+    "click",
+    closeEventModal
+);
+
+document.getElementById(
+    "cancelModal"
+).addEventListener(
+    "click",
+    closeEventModal
+);
+
+document.getElementById(
+    "closeViewModal"
+).addEventListener(
+    "click",
+    closeViewModal
+);
+
+document.getElementById(
+    "closeViewButton"
+).addEventListener(
+    "click",
+    closeViewModal
+);
+
+eventModal.addEventListener(
+    "click",
+    event => {
+        if (event.target === eventModal) {
+            closeEventModal();
+        }
     }
-});
+);
 
-eventForm.addEventListener("submit", event => {
-    event.preventDefault();
+viewModal.addEventListener(
+    "click",
+    event => {
+        if (event.target === viewModal) {
+            closeViewModal();
+        }
+    }
+);
 
-    const title =
-        document.getElementById("eventTitle").value.trim();
+eventForm.addEventListener(
+    "submit",
+    event => {
+        event.preventDefault();
 
-    const date =
-        document.getElementById("eventDate").value;
+        const title =
+            document.getElementById(
+                "eventTitle"
+            ).value.trim();
 
-    const startTime =
-        document.getElementById("eventStartTime").value;
+        const date =
+            document.getElementById(
+                "eventDate"
+            ).value;
 
-    const endTime =
-        document.getElementById("eventEndTime").value;
+        const startTime =
+            document.getElementById(
+                "eventStartTime"
+            ).value;
 
-    const category =
-        document.getElementById("eventCategory").value;
+        const endTime =
+            document.getElementById(
+                "eventEndTime"
+            ).value;
 
-    const audience =
-        document.getElementById("eventAudience").value;
+        const category =
+            document.getElementById(
+                "eventCategory"
+            ).value;
 
-    const location =
-        document.getElementById("eventLocation").value.trim();
+        const audience =
+            document.getElementById(
+                "eventAudience"
+            ).value;
 
-    const description =
-        document.getElementById("eventDescription").value.trim();
+        const location =
+            document.getElementById(
+                "eventLocation"
+            ).value.trim();
 
-    if (editingEventId) {
-        const index =
-            events.findIndex(event =>
-                event.id === editingEventId
+        const description =
+            document.getElementById(
+                "eventDescription"
+            ).value.trim();
+
+        if (!date) {
+            alert(
+                "कृपया मिति चयन गर्नुहोस्।"
             );
+            return;
+        }
 
-        if (index !== -1) {
-            events[index] = {
-                ...events[index],
+        if (editingEventId) {
+            const index =
+                events.findIndex(
+                    event =>
+                        event.id ===
+                        editingEventId
+                );
+
+            if (index !== -1) {
+                events[index] = {
+                    ...events[index],
+                    title,
+                    date,
+                    startTime,
+                    endTime,
+                    category,
+                    audience,
+                    location,
+                    description
+                };
+            }
+
+            alert(
+                "कार्यक्रम सफलतापूर्वक अपडेट भयो।"
+            );
+        } else {
+            events.push({
+                id: Date.now(),
                 title,
                 date,
                 startTime,
@@ -793,34 +1161,25 @@ eventForm.addEventListener("submit", event => {
                 audience,
                 location,
                 description
-            };
+            });
+
+            alert(
+                "कार्यक्रम सफलतापूर्वक थपियो।"
+            );
         }
 
-        alert("कार्यक्रम सफलतापूर्वक अपडेट भयो।");
-    } else {
-        events.push({
-            id: Date.now(),
-            title,
-            date,
-            startTime,
-            endTime,
-            category,
-            audience,
-            location,
-            description
-        });
-
-        alert("कार्यक्रम सफलतापूर्वक थपियो।");
+        renderCalendar();
+        renderEvents();
+        updateStatistics();
+        closeEventModal();
     }
+);
 
-    renderCalendar();
-    renderEvents();
-    updateStatistics();
-    closeEventModal();
-});
-
-document.getElementById("previousMonth")
-    .addEventListener("click", () => {
+document.getElementById(
+    "previousMonth"
+).addEventListener(
+    "click",
+    () => {
         currentBsMonth--;
 
         if (currentBsMonth < 1) {
@@ -831,10 +1190,14 @@ document.getElementById("previousMonth")
         renderCalendar();
         renderEvents();
         updateStatistics();
-    });
+    }
+);
 
-document.getElementById("nextMonth")
-    .addEventListener("click", () => {
+document.getElementById(
+    "nextMonth"
+).addEventListener(
+    "click",
+    () => {
         currentBsMonth++;
 
         if (currentBsMonth > 12) {
@@ -845,44 +1208,77 @@ document.getElementById("nextMonth")
         renderCalendar();
         renderEvents();
         updateStatistics();
-    });
+    }
+);
 
-document.getElementById("todayButton")
-    .addEventListener("click", () => {
-        const todayBs = adToBs(new Date());
+document.getElementById(
+    "todayButton"
+).addEventListener(
+    "click",
+    () => {
+        const today =
+            adToBs(new Date());
 
-        currentBsYear = todayBs.year;
-        currentBsMonth = todayBs.month;
+        currentBsYear =
+            today.year;
+
+        currentBsMonth =
+            today.month;
 
         renderCalendar();
         renderEvents();
         updateStatistics();
-    });
+    }
+);
 
-eventSearch.addEventListener("input", renderEvents);
+eventSearch.addEventListener(
+    "input",
+    renderEvents
+);
 
-categoryFilter.addEventListener("change", renderEvents);
+categoryFilter.addEventListener(
+    "change",
+    renderEvents
+);
 
-document.getElementById("topSearch")
-    .addEventListener("input", event => {
-        eventSearch.value = event.target.value;
+document.getElementById(
+    "topSearch"
+).addEventListener(
+    "input",
+    event => {
+        eventSearch.value =
+            event.target.value;
+
         renderEvents();
-    });
+    }
+);
 
-document.querySelector(".notification-button")
-    .addEventListener("click", () => {
-        alert("तपाईंका ३ वटा नयाँ सूचनाहरू छन्।");
-    });
+document.querySelector(
+    ".notification-button"
+).addEventListener(
+    "click",
+    () => {
+        alert(
+            "तपाईंका ३ वटा नयाँ सूचनाहरू छन्।"
+        );
+    }
+);
 
-document.querySelectorAll(".nav-item")
-    .forEach(item => {
-        item.addEventListener("click", () => {
+document.querySelectorAll(
+    ".nav-item"
+).forEach(item => {
+    item.addEventListener(
+        "click",
+        () => {
             if (window.innerWidth <= 900) {
                 sidebar.classList.remove("open");
                 sidebarOverlay.classList.remove("show");
             }
-        });
-    });
+        }
+    );
+});
+
+createBsDatePicker();
 
 renderCalendar();
 renderEvents();
