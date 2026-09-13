@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcements | Hamro School</title>
+    <link rel="stylesheet" href="announcements.css">
+</head>
+<body>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-logo">SS</div>
+            <div>
+                <h2>Hamro School</h2>
+                <span>School Management</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-group">
+                <p class="nav-label">MAIN</p>
+                <a href="dashboard.html" class="nav-item">
+                    <span class="nav-icon">⌂</span>
+                    <span>Dashboard</span>
+                </a>
+            </div>
+
+            <div class="nav-group">
+                <p class="nav-label">SCHOOL & ACCOUNTS</p>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">⚙</span>
+                    <span>School Setup</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">◉</span>
+                    <span>Users & Accounts</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">◆</span>
+                    <span>Roles & Permissions</span>
+                </a>
+                <a href="students.html" class="nav-item">
+                    <span class="nav-icon">♙</span>
+                    <span>Students</span>
+                </a>
+                <a href="parents.html" class="nav-item">
+                    <span class="nav-icon">♧</span>
+                    <span>Parents</span>
+                </a>
+            </div>
+
+            <div class="nav-group">
+                <p class="nav-label">DAILY OPERATIONS</p>
+                <a href="attendance.html" class="nav-item">
+                    <span class="nav-icon">✓</span>
+                    <span>Attendance</span>
+                </a>
+                <a href="timetable.html" class="nav-item">
+                    <span class="nav-icon">▦</span>
+                    <span>Timetable</span>
+                </a>
+            </div>
+
+            <div class="nav-group">
+                <p class="nav-label">ACADEMIC DELIVERY</p>
+                <a href="class-diary.html" class="nav-item">
+                    <span class="nav-icon">▤</span>
+                    <span>Class Diary</span>
+                </a>
+                <a href="homework.html" class="nav-item">
+                    <span class="nav-icon">✎</span>
+                    <span>Homework</span>
+                </a>
+            </div>
+
+            <div class="nav-group">
+                <p class="nav-label">COMMUNICATION</p>
+                <a href="parent-dashboard.html" class="nav-item">
+                    <span class="nav-icon">▣</span>
+                    <span>Parent Dashboard</span>
+                </a>
+                <a href="announcements.html" class="nav-item active">
+                    <span class="nav-icon">◌</span>
+                    <span>Announcements</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">□</span>
+                    <span>School Calendar</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="#" class="nav-item">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+            <a href="index.html" class="nav-item logout">
+                <span class="nav-icon">↪</span>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-button" id="menuButton">☰</button>
+                <div>
+                    <h1>Announcements</h1>
+                    <p>Create and manage school announcements</p>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <div class="top-search">
+                    <span>⌕</span>
+                    <input type="text" id="topSearch" placeholder="Search">
+                </div>
+
+                <button class="notification-button">
+                    <span>♢</span>
+                    <b>3</b>
+                </button>
+
+                <div class="user-profile">
+                    <div class="user-avatar">AD</div>
+                    <div>
+                        <strong>Administrator</strong>
+                        <span>Super Admin</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="page-content">
+
+            <div class="page-heading">
+                <div>
+                    <span class="eyebrow">COMMUNICATION</span>
+                    <h2>School Announcements</h2>
+                    <p>Share important information and updates with your school community.</p>
+                </div>
+
+                <button class="primary-button" id="addAnnouncementButton">
+                    <span>+</span>
+                    Create Announcement
+                </button>
+            </div>
+
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">◌</div>
+                    <div>
+                        <span>Total Announcements</span>
+                        <strong id="totalAnnouncements">12</strong>
+                        <small>All announcements</small>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">✓</div>
+                    <div>
+                        <span>Published</span>
+                        <strong id="publishedAnnouncements">9</strong>
+                        <small>Currently published</small>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">✎</div>
+                    <div>
+                        <span>Drafts</span>
+                        <strong id="draftAnnouncements">3</strong>
+                        <small>Saved as drafts</small>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">!</div>
+                    <div>
+                        <span>High Priority</span>
+                        <strong id="priorityAnnouncements">4</strong>
+                        <small>Important announcements</small>
+                    </div>
+                </div>
+            </section>
+
+            <section class="announcement-section">
+
+                <div class="section-toolbar">
+                    <div>
+                        <h3>Announcement Records</h3>
+                        <p>Manage announcements published by the school.</p>
+                    </div>
+
+                    <div class="toolbar-actions">
+                        <div class="search-box">
+                            <span>⌕</span>
+                            <input type="text" id="announcementSearch" placeholder="Search announcements">
+                        </div>
+
+                        <select id="statusFilter">
+                            <option value="all">All Status</option>
+                            <option value="Published">Published</option>
+                            <option value="Draft">Draft</option>
+                        </select>
+
+                        <select id="priorityFilter">
+                            <option value="all">All Priority</option>
+                            <option value="High">High</option>
+                            <option value="Normal">Normal</option>
+                            <option value="Low">Low</option>
+                        </select>
+
+                        <button class="secondary-button" id="exportButton">Export CSV</button>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Announcement</th>
+                                <th>Target Audience</th>
+                                <th>Published</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th>Created By</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="announcementTable">
+                            <tr data-id="1">
+                                <td>
+                                    <div class="announcement-title">
+                                        <div class="announcement-symbol">!</div>
+                                        <div>
+                                            <strong>Parent-Teacher Meeting</strong>
+                                            <span>Meeting for all parents of Grade 10 students</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="audience-badge">Parents</span></td>
+                                <td>Sep 14, 2026</td>
+                                <td><span class="priority high">High</span></td>
+                                <td><span class="status published">Published</span></td>
+                                <td>Administrator</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-button" data-action="view">View</button>
+                                        <button class="edit-button" data-action="edit">Edit</button>
+                                        <button class="delete-button" data-action="delete">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-id="2">
+                                <td>
+                                    <div class="announcement-title">
+                                        <div class="announcement-symbol">◷</div>
+                                        <div>
+                                            <strong>School Timing Update</strong>
+                                            <span>Updated school operating hours from next week</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="audience-badge">Everyone</span></td>
+                                <td>Sep 13, 2026</td>
+                                <td><span class="priority high">High</span></td>
+                                <td><span class="status published">Published</span></td>
+                                <td>Administrator</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-button" data-action="view">View</button>
+                                        <button class="edit-button" data-action="edit">Edit</button>
+                                        <button class="delete-button" data-action="delete">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-id="3">
+                                <td>
+                                    <div class="announcement-title">
+                                        <div class="announcement-symbol">✓</div>
+                                        <div>
+                                            <strong>Monthly Assessment Schedule</strong>
+                                            <span>Assessment schedule has been published</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="audience-badge">Students & Parents</span></td>
+                                <td>Sep 12, 2026</td>
+                                <td><span class="priority high">High</span></td>
+                                <td><span class="status published">Published</span></td>
+                                <td>Administrator</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-button" data-action="view">View</button>
+                                        <button class="edit-button" data-action="edit">Edit</button>
+                                        <button class="delete-button" data-action="delete">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-id="4">
+                                <td>
+                                    <div class="announcement-title">
+                                        <div class="announcement-symbol">◉</div>
+                                        <div>
+                                            <strong>Science Exhibition</strong>
+                                            <span>Annual science exhibition registration information</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="audience-badge">Students</span></td>
+                                <td>Sep 10, 2026</td>
+                                <td><span class="priority normal">Normal</span></td>
+                                <td><span class="status published">Published</span></td>
+                                <td>Administrator</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-button" data-action="view">View</button>
+                                        <button class="edit-button" data-action="edit">Edit</button>
+                                        <button class="delete-button" data-action="delete">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-id="5">
+                                <td>
+                                    <div class="announcement-title">
+                                        <div class="announcement-symbol">◆</div>
+                                        <div>
+                                            <strong>Library Book Return</strong>
+                                            <span>Reminder for students to return borrowed books</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="audience-badge">Students</span></td>
+                                <td>Sep 8, 2026</td>
+                                <td><span class="priority normal">Normal</span></td>
+                                <td><span class="status published">Published</span></td>
+                                <td>Administrator</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-button" data-action="view">View</button>
+                                        <button class="edit-button" data-action="edit">Edit</button>
+                                        <button class="delete-button" data-action="delete">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-id="6">
+                                <td>
+                                    <div class="announcement-title">
+                                        <div class="announcement-symbol">✎</div>
+                                        <div>
+                                            <strong>Sports Day Preparation</strong>
+                                            <span>Sports day preparation and participation details</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="audience-badge">Students & Parents</span></td>
+                                <td>Sep 7, 2026</td>
+                                <td><span class="priority low">Low</span></td>
+                                <td><span class="status published">Published</span></td>
+                                <td>Administrator</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-button" data-action="view">View</button>
+                                        <button class="edit-button" data-action="edit">Edit</button>
+                                        <button class="delete-button" data-action="delete">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-id="7">
+                                <td>
+                                    <div class="announcement-title">
+                                        <div class="announcement-symbol">◌</div>
+                                        <div>
+                                            <strong>Dashain Holiday Notice</strong>
+                                            <span>Holiday schedule and school reopening information</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="audience-badge">Everyone</span></td>
+                                <td>—</td>
+                                <td><span class="priority high">High</span></td>
+                                <td><span class="status draft">Draft</span></td>
+                                <td>Administrator</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-button" data-action="view">View</button>
+                                        <button class="edit-button" data-action="edit">Edit</button>
+                                        <button class="delete-button" data-action="delete">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-id="8">
+                                <td>
+                                    <div class="announcement-title">
+                                        <div class="announcement-symbol">□</div>
+                                        <div>
+                                            <strong>School Photo Day</strong>
+                                            <span>Student photograph schedule and instructions</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="audience-badge">Students & Parents</span></td>
+                                <td>—</td>
+                                <td><span class="priority normal">Normal</span></td>
+                                <td><span class="status draft">Draft</span></td>
+                                <td>Administrator</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-button" data-action="view">View</button>
+                                        <button class="edit-button" data-action="edit">Edit</button>
+                                        <button class="delete-button" data-action="delete">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-icon">◌</div>
+                    <h3>No announcements found</h3>
+                    <p>Try changing your search or filter settings.</p>
+                </div>
+
+                <div class="table-footer">
+                    <span id="recordCount">Showing 8 announcements</span>
+                </div>
+
+            </section>
+        </section>
+    </main>
+
+    <div class="modal-overlay" id="announcementModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div>
+                    <h3 id="modalTitle">Create Announcement</h3>
+                    <p>Share an important update with your school community.</p>
+                </div>
+                <button class="close-modal" id="closeModal">×</button>
+            </div>
+
+            <form id="announcementForm">
+                <div class="form-grid">
+                    <div class="form-group full">
+                        <label for="title">Announcement Title</label>
+                        <input type="text" id="title" required placeholder="Enter announcement title">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="audience">Target Audience</label>
+                        <select id="audience" required>
+                            <option value="Everyone">Everyone</option>
+                            <option value="Students">Students</option>
+                            <option value="Parents">Parents</option>
+                            <option value="Students & Parents">Students & Parents</option>
+                            <option value="Teachers">Teachers</option>
+                            <option value="Staff">Staff</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="priority">Priority</label>
+                        <select id="priority" required>
+                            <option value="Normal">Normal</option>
+                            <option value="High">High</option>
+                            <option value="Low">Low</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="publishDate">Publish Date</label>
+                        <input type="date" id="publishDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select id="status" required>
+                            <option value="Published">Published</option>
+                            <option value="Draft">Draft</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full">
+                        <label for="description">Announcement Details</label>
+                        <textarea id="description" rows="6" required placeholder="Write announcement details"></textarea>
+                    </div>
+
+                    <div class="form-group full">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="sendNotification">
+                            <span>Send notification to selected audience</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="secondary-button" id="cancelModal">Cancel</button>
+                    <button type="submit" class="primary-button">Save Announcement</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="viewModal">
+        <div class="modal view-modal">
+            <div class="modal-header">
+                <div>
+                    <span class="eyebrow">ANNOUNCEMENT</span>
+                    <h3 id="viewTitle">Parent-Teacher Meeting</h3>
+                </div>
+                <button class="close-modal" id="closeViewModal">×</button>
+            </div>
+
+            <div class="view-content">
+                <div class="view-meta">
+                    <span id="viewAudience">Parents</span>
+                    <span id="viewPriority">High</span>
+                    <span id="viewStatus">Published</span>
+                </div>
+
+                <div class="view-details">
+                    <div>
+                        <span>Published Date</span>
+                        <strong id="viewDate">Sep 14, 2026</strong>
+                    </div>
+                    <div>
+                        <span>Created By</span>
+                        <strong>Administrator</strong>
+                    </div>
+                </div>
+
+                <div class="view-description">
+                    <h4>Announcement Details</h4>
+                    <p id="viewDescription"></p>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="secondary-button" id="closeViewButton">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="announcements.js"></script>
+</body>
+</html>
