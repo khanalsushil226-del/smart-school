@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance | Hamro School</title>
+    <link rel="stylesheet" href="attendance.css">
+</head>
+<body>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-logo">SS</div>
+            <div class="brand-text">
+                <strong>Hamro School</strong>
+                <span>YOUR SCHOOL DIGITAL PLATFORM</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <span class="nav-label">MAIN</span>
+                <a href="dashboard.html">
+                    <span>⌂</span>
+                    Dashboard
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-label">SCHOOL & ACCOUNTS</span>
+                <a href="school-setup.html">
+                    <span>▣</span>
+                    School Setup
+                </a>
+                <a href="users.html">
+                    <span>♙</span>
+                    Users & Accounts
+                </a>
+                <a href="roles.html">
+                    <span>⚿</span>
+                    Roles & Permissions
+                </a>
+                <a href="students.html">
+                    <span>♙</span>
+                    Students
+                </a>
+                <a href="parents.html">
+                    <span>♧</span>
+                    Parents
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-label">DAILY OPERATIONS</span>
+                <a href="attendance.html" class="active">
+                    <span>✓</span>
+                    Attendance
+                </a>
+                <a href="timetable.html">
+                    <span>▦</span>
+                    Timetable
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-label">ACADEMIC DELIVERY</span>
+                <a href="class-diary.html">
+                    <span>▤</span>
+                    Class Diary
+                </a>
+                <a href="homework.html">
+                    <span>▱</span>
+                    Homework
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-label">COMMUNICATION</span>
+                <a href="parent-dashboard.html">
+                    <span>⌂</span>
+                    Parent Dashboard
+                </a>
+                <a href="announcements.html">
+                    <span>◈</span>
+                    Announcements
+                </a>
+                <a href="calendar.html">
+                    <span>□</span>
+                    School Calendar
+                </a>
+            </div>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="settings.html">
+                <span>⚙</span>
+                Settings
+            </a>
+            <a href="index.html">
+                <span>↪</span>
+                Logout
+            </a>
+        </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-button" id="menuButton">☰</button>
+                <div>
+                    <h1>Attendance</h1>
+                    <p>Manage daily student attendance</p>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <div class="top-search">
+                    <span>⌕</span>
+                    <input type="text" id="topSearch" placeholder="Search">
+                </div>
+
+                <button class="notification-button">♢</button>
+
+                <div class="admin-profile">
+                    <div class="admin-avatar">A</div>
+                    <div>
+                        <strong>Administrator</strong>
+                        <span>Super Admin</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="content">
+
+            <div class="page-heading">
+                <div>
+                    <h2>Daily Attendance</h2>
+                    <p>Record and manage student attendance for each class.</p>
+                </div>
+
+                <button class="primary-button" id="saveAttendance">
+                    Save Attendance
+                </button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">✓</div>
+                    <div>
+                        <span>Present Today</span>
+                        <strong id="presentStat">1,179</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">×</div>
+                    <div>
+                        <span>Absent Today</span>
+                        <strong id="absentStat">42</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">◷</div>
+                    <div>
+                        <span>Late Today</span>
+                        <strong id="lateStat">21</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">%</div>
+                    <div>
+                        <span>Attendance Rate</span>
+                        <strong id="rateStat">94.6%</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="attendance-card">
+
+                <div class="attendance-toolbar">
+                    <div class="toolbar-title">
+                        <h3>Mark Attendance</h3>
+                        <p>Select a date, class and section to record attendance.</p>
+                    </div>
+
+                    <button class="secondary-button" id="markAllPresent">
+                        Mark All Present
+                    </button>
+                </div>
+
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="attendanceDate">Date</label>
+                        <input type="date" id="attendanceDate">
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="classFilter">Class</label>
+                        <select id="classFilter">
+                            <option value="all">All Classes</option>
+                            <option value="10">Class 10</option>
+                            <option value="9">Class 9</option>
+                            <option value="8">Class 8</option>
+                            <option value="7">Class 7</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="sectionFilter">Section</label>
+                        <select id="sectionFilter">
+                            <option value="all">All Sections</option>
+                            <option value="A">Section A</option>
+                            <option value="B">Section B</option>
+                            <option value="C">Section C</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group search-filter">
+                        <label for="studentSearch">Search Student</label>
+                        <div class="search-box">
+                            <span>⌕</span>
+                            <input type="text" id="studentSearch" placeholder="Name or student ID">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attendance-summary">
+                    <div>
+                        <span>Showing</span>
+                        <strong id="studentCount">8 Students</strong>
+                    </div>
+
+                    <div class="summary-status">
+                        <div>
+                            <span class="dot present-dot"></span>
+                            Present <strong id="summaryPresent">6</strong>
+                        </div>
+
+                        <div>
+                            <span class="dot absent-dot"></span>
+                            Absent <strong id="summaryAbsent">1</strong>
+                        </div>
+
+                        <div>
+                            <span class="dot late-dot"></span>
+                            Late <strong id="summaryLate">1</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Student ID</th>
+                                <th>Class</th>
+                                <th>Section</th>
+                                <th>Roll No.</th>
+                                <th>Attendance Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="attendanceTableBody">
+
+                            <tr data-class="10" data-section="A">
+                                <td>
+                                    <div class="student-info">
+                                        <div class="student-avatar">RS</div>
+                                        <div>
+                                            <strong>Rahul Sharma</strong>
+                                            <span>Male</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>STU-1001</td>
+                                <td>Class 10</td>
+                                <td>A</td>
+                                <td>01</td>
+                                <td>
+                                    <div class="status-buttons">
+                                        <button class="status-button present active" data-status="present">Present</button>
+                                        <button class="status-button absent" data-status="absent">Absent</button>
+                                        <button class="status-button late" data-status="late">Late</button>
+                                        <button class="status-button excused" data-status="excused">Excused</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-class="10" data-section="A">
+                                <td>
+                                    <div class="student-info">
+                                        <div class="student-avatar">AS</div>
+                                        <div>
+                                            <strong>Anisha Shrestha</strong>
+                                            <span>Female</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>STU-1002</td>
+                                <td>Class 10</td>
+                                <td>A</td>
+                                <td>02</td>
+                                <td>
+                                    <div class="status-buttons">
+                                        <button class="status-button present active" data-status="present">Present</button>
+                                        <button class="status-button absent" data-status="absent">Absent</button>
+                                        <button class="status-button late" data-status="late">Late</button>
+                                        <button class="status-button excused" data-status="excused">Excused</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-class="10" data-section="A">
+                                <td>
+                                    <div class="student-info">
+                                        <div class="student-avatar">BP</div>
+                                        <div>
+                                            <strong>Bijay Pradhan</strong>
+                                            <span>Male</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>STU-1003</td>
+                                <td>Class 10</td>
+                                <td>A</td>
+                                <td>03</td>
+                                <td>
+                                    <div class="status-buttons">
+                                        <button class="status-button present" data-status="present">Present</button>
+                                        <button class="status-button absent active" data-status="absent">Absent</button>
+                                        <button class="status-button late" data-status="late">Late</button>
+                                        <button class="status-button excused" data-status="excused">Excused</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-class="10" data-section="A">
+                                <td>
+                                    <div class="student-info">
+                                        <div class="student-avatar">SM</div>
+                                        <div>
+                                            <strong>Sabina Magar</strong>
+                                            <span>Female</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>STU-1004</td>
+                                <td>Class 10</td>
+                                <td>A</td>
+                                <td>04</td>
+                                <td>
+                                    <div class="status-buttons">
+                                        <button class="status-button present active" data-status="present">Present</button>
+                                        <button class="status-button absent" data-status="absent">Absent</button>
+                                        <button class="status-button late" data-status="late">Late</button>
+                                        <button class="status-button excused" data-status="excused">Excused</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-class="9" data-section="B">
+                                <td>
+                                    <div class="student-info">
+                                        <div class="student-avatar">AR</div>
+                                        <div>
+                                            <strong>Arjun Rai</strong>
+                                            <span>Male</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>STU-0901</td>
+                                <td>Class 9</td>
+                                <td>B</td>
+                                <td>01</td>
+                                <td>
+                                    <div class="status-buttons">
+                                        <button class="status-button present active" data-status="present">Present</button>
+                                        <button class="status-button absent" data-status="absent">Absent</button>
+                                        <button class="status-button late" data-status="late">Late</button>
+                                        <button class="status-button excused" data-status="excused">Excused</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-class="9" data-section="B">
+                                <td>
+                                    <div class="student-info">
+                                        <div class="student-avatar">PK</div>
+                                        <div>
+                                            <strong>Pratik Karki</strong>
+                                            <span>Male</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>STU-0902</td>
+                                <td>Class 9</td>
+                                <td>B</td>
+                                <td>02</td>
+                                <td>
+                                    <div class="status-buttons">
+                                        <button class="status-button present active" data-status="present">Present</button>
+                                        <button class="status-button absent" data-status="absent">Absent</button>
+                                        <button class="status-button late" data-status="late">Late</button>
+                                        <button class="status-button excused" data-status="excused">Excused</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-class="8" data-section="C">
+                                <td>
+                                    <div class="student-info">
+                                        <div class="student-avatar">NS</div>
+                                        <div>
+                                            <strong>Nisha Shrestha</strong>
+                                            <span>Female</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>STU-0801</td>
+                                <td>Class 8</td>
+                                <td>C</td>
+                                <td>01</td>
+                                <td>
+                                    <div class="status-buttons">
+                                        <button class="status-button present active" data-status="present">Present</button>
+                                        <button class="status-button absent" data-status="absent">Absent</button>
+                                        <button class="status-button late" data-status="late">Late</button>
+                                        <button class="status-button excused" data-status="excused">Excused</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-class="7" data-section="A">
+                                <td>
+                                    <div class="student-info">
+                                        <div class="student-avatar">SD</div>
+                                        <div>
+                                            <strong>Suman Dahal</strong>
+                                            <span>Male</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>STU-0701</td>
+                                <td>Class 7</td>
+                                <td>A</td>
+                                <td>01</td>
+                                <td>
+                                    <div class="status-buttons">
+                                        <button class="status-button present active" data-status="present">Present</button>
+                                        <button class="status-button absent" data-status="absent">Absent</button>
+                                        <button class="status-button late" data-status="late">Late</button>
+                                        <button class="status-button excused" data-status="excused">Excused</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="empty-state" id="emptyState">
+                    <div>⌕</div>
+                    <h3>No students found</h3>
+                    <p>Try changing your search or filter options.</p>
+                </div>
+
+            </div>
+
+        </section>
+    </main>
+
+    <script src="attendance.js"></script>
+</body>
+</html>
