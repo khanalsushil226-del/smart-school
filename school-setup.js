@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Setup - Hamro School</title>
+    <link rel="stylesheet" href="school-setup.css">
+</head>
+<body>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-mark">SS</div>
+            <div>
+                <strong>Hamro School</strong>
+                <span>School Management</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <span class="nav-title">MAIN</span>
+                <a href="dashboard.html" class="nav-item">
+                    <span>⌂</span>
+                    <span>Dashboard</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-title">SCHOOL & ACCOUNTS</span>
+                <a href="school-setup.html" class="nav-item active">
+                    <span>⚙</span>
+                    <span>School Setup</span>
+                </a>
+                <a href="users-accounts.html" class="nav-item">
+                    <span>◉</span>
+                    <span>Users & Accounts</span>
+                </a>
+                <a href="roles-permissions.html" class="nav-item">
+                    <span>♙</span>
+                    <span>Roles & Permissions</span>
+                </a>
+                <a href="students.html" class="nav-item">
+                    <span>♧</span>
+                    <span>Students</span>
+                </a>
+                <a href="parents.html" class="nav-item">
+                    <span>♙</span>
+                    <span>Parents</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-title">DAILY OPERATIONS</span>
+                <a href="attendance.html" class="nav-item">
+                    <span>✓</span>
+                    <span>Attendance</span>
+                </a>
+                <a href="timetable.html" class="nav-item">
+                    <span>▦</span>
+                    <span>Timetable</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-title">ACADEMIC DELIVERY</span>
+                <a href="class-diary.html" class="nav-item">
+                    <span>▤</span>
+                    <span>Class Diary</span>
+                </a>
+                <a href="homework.html" class="nav-item">
+                    <span>✎</span>
+                    <span>Homework</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-title">COMMUNICATION</span>
+                <a href="parent-dashboard.html" class="nav-item">
+                    <span>♙</span>
+                    <span>Parent Dashboard</span>
+                </a>
+                <a href="announcements.html" class="nav-item">
+                    <span>◈</span>
+                    <span>Announcements</span>
+                </a>
+                <a href="school-calendar.html" class="nav-item">
+                    <span>▣</span>
+                    <span>School Calendar</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="#" class="nav-item">
+                <span>⚙</span>
+                <span>Settings</span>
+            </a>
+            <a href="index.html" class="nav-item logout">
+                <span>↪</span>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-button" id="menuButton">☰</button>
+                <div>
+                    <h1>School Setup</h1>
+                    <p>Configure your school and academic structure</p>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <div class="top-search">
+                    <span>⌕</span>
+                    <input type="text" id="topSearch" placeholder="Search">
+                </div>
+
+                <button class="notification-button" type="button">
+                    ♢
+                    <span></span>
+                </button>
+
+                <div class="admin-profile">
+                    <div class="admin-avatar">A</div>
+                    <div>
+                        <strong>Administrator</strong>
+                        <small>Super Admin</small>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="page-content">
+
+            <div class="page-heading">
+                <div>
+                    <h2>School Setup & Onboarding</h2>
+                    <p>Manage your school's profile, academic structure, policies and preferences.</p>
+                </div>
+                <button class="primary-button" id="saveAllButton">Save Changes</button>
+            </div>
+
+            <div class="setup-layout">
+
+                <aside class="setup-tabs">
+                    <button class="setup-tab active" data-section="profile">
+                        <span>⌂</span>
+                        School Profile
+                    </button>
+                    <button class="setup-tab" data-section="academic">
+                        <span>▦</span>
+                        Academic Structure
+                    </button>
+                    <button class="setup-tab" data-section="calendar">
+                        <span>▣</span>
+                        Calendar & Timing
+                    </button>
+                    <button class="setup-tab" data-section="grading">
+                        <span>▤</span>
+                        Grading System
+                    </button>
+                    <button class="setup-tab" data-section="attendance">
+                        <span>✓</span>
+                        Attendance Rules
+                    </button>
+                    <button class="setup-tab" data-section="fees">
+                        <span>◈</span>
+                        Fee Structure
+                    </button>
+                    <button class="setup-tab" data-section="notifications">
+                        <span>♢</span>
+                        Notifications
+                    </button>
+                </aside>
+
+                <div class="setup-content">
+
+                    <section class="setup-section active" id="profile">
+
+                        <div class="section-header">
+                            <div>
+                                <h3>School Profile</h3>
+                                <p>Basic information about your school.</p>
+                            </div>
+                        </div>
+
+                        <div class="logo-area">
+                            <div class="school-logo" id="schoolLogoPreview">SS</div>
+                            <div>
+                                <h4>School Logo</h4>
+                                <p>Upload your official school logo.</p>
+                                <label class="secondary-button upload-button">
+                                    Upload Logo
+                                    <input type="file" id="logoInput" accept="image/*">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>School Name</label>
+                                <input type="text" id="schoolName" value="Hamro School">
+                            </div>
+
+                            <div class="form-group">
+                                <label>School Code</label>
+                                <input type="text" id="schoolCode" value="HMS-001">
+                            </div>
+
+                            <div class="form-group full">
+                                <label>School Description</label>
+                                <textarea id="schoolDescription">A modern digital school powered by Hamro School.</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Contact Email</label>
+                                <input type="email" id="schoolEmail" value="admin@hamroschool.edu.np">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Contact Phone</label>
+                                <input type="tel" id="schoolPhone" value="+977 9800000000">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Website</label>
+                                <input type="url" id="schoolWebsite" value="https://hamroschool.edu.np">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Established Year</label>
+                                <input type="text" id="establishedYear" value="2065 B.S.">
+                            </div>
+
+                            <div class="form-group full">
+                                <label>School Address</label>
+                                <textarea id="schoolAddress">Bhadrapur, Jhapa, Koshi Province, Nepal</textarea>
+                            </div>
+                        </div>
+
+                    </section>
+
+                    <section class="setup-section" id="academic">
+
+                        <div class="section-header">
+                            <div>
+                                <h3>Academic Structure</h3>
+                                <p>Configure academic years, classes, sections and subjects.</p>
+                            </div>
+                        </div>
+
+                        <div class="structure-card">
+                            <div class="structure-header">
+                                <div>
+                                    <h4>Academic Years</h4>
+                                    <p>Manage your school's academic years.</p>
+                                </div>
+                                <button class="secondary-button" data-action="add-year">+ Add Year</button>
+                            </div>
+
+                            <div class="data-list" id="academicYearsList">
+                                <div class="data-row">
+                                    <div>
+                                        <strong>2083 B.S.</strong>
+                                        <span>Current Academic Year</span>
+                                    </div>
+                                    <span class="status-badge active">Active</span>
+                                    <button class="icon-button" data-delete="year">×</button>
+                                </div>
+                                <div class="data-row">
+                                    <div>
+                                        <strong>2082 B.S.</strong>
+                                        <span>Previous Academic Year</span>
+                                    </div>
+                                    <span class="status-badge">Completed</span>
+                                    <button class="icon-button" data-delete="year">×</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="structure-card">
+                            <div class="structure-header">
+                                <div>
+                                    <h4>Classes & Sections</h4>
+                                    <p>Set up grades and their sections.</p>
+                                </div>
+                                <button class="secondary-button" data-action="add-class">+ Add Class</button>
+                            </div>
+
+                            <div class="class-grid" id="classList">
+                                <div class="class-card">
+                                    <div>
+                                        <strong>Grade 10</strong>
+                                        <span>3 sections</span>
+                                    </div>
+                                    <div class="section-tags">
+                                        <span>10-A</span>
+                                        <span>10-B</span>
+                                        <span>10-C</span>
+                                    </div>
+                                    <button class="text-button" data-edit="class">Manage</button>
+                                </div>
+
+                                <div class="class-card">
+                                    <div>
+                                        <strong>Grade 9</strong>
+                                        <span>2 sections</span>
+                                    </div>
+                                    <div class="section-tags">
+                                        <span>9-A</span>
+                                        <span>9-B</span>
+                                    </div>
+                                    <button class="text-button" data-edit="class">Manage</button>
+                                </div>
+
+                                <div class="class-card">
+                                    <div>
+                                        <strong>Grade 8</strong>
+                                        <span>2 sections</span>
+                                    </div>
+                                    <div class="section-tags">
+                                        <span>8-A</span>
+                                        <span>8-B</span>
+                                    </div>
+                                    <button class="text-button" data-edit="class">Manage</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="structure-card">
+                            <div class="structure-header">
+                                <div>
+                                    <h4>Subjects</h4>
+                                    <p>Manage subjects offered by your school.</p>
+                                </div>
+                                <button class="secondary-button" data-action="add-subject">+ Add Subject</button>
+                            </div>
+
+                            <div class="subject-grid" id="subjectList">
+                                <div class="subject-item"><span>Mathematics</span><button>×</button></div>
+                                <div class="subject-item"><span>Science</span><button>×</button></div>
+                                <div class="subject-item"><span>English</span><button>×</button></div>
+                                <div class="subject-item"><span>Nepali</span><button>×</button></div>
+                                <div class="subject-item"><span>Computer Science</span><button>×</button></div>
+                                <div class="subject-item"><span>Social Studies</span><button>×</button></div>
+                            </div>
+                        </div>
+
+                        <div class="structure-card">
+                            <div class="structure-header">
+                                <div>
+                                    <h4>Departments</h4>
+                                    <p>Organize academic departments.</p>
+                                </div>
+                                <button class="secondary-button" data-action="add-department">+ Add Department</button>
+                            </div>
+
+                            <div class="tag-list" id="departmentList">
+                                <span>Science Department <button>×</button></span>
+                                <span>Mathematics Department <button>×</button></span>
+                                <span>Language Department <button>×</button></span>
+                                <span>Computer Department <button>×</button></span>
+                            </div>
+                        </div>
+
+                        <div class="structure-card">
+                            <div class="structure-header">
+                                <div>
+                                    <h4>Houses, Clubs & ECA Groups</h4>
+                                    <p>Configure student activity groups.</p>
+                                </div>
+                                <button class="secondary-button" data-action="add-group">+ Add Group</button>
+                            </div>
+
+                            <div class="tag-list" id="groupList">
+                                <span>Everest House <button>×</button></span>
+                                <span>Kanchanjunga House <button>×</button></span>
+                                <span>Science Club <button>×</button></span>
+                                <span>Music Club <button>×</button></span>
+                            </div>
+                        </div>
+
+                    </section>
+
+                    <section class="setup-section" id="calendar">
+
+                        <div class="section-header">
+                            <div>
+                                <h3>Calendar & School Timing</h3>
+                                <p>Configure your academic calendar and daily school schedule.</p>
+                            </div>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Academic Calendar</label>
+                                <select id="calendarType">
+                                    <option value="bs" selected>Nepali Calendar (B.S.)</option>
+                                    <option value="ad">Gregorian Calendar (A.D.)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Current Academic Year</label>
+                                <select id="academicYear">
+                                    <option selected>2083 B.S.</option>
+                                    <option>2082 B.S.</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>School Start Time</label>
+                                <input type="time" id="schoolStart" value="09:00">
+                            </div>
+
+                            <div class="form-group">
+                                <label>School End Time</label>
+                                <input type="time" id="schoolEnd" value="16:00">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Morning Assembly</label>
+                                <input type="time" id="assemblyTime" value="09:00">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Lunch Break</label>
+                                <input type="time" id="lunchTime" value="13:00">
+                            </div>
+                        </div>
+
+                        <div class="working-days">
+                            <h4>Working Days</h4>
+                            <div class="day-selector">
+                                <label><input type="checkbox" checked value="sun"><span>आइत</span></label>
+                                <label><input type="checkbox" checked value="mon"><span>सोम</span></label>
+                                <label><input type="checkbox" checked value="tue"><span>मंगल</span></label>
+                                <label><input type="checkbox" checked value="wed"><span>बुध</span></label>
+                                <label><input type="checkbox" checked value="thu"><span>बिहि</span></label>
+                                <label><input type="checkbox" checked value="fri"><span>शुक्र</span></label>
+                                <label><input type="checkbox" value="sat"><span>शनि</span></label>
+                            </div>
+                        </div>
+
+                        <div class="structure-card">
+                            <div class="structure-header">
+                                <div>
+                                    <h4>Terms / Semesters</h4>
+                                    <p>Define academic terms for the current year.</p>
+                                </div>
+                                <button class="secondary-button" data-action="add-term">+ Add Term</button>
+                            </div>
+
+                            <div class="term-list" id="termList">
+                                <div class="term-row">
+                                    <div>
+                                        <strong>First Term</strong>
+                                        <span>बैशाख - भदौ</span>
+                                    </div>
+                                    <span class="status-badge active">Current</span>
+                                    <button class="icon-button">×</button>
+                                </div>
+                                <div class="term-row">
+                                    <div>
+                                        <strong>Second Term</strong>
+                                        <span>असोज - चैत</span>
+                                    </div>
+                                    <span class="status-badge">Upcoming</span>
+                                    <button class="icon-button">×</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+
+                    <section class="setup-section" id="grading">
+
+                        <div class="section-header">
+                            <div>
+                                <h3>Grading System</h3>
+                                <p>Configure the grading method used by your school.</p>
+                            </div>
+                        </div>
+
+                        <div class="grading-selector">
+                            <label class="grading-option active">
+                                <input type="radio" name="grading" value="letter" checked>
+                                <div>
+                                    <strong>Letter Grade</strong>
+                                    <span>A+, A, B+, B, C+, C, D, E</span>
+                                </div>
+                            </label>
+
+                            <label class="grading-option">
+                                <input type="radio" name="grading" value="percentage">
+                                <div>
+                                    <strong>Percentage</strong>
+                                    <span>Marks represented as percentages</span>
+                                </div>
+                            </label>
+
+                            <label class="grading-option">
+                                <input type="radio" name="grading" value="gpa">
+                                <div>
+                                    <strong>GPA</strong>
+                                    <span>Grade Point Average based grading</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="grade-table">
+                            <div class="grade-table-header">
+                                <span>Grade</span>
+                                <span>Minimum %</span>
+                                <span>Maximum %</span>
+                                <span>Grade Point</span>
+                            </div>
+
+                            <div class="grade-row">
+                                <strong>A+</strong>
+                                <input type="number" value="90">
+                                <input type="number" value="100">
+                                <input type="number" value="4">
+                            </div>
+
+                            <div class="grade-row">
+                                <strong>A</strong>
+                                <input type="number" value="80">
+                                <input type="number" value="89">
+                                <input type="number" value="3.6">
+                            </div>
+
+                            <div class="grade-row">
+                                <strong>B+</strong>
+                                <input type="number" value="70">
+                                <input type="number" value="79">
+                                <input type="number" value="3.2">
+                            </div>
+
+                            <div class="grade-row">
+                                <strong>B</strong>
+                                <input type="number" value="60">
+                                <input type="number" value="69">
+                                <input type="number" value="2.8">
+                            </div>
+
+                            <div class="grade-row">
+                                <strong>C+</strong>
+                                <input type="number" value="50">
+                                <input type="number" value="59">
+                                <input type="number" value="2.4">
+                            </div>
+
+                            <div class="grade-row">
+                                <strong>C</strong>
+                                <input type="number" value="40">
+                                <input type="number" value="49">
+                                <input type="number" value="2">
+                            </div>
+                        </div>
+
+                    </section>
+
+                    <section class="setup-section" id="attendance">
+
+                        <div class="section-header">
+                            <div>
+                                <h3>Attendance Rules</h3>
+                                <p>Configure how attendance is recorded and monitored.</p>
+                            </div>
+                        </div>
+
+                        <div class="settings-list">
+
+                            <div class="setting-row">
+                                <div>
+                                    <strong>Attendance Required</strong>
+                                    <span>Enable daily student attendance tracking.</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span></span>
+                                </label>
+                            </div>
+
+                            <div class="setting-row">
+                                <div>
+                                    <strong>Allow Late Status</strong>
+                                    <span>Teachers can mark students as late.</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span></span>
+                                </label>
+                            </div>
+
+                            <div class="setting-row">
+                                <div>
+                                    <strong>Allow Excused Status</strong>
+                                    <span>Allow teachers to mark attendance as excused.</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span></span>
+                                </label>
+                            </div>
+
+                            <div class="setting-row">
+                                <div>
+                                    <strong>Parent Absence Notification</strong>
+                                    <span>Notify linked parents when their child is absent.</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span></span>
+                                </label>
+                            </div>
+
+                            <div class="setting-row">
+                                <div>
+                                    <strong>Minimum Attendance Percentage</strong>
+                                    <span>Percentage required for regular attendance.</span>
+                                </div>
+                                <div class="number-input">
+                                    <input type="number" value="75" min="0" max="100">
+                                    <span>%</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                    <section class="setup-section" id="fees">
+
+                        <div class="section-header">
+                            <div>
+                                <h3>Fee Structure</h3>
+                                <p>Configure basic school fee categories and preferences.</p>
+                            </div>
+                            <button class="secondary-button" data-action="add-fee">+ Add Fee</button>
+                        </div>
+
+                        <div class="fee-table" id="feeList">
+                            <div class="fee-header">
+                                <span>Fee Category</span>
+                                <span>Amount</span>
+                                <span>Frequency</span>
+                                <span>Status</span>
+                                <span></span>
+                            </div>
+
+                            <div class="fee-row">
+                                <span>Tuition Fee</span>
+                                <strong>Rs. 5,000</strong>
+                                <span>Monthly</span>
+                                <span class="status-badge active">Active</span>
+                                <button class="icon-button">×</button>
+                            </div>
+
+                            <div class="fee-row">
+                                <span>Admission Fee</span>
+                                <strong>Rs. 10,000</strong>
+                                <span>One Time</span>
+                                <span class="status-badge active">Active</span>
+                                <button class="icon-button">×</button>
+                            </div>
+
+                            <div class="fee-row">
+                                <span>Annual Fee</span>
+                                <strong>Rs. 8,000</strong>
+                                <span>Yearly</span>
+                                <span class="status-badge active">Active</span>
+                                <button class="icon-button">×</button>
+                            </div>
+                        </div>
+
+                    </section>
+
+                    <section class="setup-section" id="notifications">
+
+                        <div class="section-header">
+                            <div>
+                                <h3>Notification Preferences</h3>
+                                <p>Choose which school activities should generate notifications.</p>
+                            </div>
+                        </div>
+
+                        <div class="settings-list">
+
+                            <div class="setting-row">
+                                <div>
+                                    <strong>Attendance Alerts</strong>
+                                    <span>Notify parents about student attendance.</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span></span>
+                                </label>
+                            </div>
+
+                            <div class="setting-row">
+                                <div>
+                                    <strong>Homework Notifications</strong>
+                                    <span>Notify parents when homework is assigned.</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span></span>
+                                </label>
+                            </div>
+
+                            <div class="setting-row">
+                                <div>
+                                    <strong>School Announcements</strong>
+                                    <span>Send important school announcements.</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span></span>
+                                </label>
+                            </div>
+
+                            <div class="setting-row">
+                                <div>
+                                    <strong>Calendar Notifications</strong>
+                                    <span>Notify users about important calendar dates.</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span></span>
+                                </label>
+                            </div>
+
+                            <div class="setting-row">
+                                <div>
+                                    <strong>In-App Notifications</strong>
+                                    <span>Show notifications inside the school platform.</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span></span>
+                                </label>
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <div class="modal" id="setupModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-card">
+            <div class="modal-header">
+                <div>
+                    <h3 id="modalTitle">Add Item</h3>
+                    <p id="modalDescription">Enter the required information.</p>
+                </div>
+                <button class="close-button" id="closeModal">×</button>
+            </div>
+
+            <form id="setupForm">
+                <div class="form-group">
+                    <label id="modalLabel">Name</label>
+                    <input type="text" id="modalInput" required>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="secondary-button" id="cancelModal">Cancel</button>
+                    <button type="submit" class="primary-button">Add Item</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="school-setup.js"></script>
+</body>
+</html>
