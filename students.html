@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Students - Hamro School</title>
     <link rel="stylesheet" href="students.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -16,104 +13,92 @@
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand">
             <div class="brand-logo">SS</div>
-            <div>
-                <h2>Hamro School</h2>
-                <span>YOUR SCHOOL DIGITAL PLATFORM</span>
+            <div class="brand-text">
+                <strong>Hamro School</strong>
+                <span>School Management</span>
             </div>
         </div>
 
-        <div class="nav-section">
-            <p class="nav-title">MAIN</p>
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <span class="nav-title">MAIN</span>
+                <a href="dashboard.html" class="nav-item">
+                    <span class="nav-icon">⌂</span>
+                    <span>Dashboard</span>
+                </a>
+            </div>
 
-            <a href="dashboard.html" class="nav-link">
-                <span class="nav-icon">▦</span>
-                <span>Dashboard</span>
-            </a>
-        </div>
+            <div class="nav-section">
+                <span class="nav-title">SCHOOL & ACCOUNTS</span>
+                <a href="school-setup.html" class="nav-item">
+                    <span class="nav-icon">⚙</span>
+                    <span>School Setup</span>
+                </a>
+                <a href="users-accounts.html" class="nav-item">
+                    <span class="nav-icon">◉</span>
+                    <span>Users & Accounts</span>
+                </a>
+                <a href="roles-permissions.html" class="nav-item">
+                    <span class="nav-icon">♙</span>
+                    <span>Roles & Permissions</span>
+                </a>
+                <a href="students.html" class="nav-item active">
+                    <span class="nav-icon">♙</span>
+                    <span>Students</span>
+                </a>
+                <a href="parents.html" class="nav-item">
+                    <span class="nav-icon">♧</span>
+                    <span>Parents</span>
+                </a>
+            </div>
 
-        <div class="nav-section">
-            <p class="nav-title">SCHOOL & ACCOUNTS</p>
+            <div class="nav-section">
+                <span class="nav-title">DAILY OPERATIONS</span>
+                <a href="attendance.html" class="nav-item">
+                    <span class="nav-icon">✓</span>
+                    <span>Attendance</span>
+                </a>
+                <a href="timetable.html" class="nav-item">
+                    <span class="nav-icon">▦</span>
+                    <span>Timetable</span>
+                </a>
+            </div>
 
-            <a href="#" class="nav-link">
-                <span class="nav-icon">⌂</span>
-                <span>School Setup</span>
-            </a>
+            <div class="nav-section">
+                <span class="nav-title">ACADEMIC DELIVERY</span>
+                <a href="class-diary.html" class="nav-item">
+                    <span class="nav-icon">▤</span>
+                    <span>Class Diary</span>
+                </a>
+                <a href="homework.html" class="nav-item">
+                    <span class="nav-icon">▱</span>
+                    <span>Homework</span>
+                </a>
+            </div>
 
-            <a href="#" class="nav-link">
-                <span class="nav-icon">♙</span>
-                <span>Users & Accounts</span>
-            </a>
-
-            <a href="#" class="nav-link">
-                <span class="nav-icon">◈</span>
-                <span>Roles & Permissions</span>
-            </a>
-
-            <a href="students.html" class="nav-link active">
-                <span class="nav-icon">♙</span>
-                <span>Students</span>
-            </a>
-
-            <a href="parents.html" class="nav-link">
-                <span class="nav-icon">♧</span>
-                <span>Parents</span>
-            </a>
-        </div>
-
-        <div class="nav-section">
-            <p class="nav-title">DAILY OPERATIONS</p>
-
-            <a href="#" class="nav-link">
-                <span class="nav-icon">✓</span>
-                <span>Attendance</span>
-            </a>
-
-            <a href="#" class="nav-link">
-                <span class="nav-icon">▤</span>
-                <span>Timetable</span>
-            </a>
-        </div>
-
-        <div class="nav-section">
-            <p class="nav-title">ACADEMIC DELIVERY</p>
-
-            <a href="#" class="nav-link">
-                <span class="nav-icon">▣</span>
-                <span>Class Diary</span>
-            </a>
-
-            <a href="#" class="nav-link">
-                <span class="nav-icon">□</span>
-                <span>Homework</span>
-            </a>
-        </div>
-
-        <div class="nav-section">
-            <p class="nav-title">COMMUNICATION</p>
-
-            <a href="#" class="nav-link">
-                <span class="nav-icon">⌂</span>
-                <span>Parent Dashboard</span>
-            </a>
-
-            <a href="#" class="nav-link">
-                <span class="nav-icon">◉</span>
-                <span>Announcements</span>
-            </a>
-
-            <a href="#" class="nav-link">
-                <span class="nav-icon">◷</span>
-                <span>School Calendar</span>
-            </a>
-        </div>
+            <div class="nav-section">
+                <span class="nav-title">COMMUNICATION</span>
+                <a href="parent-dashboard.html" class="nav-item">
+                    <span class="nav-icon">⌂</span>
+                    <span>Parent Dashboard</span>
+                </a>
+                <a href="announcements.html" class="nav-item">
+                    <span class="nav-icon">◉</span>
+                    <span>Announcements</span>
+                </a>
+                <a href="school-calendar.html" class="nav-item">
+                    <span class="nav-icon">▣</span>
+                    <span>School Calendar</span>
+                </a>
+            </div>
+        </nav>
 
         <div class="sidebar-bottom">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-item">
                 <span class="nav-icon">⚙</span>
                 <span>Settings</span>
             </a>
-
-            <a href="index.html" class="nav-link logout-link">
+            <a href="index.html" class="nav-item logout">
                 <span class="nav-icon">↪</span>
                 <span>Logout</span>
             </a>
@@ -121,45 +106,39 @@
     </aside>
 
     <main class="main-content">
-
         <header class="topbar">
             <div class="topbar-left">
                 <button class="menu-button" id="menuButton">☰</button>
-
                 <div>
                     <h1>Students</h1>
-                    <p>Manage student records and information</p>
+                    <p>Manage student information and academic records</p>
                 </div>
             </div>
 
             <div class="topbar-right">
-                <div class="search-box">
+                <div class="top-search">
                     <span>⌕</span>
                     <input type="text" id="topSearch" placeholder="Search students...">
                 </div>
 
-                <button class="notification-button">
-                    ♧
-                    <span class="notification-dot"></span>
-                </button>
+                <button class="notification-button">♢<span></span></button>
 
-                <div class="profile">
-                    <div class="profile-avatar">A</div>
-
-                    <div class="profile-info">
-                        <strong>Admin</strong>
-                        <span>Administrator</span>
+                <div class="admin-profile">
+                    <div class="admin-avatar">A</div>
+                    <div>
+                        <strong>Administrator</strong>
+                        <small>Super Admin</small>
                     </div>
                 </div>
             </div>
         </header>
 
-        <section class="content">
+        <section class="page-content">
 
-            <div class="page-heading">
+            <div class="page-header">
                 <div>
                     <h2>Student Information System</h2>
-                    <p>Manage student profiles, academic information and parent relationships.</p>
+                    <p>Manage student profiles, academic information, guardians and records.</p>
                 </div>
 
                 <button class="primary-button" id="addStudentButton">
@@ -168,8 +147,7 @@
                 </button>
             </div>
 
-            <section class="stats-grid">
-
+            <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon">♙</div>
                     <div>
@@ -195,37 +173,35 @@
                 </div>
 
                 <div class="stat-card">
-                    <div class="stat-icon">◷</div>
+                    <div class="stat-icon">◉</div>
                     <div>
                         <span>Inactive Students</span>
                         <strong id="inactiveStudents">50</strong>
                     </div>
                 </div>
+            </div>
 
-            </section>
+            <section class="content-card">
 
-            <section class="filter-card">
-
-                <div class="filter-top">
+                <div class="card-header">
                     <div>
                         <h3>Student Records</h3>
-                        <p>Search and manage enrolled students</p>
+                        <p>Search, filter and manage student information.</p>
                     </div>
 
                     <button class="secondary-button" id="exportButton">
-                        ↓ Export CSV
+                        Export CSV
                     </button>
                 </div>
 
                 <div class="filters">
-
-                    <div class="filter-search">
+                    <div class="search-box">
                         <span>⌕</span>
-                        <input type="text" id="studentSearch" placeholder="Search by name, ID or admission number">
+                        <input type="text" id="searchInput" placeholder="Search by student name, ID or admission number">
                     </div>
 
                     <select id="classFilter">
-                        <option value="">All Classes</option>
+                        <option value="all">All Classes</option>
                         <option value="Grade 1">Grade 1</option>
                         <option value="Grade 2">Grade 2</option>
                         <option value="Grade 3">Grade 3</option>
@@ -236,27 +212,31 @@
                         <option value="Grade 8">Grade 8</option>
                         <option value="Grade 9">Grade 9</option>
                         <option value="Grade 10">Grade 10</option>
-                        <option value="Grade 11">Grade 11</option>
-                        <option value="Grade 12">Grade 12</option>
                     </select>
 
                     <select id="sectionFilter">
-                        <option value="">All Sections</option>
+                        <option value="all">All Sections</option>
                         <option value="A">Section A</option>
                         <option value="B">Section B</option>
                         <option value="C">Section C</option>
+                        <option value="D">Section D</option>
+                    </select>
+
+                    <select id="genderFilter">
+                        <option value="all">All Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
                     </select>
 
                     <select id="statusFilter">
-                        <option value="">All Status</option>
+                        <option value="all">All Status</option>
                         <option value="Active">Active</option>
                         <option value="Inactive">Inactive</option>
                     </select>
-
                 </div>
 
                 <div class="table-wrapper">
-
                     <table>
                         <thead>
                             <tr>
@@ -272,195 +252,30 @@
                             </tr>
                         </thead>
 
-                        <tbody id="studentTableBody">
-
-                            <tr data-class="Grade 10" data-section="A" data-status="Active">
-                                <td>
-                                    <div class="student-info">
-                                        <div class="student-avatar avatar-1">RS</div>
-                                        <div>
-                                            <strong>Rahul Sharma</strong>
-                                            <span>rahul@example.com</span>
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <td>STU-2026-001</td>
-                                <td>ADM-2026-001</td>
-                                <td>Grade 10</td>
-                                <td>A</td>
-                                <td>Male</td>
-                                <td>Rajesh Sharma</td>
-
-                                <td>
-                                    <span class="status active">Active</span>
-                                </td>
-
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="view-button" title="View">◉</button>
-                                        <button class="edit-button" title="Edit">✎</button>
-                                        <button class="delete-button" title="Delete">×</button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr data-class="Grade 9" data-section="B" data-status="Active">
-                                <td>
-                                    <div class="student-info">
-                                        <div class="student-avatar avatar-2">AS</div>
-                                        <div>
-                                            <strong>Anisha Shrestha</strong>
-                                            <span>anisha@example.com</span>
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <td>STU-2026-002</td>
-                                <td>ADM-2026-002</td>
-                                <td>Grade 9</td>
-                                <td>B</td>
-                                <td>Female</td>
-                                <td>Sunil Shrestha</td>
-
-                                <td>
-                                    <span class="status active">Active</span>
-                                </td>
-
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="view-button" title="View">◉</button>
-                                        <button class="edit-button" title="Edit">✎</button>
-                                        <button class="delete-button" title="Delete">×</button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr data-class="Grade 8" data-section="A" data-status="Active">
-                                <td>
-                                    <div class="student-info">
-                                        <div class="student-avatar avatar-3">BP</div>
-                                        <div>
-                                            <strong>Bijay Pradhan</strong>
-                                            <span>bijay@example.com</span>
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <td>STU-2026-003</td>
-                                <td>ADM-2026-003</td>
-                                <td>Grade 8</td>
-                                <td>A</td>
-                                <td>Male</td>
-                                <td>Ramesh Pradhan</td>
-
-                                <td>
-                                    <span class="status active">Active</span>
-                                </td>
-
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="view-button" title="View">◉</button>
-                                        <button class="edit-button" title="Edit">✎</button>
-                                        <button class="delete-button" title="Delete">×</button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr data-class="Grade 7" data-section="C" data-status="Active">
-                                <td>
-                                    <div class="student-info">
-                                        <div class="student-avatar avatar-4">SM</div>
-                                        <div>
-                                            <strong>Sabina Magar</strong>
-                                            <span>sabina@example.com</span>
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <td>STU-2026-004</td>
-                                <td>ADM-2026-004</td>
-                                <td>Grade 7</td>
-                                <td>C</td>
-                                <td>Female</td>
-                                <td>Maya Magar</td>
-
-                                <td>
-                                    <span class="status active">Active</span>
-                                </td>
-
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="view-button" title="View">◉</button>
-                                        <button class="edit-button" title="Edit">✎</button>
-                                        <button class="delete-button" title="Delete">×</button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr data-class="Grade 10" data-section="B" data-status="Inactive">
-                                <td>
-                                    <div class="student-info">
-                                        <div class="student-avatar avatar-5">AS</div>
-                                        <div>
-                                            <strong>Arjun Singh</strong>
-                                            <span>arjun@example.com</span>
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <td>STU-2026-005</td>
-                                <td>ADM-2026-005</td>
-                                <td>Grade 10</td>
-                                <td>B</td>
-                                <td>Male</td>
-                                <td>Hari Singh</td>
-
-                                <td>
-                                    <span class="status inactive">Inactive</span>
-                                </td>
-
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="view-button" title="View">◉</button>
-                                        <button class="edit-button" title="Edit">✎</button>
-                                        <button class="delete-button" title="Delete">×</button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                        </tbody>
+                        <tbody id="studentsTableBody"></tbody>
                     </table>
-
                 </div>
 
                 <div class="empty-state" id="emptyState">
-                    <div class="empty-icon">⌕</div>
+                    <div>⌕</div>
                     <h3>No students found</h3>
-                    <p>Try changing your search or filter options.</p>
-                </div>
-
-                <div class="table-footer">
-                    <span>Showing <strong id="showingCount">5</strong> students</span>
+                    <p>Try changing your search or filters.</p>
                 </div>
 
             </section>
-
         </section>
-
     </main>
 
     <div class="modal" id="studentModal">
-
         <div class="modal-content">
 
             <div class="modal-header">
                 <div>
-                    <h3>Add New Student</h3>
-                    <p>Create a complete student record</p>
+                    <h3 id="modalTitle">Add Student</h3>
+                    <p>Create a complete student profile.</p>
                 </div>
 
-                <button class="close-modal" id="closeModal">×</button>
+                <button class="close-button" id="closeModal">×</button>
             </div>
 
             <form id="studentForm">
@@ -471,29 +286,29 @@
                     <div class="form-grid">
 
                         <div class="form-group">
-                            <label for="firstName">First Name</label>
-                            <input type="text" id="firstName" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="lastName">Last Name</label>
-                            <input type="text" id="lastName" required>
+                            <label for="studentName">Full Name</label>
+                            <input type="text" id="studentName" required>
                         </div>
 
                         <div class="form-group">
                             <label for="studentId">Student ID</label>
-                            <input type="text" id="studentId" placeholder="STU-2026-006" required>
+                            <input type="text" id="studentId" required>
                         </div>
 
                         <div class="form-group">
                             <label for="admissionNumber">Admission Number</label>
-                            <input type="text" id="admissionNumber" placeholder="ADM-2026-006" required>
+                            <input type="text" id="admissionNumber" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dateOfBirth">Date of Birth</label>
+                            <input type="date" id="dateOfBirth">
                         </div>
 
                         <div class="form-group">
                             <label for="gender">Gender</label>
                             <select id="gender" required>
-                                <option value="">Select Gender</option>
+                                <option value="">Select gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                                 <option value="Other">Other</option>
@@ -501,8 +316,18 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="dateOfBirth">Date of Birth</label>
-                            <input type="date" id="dateOfBirth">
+                            <label for="bloodGroup">Blood Group</label>
+                            <select id="bloodGroup">
+                                <option value="">Select blood group</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
                         </div>
 
                     </div>
@@ -514,9 +339,17 @@
                     <div class="form-grid">
 
                         <div class="form-group">
-                            <label for="studentClass">Class</label>
-                            <select id="studentClass" required>
-                                <option value="">Select Class</option>
+                            <label for="academicYear">Academic Year</label>
+                            <select id="academicYear">
+                                <option value="2083">2083 BS</option>
+                                <option value="2082">2082 BS</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="className">Class</label>
+                            <select id="className" required>
+                                <option value="">Select class</option>
                                 <option value="Grade 1">Grade 1</option>
                                 <option value="Grade 2">Grade 2</option>
                                 <option value="Grade 3">Grade 3</option>
@@ -527,36 +360,43 @@
                                 <option value="Grade 8">Grade 8</option>
                                 <option value="Grade 9">Grade 9</option>
                                 <option value="Grade 10">Grade 10</option>
-                                <option value="Grade 11">Grade 11</option>
-                                <option value="Grade 12">Grade 12</option>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label for="studentSection">Section</label>
-                            <select id="studentSection" required>
-                                <option value="">Select Section</option>
-                                <option value="A">Section A</option>
-                                <option value="B">Section B</option>
-                                <option value="C">Section C</option>
+                            <label for="section">Section</label>
+                            <select id="section" required>
+                                <option value="">Select section</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label for="rollNumber">Roll Number</label>
-                            <input type="text" id="rollNumber" placeholder="01">
+                            <input type="text" id="rollNumber">
                         </div>
 
                         <div class="form-group">
-                            <label for="academicYear">Academic Year</label>
-                            <input type="text" id="academicYear" value="2026">
+                            <label for="studentStatus">Status</label>
+                            <select id="studentStatus">
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="previousSchool">Previous School</label>
+                            <input type="text" id="previousSchool">
                         </div>
 
                     </div>
                 </div>
 
                 <div class="form-section">
-                    <h4>Parent / Guardian</h4>
+                    <h4>Parent / Guardian Information</h4>
 
                     <div class="form-grid">
 
@@ -567,8 +407,8 @@
 
                         <div class="form-group">
                             <label for="relationship">Relationship</label>
-                            <select id="relationship" required>
-                                <option value="">Select Relationship</option>
+                            <select id="relationship">
+                                <option value="">Select relationship</option>
                                 <option value="Father">Father</option>
                                 <option value="Mother">Mother</option>
                                 <option value="Guardian">Guardian</option>
@@ -577,27 +417,197 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="phone">Contact Number</label>
-                            <input type="tel" id="phone" required>
+                            <label for="parentPhone">Parent Phone</label>
+                            <input type="tel" id="parentPhone">
                         </div>
 
                         <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email">
+                            <label for="parentEmail">Parent Email</label>
+                            <input type="email" id="parentEmail">
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="address">Address</label>
+                            <input type="text" id="address">
                         </div>
 
                     </div>
                 </div>
 
-                <div class="form-actions">
-                    <button type="button" class="cancel-button" id="cancelButton">Cancel</button>
-                    <button type="submit" class="save-button">Create Student</button>
+                <div class="form-section">
+                    <h4>Additional Information</h4>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="remarks">Teacher Remarks</label>
+                            <textarea id="remarks" rows="3"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="achievements">Achievements / ECA</label>
+                            <textarea id="achievements" rows="3"></textarea>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="cancel-button" id="cancelModal">Cancel</button>
+                    <button type="submit" class="primary-button">Save Student</button>
                 </div>
 
             </form>
+        </div>
+    </div>
+
+    <div class="modal" id="viewModal">
+        <div class="modal-content view-content">
+
+            <div class="modal-header">
+                <div>
+                    <h3>Student Profile</h3>
+                    <p>Student information and academic record.</p>
+                </div>
+
+                <button class="close-button" id="closeViewModal">×</button>
+            </div>
+
+            <div class="student-profile-header">
+                <div class="profile-avatar" id="viewAvatar">RS</div>
+
+                <div>
+                    <h3 id="viewName"></h3>
+                    <p id="viewStudentId"></p>
+                </div>
+
+                <span class="status-badge" id="viewStatus"></span>
+            </div>
+
+            <div class="profile-sections">
+
+                <div class="profile-section">
+                    <h4>Personal Information</h4>
+
+                    <div class="profile-grid">
+                        <div>
+                            <span>Date of Birth</span>
+                            <strong id="viewDob"></strong>
+                        </div>
+
+                        <div>
+                            <span>Gender</span>
+                            <strong id="viewGender"></strong>
+                        </div>
+
+                        <div>
+                            <span>Blood Group</span>
+                            <strong id="viewBloodGroup"></strong>
+                        </div>
+
+                        <div>
+                            <span>Admission Number</span>
+                            <strong id="viewAdmission"></strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h4>Academic Information</h4>
+
+                    <div class="profile-grid">
+                        <div>
+                            <span>Academic Year</span>
+                            <strong id="viewAcademicYear"></strong>
+                        </div>
+
+                        <div>
+                            <span>Class</span>
+                            <strong id="viewClass"></strong>
+                        </div>
+
+                        <div>
+                            <span>Section</span>
+                            <strong id="viewSection"></strong>
+                        </div>
+
+                        <div>
+                            <span>Roll Number</span>
+                            <strong id="viewRoll"></strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h4>Parent / Guardian</h4>
+
+                    <div class="profile-grid">
+                        <div>
+                            <span>Name</span>
+                            <strong id="viewParent"></strong>
+                        </div>
+
+                        <div>
+                            <span>Relationship</span>
+                            <strong id="viewRelationship"></strong>
+                        </div>
+
+                        <div>
+                            <span>Phone</span>
+                            <strong id="viewParentPhone"></strong>
+                        </div>
+
+                        <div>
+                            <span>Email</span>
+                            <strong id="viewParentEmail"></strong>
+                        </div>
+
+                        <div class="full-profile">
+                            <span>Address</span>
+                            <strong id="viewAddress"></strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h4>Student Records</h4>
+
+                    <div class="record-cards">
+                        <div class="record-card">
+                            <span>Attendance</span>
+                            <strong id="viewAttendance">94%</strong>
+                        </div>
+
+                        <div class="record-card">
+                            <span>Academic Result</span>
+                            <strong id="viewResult">A</strong>
+                        </div>
+
+                        <div class="record-card">
+                            <span>Achievements</span>
+                            <strong id="viewAchievementCount">3</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h4>Teacher Remarks</h4>
+                    <div class="remarks-box" id="viewRemarks"></div>
+                </div>
+
+                <div class="profile-section">
+                    <h4>Achievements / ECA</h4>
+                    <div class="remarks-box" id="viewAchievements"></div>
+                </div>
+
+            </div>
+
+            <div class="view-actions">
+                <button class="secondary-button" id="editFromViewButton">Edit Student</button>
+                <button class="primary-button" id="closeViewButton">Close</button>
+            </div>
 
         </div>
-
     </div>
 
     <script src="students.js"></script>
