@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Calendar | Hamro School</title>
+    <link rel="stylesheet" href="school-calendar.css">
+</head>
+<body>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-logo">SS</div>
+            <div>
+                <h2>Hamro School</h2>
+                <span>School Management</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-group">
+                <p class="nav-label">MAIN</p>
+                <a href="dashboard.html" class="nav-item">
+                    <span class="nav-icon">⌂</span>
+                    <span>Dashboard</span>
+                </a>
+            </div>
+
+            <div class="nav-group">
+                <p class="nav-label">SCHOOL & ACCOUNTS</p>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">⚙</span>
+                    <span>School Setup</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">◉</span>
+                    <span>Users & Accounts</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">◆</span>
+                    <span>Roles & Permissions</span>
+                </a>
+                <a href="students.html" class="nav-item">
+                    <span class="nav-icon">♙</span>
+                    <span>Students</span>
+                </a>
+                <a href="parents.html" class="nav-item">
+                    <span class="nav-icon">♧</span>
+                    <span>Parents</span>
+                </a>
+            </div>
+
+            <div class="nav-group">
+                <p class="nav-label">DAILY OPERATIONS</p>
+                <a href="attendance.html" class="nav-item">
+                    <span class="nav-icon">✓</span>
+                    <span>Attendance</span>
+                </a>
+                <a href="timetable.html" class="nav-item">
+                    <span class="nav-icon">▦</span>
+                    <span>Timetable</span>
+                </a>
+            </div>
+
+            <div class="nav-group">
+                <p class="nav-label">ACADEMIC DELIVERY</p>
+                <a href="class-diary.html" class="nav-item">
+                    <span class="nav-icon">▤</span>
+                    <span>Class Diary</span>
+                </a>
+                <a href="homework.html" class="nav-item">
+                    <span class="nav-icon">✎</span>
+                    <span>Homework</span>
+                </a>
+            </div>
+
+            <div class="nav-group">
+                <p class="nav-label">COMMUNICATION</p>
+                <a href="parent-dashboard.html" class="nav-item">
+                    <span class="nav-icon">▣</span>
+                    <span>Parent Dashboard</span>
+                </a>
+                <a href="announcements.html" class="nav-item">
+                    <span class="nav-icon">◌</span>
+                    <span>Announcements</span>
+                </a>
+                <a href="school-calendar.html" class="nav-item active">
+                    <span class="nav-icon">□</span>
+                    <span>School Calendar</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="#" class="nav-item">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+            <a href="index.html" class="nav-item logout">
+                <span class="nav-icon">↪</span>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-button" id="menuButton">☰</button>
+                <div>
+                    <h1>School Calendar</h1>
+                    <p>Manage school events and important dates</p>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <div class="top-search">
+                    <span>⌕</span>
+                    <input type="text" id="topSearch" placeholder="Search">
+                </div>
+
+                <button class="notification-button">
+                    <span>♢</span>
+                    <b>3</b>
+                </button>
+
+                <div class="user-profile">
+                    <div class="user-avatar">AD</div>
+                    <div>
+                        <strong>Administrator</strong>
+                        <span>Super Admin</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="page-content">
+
+            <div class="page-heading">
+                <div>
+                    <span class="eyebrow">COMMUNICATION</span>
+                    <h2>School Calendar</h2>
+                    <p>Manage school events, holidays, meetings and important dates.</p>
+                </div>
+
+                <button class="primary-button" id="addEventButton">
+                    <span>+</span>
+                    Add Event
+                </button>
+            </div>
+
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">□</div>
+                    <div>
+                        <span>Total Events</span>
+                        <strong id="totalEvents">8</strong>
+                        <small>This calendar</small>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">◷</div>
+                    <div>
+                        <span>This Month</span>
+                        <strong id="monthEvents">5</strong>
+                        <small>September 2026</small>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">★</div>
+                    <div>
+                        <span>Upcoming</span>
+                        <strong id="upcomingEvents">5</strong>
+                        <small>Future events</small>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">!</div>
+                    <div>
+                        <span>Holidays</span>
+                        <strong id="holidayEvents">2</strong>
+                        <small>School holidays</small>
+                    </div>
+                </div>
+            </section>
+
+            <div class="calendar-layout">
+
+                <section class="calendar-card">
+                    <div class="calendar-header">
+                        <div>
+                            <h3 id="calendarMonth">September 2026</h3>
+                            <p id="calendarSubtitle">School calendar</p>
+                        </div>
+
+                        <div class="calendar-controls">
+                            <button id="todayButton">Today</button>
+                            <button id="previousMonth">‹</button>
+                            <button id="nextMonth">›</button>
+                        </div>
+                    </div>
+
+                    <div class="calendar-weekdays">
+                        <span>Sun</span>
+                        <span>Mon</span>
+                        <span>Tue</span>
+                        <span>Wed</span>
+                        <span>Thu</span>
+                        <span>Fri</span>
+                        <span>Sat</span>
+                    </div>
+
+                    <div class="calendar-grid" id="calendarGrid"></div>
+                </section>
+
+                <aside class="events-panel">
+                    <div class="events-header">
+                        <div>
+                            <h3>Upcoming Events</h3>
+                            <p>Important school dates</p>
+                        </div>
+                    </div>
+
+                    <div class="event-search">
+                        <span>⌕</span>
+                        <input type="text" id="eventSearch" placeholder="Search events">
+                    </div>
+
+                    <div class="event-filter">
+                        <select id="categoryFilter">
+                            <option value="all">All Categories</option>
+                            <option value="Academic">Academic</option>
+                            <option value="Holiday">Holiday</option>
+                            <option value="Meeting">Meeting</option>
+                            <option value="Event">Event</option>
+                            <option value="Exam">Exam</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="events-list" id="eventsList"></div>
+
+                    <div class="events-empty" id="eventsEmpty">
+                        <div>□</div>
+                        <h4>No events found</h4>
+                        <p>Try another search or category.</p>
+                    </div>
+                </aside>
+
+            </div>
+        </section>
+    </main>
+
+    <div class="modal-overlay" id="eventModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div>
+                    <span class="eyebrow">SCHOOL CALENDAR</span>
+                    <h3 id="modalTitle">Add Calendar Event</h3>
+                    <p>Create an event for the school calendar.</p>
+                </div>
+                <button class="close-modal" id="closeModal">×</button>
+            </div>
+
+            <form id="eventForm">
+                <div class="form-grid">
+
+                    <div class="form-group full">
+                        <label for="eventTitle">Event Title</label>
+                        <input type="text" id="eventTitle" placeholder="Enter event title" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventDate">Date</label>
+                        <input type="date" id="eventDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventCategory">Category</label>
+                        <select id="eventCategory" required>
+                            <option value="Academic">Academic</option>
+                            <option value="Holiday">Holiday</option>
+                            <option value="Meeting">Meeting</option>
+                            <option value="Event">Event</option>
+                            <option value="Exam">Exam</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventStartTime">Start Time</label>
+                        <input type="time" id="eventStartTime">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventEndTime">End Time</label>
+                        <input type="time" id="eventEndTime">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventAudience">Audience</label>
+                        <select id="eventAudience">
+                            <option value="Everyone">Everyone</option>
+                            <option value="Students">Students</option>
+                            <option value="Parents">Parents</option>
+                            <option value="Students & Parents">Students & Parents</option>
+                            <option value="Teachers">Teachers</option>
+                            <option value="Staff">Staff</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventLocation">Location</label>
+                        <input type="text" id="eventLocation" placeholder="Enter location">
+                    </div>
+
+                    <div class="form-group full">
+                        <label for="eventDescription">Description</label>
+                        <textarea id="eventDescription" rows="5" placeholder="Enter event details"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="secondary-button" id="cancelModal">Cancel</button>
+                    <button type="submit" class="primary-button">Save Event</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="viewModal">
+        <div class="modal view-modal">
+            <div class="modal-header">
+                <div>
+                    <span class="eyebrow" id="viewCategory">EVENT</span>
+                    <h3 id="viewTitle">Parent-Teacher Meeting</h3>
+                    <p id="viewDate">September 18, 2026</p>
+                </div>
+                <button class="close-modal" id="closeViewModal">×</button>
+            </div>
+
+            <div class="view-content">
+                <div class="view-meta">
+                    <div>
+                        <span>Time</span>
+                        <strong id="viewTime">10:00 AM - 1:00 PM</strong>
+                    </div>
+
+                    <div>
+                        <span>Audience</span>
+                        <strong id="viewAudience">Parents</strong>
+                    </div>
+
+                    <div>
+                        <span>Location</span>
+                        <strong id="viewLocation">School Hall</strong>
+                    </div>
+                </div>
+
+                <div class="view-description">
+                    <h4>Event Details</h4>
+                    <p id="viewDescription"></p>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="secondary-button" id="closeViewButton">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="school-calendar.js"></script>
+</body>
+</html>
