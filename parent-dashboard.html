@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parent Dashboard | Hamro School</title>
+    <link rel="stylesheet" href="parent-dashboard.css">
+</head>
+<body>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-logo">SS</div>
+            <div>
+                <h2>Hamro School</h2>
+                <span>School Management</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-group">
+                <p class="nav-label">MAIN</p>
+                <a href="dashboard.html" class="nav-item">
+                    <span class="nav-icon">⌂</span>
+                    <span>Dashboard</span>
+                </a>
+            </div>
+
+            <div class="nav-group">
+                <p class="nav-label">SCHOOL & ACCOUNTS</p>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">⚙</span>
+                    <span>School Setup</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">◉</span>
+                    <span>Users & Accounts</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">◆</span>
+                    <span>Roles & Permissions</span>
+                </a>
+                <a href="students.html" class="nav-item">
+                    <span class="nav-icon">♙</span>
+                    <span>Students</span>
+                </a>
+                <a href="parents.html" class="nav-item">
+                    <span class="nav-icon">♧</span>
+                    <span>Parents</span>
+                </a>
+            </div>
+
+            <div class="nav-group">
+                <p class="nav-label">DAILY OPERATIONS</p>
+                <a href="attendance.html" class="nav-item">
+                    <span class="nav-icon">✓</span>
+                    <span>Attendance</span>
+                </a>
+                <a href="timetable.html" class="nav-item">
+                    <span class="nav-icon">▦</span>
+                    <span>Timetable</span>
+                </a>
+            </div>
+
+            <div class="nav-group">
+                <p class="nav-label">ACADEMIC DELIVERY</p>
+                <a href="class-diary.html" class="nav-item">
+                    <span class="nav-icon">▤</span>
+                    <span>Class Diary</span>
+                </a>
+                <a href="homework.html" class="nav-item">
+                    <span class="nav-icon">✎</span>
+                    <span>Homework</span>
+                </a>
+            </div>
+
+            <div class="nav-group">
+                <p class="nav-label">COMMUNICATION</p>
+                <a href="parent-dashboard.html" class="nav-item active">
+                    <span class="nav-icon">▣</span>
+                    <span>Parent Dashboard</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">◌</span>
+                    <span>Announcements</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">□</span>
+                    <span>School Calendar</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="#" class="nav-item">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+            <a href="index.html" class="nav-item logout">
+                <span class="nav-icon">↪</span>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-button" id="menuButton">☰</button>
+                <div>
+                    <h1>Parent Dashboard</h1>
+                    <p>Stay connected with your child's school activities</p>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <div class="top-search">
+                    <span>⌕</span>
+                    <input type="text" id="topSearch" placeholder="Search">
+                </div>
+
+                <button class="notification-button" id="notificationButton">
+                    <span>♢</span>
+                    <b>3</b>
+                </button>
+
+                <div class="user-profile">
+                    <div class="user-avatar">AS</div>
+                    <div>
+                        <strong>Admin</strong>
+                        <span>Parent Account</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="page-content">
+
+            <div class="welcome-section">
+                <div>
+                    <span class="eyebrow">PARENT PORTAL</span>
+                    <h2>Good afternoon, Anita 👋</h2>
+                    <p>Here's an overview of your children's school activities.</p>
+                </div>
+
+                <div class="school-info">
+                    <strong>Hamro School</strong>
+                    <span>Academic Year 2026</span>
+                </div>
+            </div>
+
+            <section class="children-section">
+                <div class="section-heading">
+                    <div>
+                        <h3>My Children</h3>
+                        <p>Select a child to view their information</p>
+                    </div>
+                </div>
+
+                <div class="children-list">
+                    <button class="child-card active" data-child="rahul">
+                        <div class="child-avatar">RS</div>
+                        <div class="child-info">
+                            <strong>Rahul Sharma</strong>
+                            <span>Grade 10 • Section A</span>
+                            <small>Student ID: ST-1001</small>
+                        </div>
+                        <span class="child-arrow">›</span>
+                    </button>
+
+                    <button class="child-card" data-child="priya">
+                        <div class="child-avatar">PS</div>
+                        <div class="child-info">
+                            <strong>Priya Sharma</strong>
+                            <span>Grade 7 • Section B</span>
+                            <small>Student ID: ST-2048</small>
+                        </div>
+                        <span class="child-arrow">›</span>
+                    </button>
+                </div>
+            </section>
+
+            <section class="student-header-card">
+                <div class="student-header-main">
+                    <div class="large-avatar" id="studentAvatar">RS</div>
+                    <div>
+                        <span class="student-label">SELECTED STUDENT</span>
+                        <h2 id="studentName">Rahul Sharma</h2>
+                        <p id="studentClass">Grade 10 • Section A • Roll No. 12</p>
+                    </div>
+                </div>
+
+                <div class="student-details">
+                    <div>
+                        <span>Student ID</span>
+                        <strong id="studentId">ST-1001</strong>
+                    </div>
+                    <div>
+                        <span>Academic Year</span>
+                        <strong>2026</strong>
+                    </div>
+                    <div>
+                        <span>Class Teacher</span>
+                        <strong id="classTeacher">Mr. Ramesh Karki</strong>
+                    </div>
+                </div>
+            </section>
+
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon attendance-icon">✓</div>
+                    <div>
+                        <span>Attendance</span>
+                        <strong id="attendanceValue">94.8%</strong>
+                        <small>Excellent attendance</small>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon homework-icon">✎</div>
+                    <div>
+                        <span>Homework</span>
+                        <strong id="homeworkValue">8</strong>
+                        <small>2 due this week</small>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon diary-icon">▤</div>
+                    <div>
+                        <span>Class Diary</span>
+                        <strong>12</strong>
+                        <small>Entries this month</small>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon notice-icon">◌</div>
+                    <div>
+                        <span>Notifications</span>
+                        <strong id="notificationValue">3</strong>
+                        <small>Unread notifications</small>
+                    </div>
+                </div>
+            </section>
+
+            <div class="dashboard-grid">
+
+                <section class="panel timetable-panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3>Today's Timetable</h3>
+                            <p id="timetableDate">Monday, September 14, 2026</p>
+                        </div>
+                        <a href="timetable.html">View Full</a>
+                    </div>
+
+                    <div class="schedule-list">
+                        <div class="schedule-item">
+                            <div class="schedule-time">
+                                <strong>09:00</strong>
+                                <span>09:45</span>
+                            </div>
+                            <div class="schedule-line"></div>
+                            <div class="schedule-content">
+                                <strong>Mathematics</strong>
+                                <span>Mr. Ramesh Karki • Room 101</span>
+                            </div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <div class="schedule-time">
+                                <strong>09:50</strong>
+                                <span>10:35</span>
+                            </div>
+                            <div class="schedule-line"></div>
+                            <div class="schedule-content">
+                                <strong>Science</strong>
+                                <span>Ms. Sita Thapa • Room 101</span>
+                            </div>
+                        </div>
+
+                        <div class="schedule-item break-item">
+                            <div class="schedule-time">
+                                <strong>10:35</strong>
+                                <span>10:50</span>
+                            </div>
+                            <div class="schedule-line"></div>
+                            <div class="schedule-content">
+                                <strong>Short Break</strong>
+                                <span>15 minutes</span>
+                            </div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <div class="schedule-time">
+                                <strong>10:50</strong>
+                                <span>11:35</span>
+                            </div>
+                            <div class="schedule-line"></div>
+                            <div class="schedule-content">
+                                <strong>English</strong>
+                                <span>Ms. Anu Shrestha • Room 101</span>
+                            </div>
+                        </div>
+
+                        <div class="schedule-item">
+                            <div class="schedule-time">
+                                <strong>11:40</strong>
+                                <span>12:25</span>
+                            </div>
+                            <div class="schedule-line"></div>
+                            <div class="schedule-content">
+                                <strong>Computer Science</strong>
+                                <span>Mr. Sagar Adhikari • Lab 204</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel attendance-panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3>Attendance Summary</h3>
+                            <p>This academic year</p>
+                        </div>
+                        <a href="attendance.html">View Details</a>
+                    </div>
+
+                    <div class="attendance-summary">
+                        <div class="attendance-circle">
+                            <div>
+                                <strong id="circleAttendance">94.8%</strong>
+                                <span>Attendance</span>
+                            </div>
+                        </div>
+
+                        <div class="attendance-breakdown">
+                            <div>
+                                <span><i class="present-dot"></i>Present</span>
+                                <strong id="presentDays">172</strong>
+                            </div>
+                            <div>
+                                <span><i class="absent-dot"></i>Absent</span>
+                                <strong id="absentDays">7</strong>
+                            </div>
+                            <div>
+                                <span><i class="late-dot"></i>Late</span>
+                                <strong id="lateDays">3</strong>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel homework-panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3>Recent Homework</h3>
+                            <p>Latest assignments</p>
+                        </div>
+                        <a href="homework.html">View All</a>
+                    </div>
+
+                    <div class="homework-list">
+                        <div class="homework-item">
+                            <div class="homework-icon">M</div>
+                            <div class="homework-info">
+                                <strong>Quadratic Equations</strong>
+                                <span>Mathematics • Due Sep 16</span>
+                            </div>
+                            <span class="status-badge due">Due Soon</span>
+                        </div>
+
+                        <div class="homework-item">
+                            <div class="homework-icon">S</div>
+                            <div class="homework-info">
+                                <strong>Human Nervous System</strong>
+                                <span>Science • Due Sep 18</span>
+                            </div>
+                            <span class="status-badge active">Active</span>
+                        </div>
+
+                        <div class="homework-item">
+                            <div class="homework-icon">E</div>
+                            <div class="homework-info">
+                                <strong>Reported Speech</strong>
+                                <span>English • Completed Sep 12</span>
+                            </div>
+                            <span class="status-badge completed">Completed</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel diary-panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3>Class Diary</h3>
+                            <p>Recent classroom activity</p>
+                        </div>
+                        <a href="class-diary.html">View All</a>
+                    </div>
+
+                    <div class="diary-entry">
+                        <div class="diary-date">
+                            <strong>14</strong>
+                            <span>SEP</span>
+                        </div>
+                        <div>
+                            <strong>Mathematics</strong>
+                            <p>Quadratic equations and factorization methods were covered.</p>
+                            <span>Mr. Ramesh Karki</span>
+                        </div>
+                    </div>
+
+                    <div class="diary-entry">
+                        <div class="diary-date">
+                            <strong>13</strong>
+                            <span>SEP</span>
+                        </div>
+                        <div>
+                            <strong>Science</strong>
+                            <p>Introduction to the human nervous system and neurons.</p>
+                            <span>Ms. Sita Thapa</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel announcements-panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3>School Announcements</h3>
+                            <p>Latest updates from school</p>
+                        </div>
+                        <a href="#">View All</a>
+                    </div>
+
+                    <div class="announcement-list">
+                        <div class="announcement-item">
+                            <div class="announcement-icon">!</div>
+                            <div>
+                                <strong>Parent-Teacher Meeting</strong>
+                                <p>Parent-teacher meeting will be held on September 20.</p>
+                                <span>2 hours ago</span>
+                            </div>
+                        </div>
+
+                        <div class="announcement-item">
+                            <div class="announcement-icon">◷</div>
+                            <div>
+                                <strong>School Timing Update</strong>
+                                <p>School will operate from 9:00 AM to 4:00 PM from next week.</p>
+                                <span>Yesterday</span>
+                            </div>
+                        </div>
+
+                        <div class="announcement-item">
+                            <div class="announcement-icon">✓</div>
+                            <div>
+                                <strong>Monthly Assessment</strong>
+                                <p>Monthly assessment schedule has been published.</p>
+                                <span>Sep 12, 2026</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel calendar-panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3>Upcoming Events</h3>
+                            <p>School calendar</p>
+                        </div>
+                        <a href="#">View Calendar</a>
+                    </div>
+
+                    <div class="event-list">
+                        <div class="event-item">
+                            <div class="event-date">
+                                <strong>20</strong>
+                                <span>SEP</span>
+                            </div>
+                            <div>
+                                <strong>Parent-Teacher Meeting</strong>
+                                <span>10:00 AM • School Hall</span>
+                            </div>
+                        </div>
+
+                        <div class="event-item">
+                            <div class="event-date">
+                                <strong>25</strong>
+                                <span>SEP</span>
+                            </div>
+                            <div>
+                                <strong>Monthly Assessment</strong>
+                                <span>Regular school hours</span>
+                            </div>
+                        </div>
+
+                        <div class="event-item">
+                            <div class="event-date">
+                                <strong>02</strong>
+                                <span>OCT</span>
+                            </div>
+                            <div>
+                                <strong>School Holiday</strong>
+                                <span>School closed</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+        </section>
+    </main>
+
+    <div class="notification-panel" id="notificationPanel">
+        <div class="notification-panel-header">
+            <div>
+                <h3>Notifications</h3>
+                <span>3 unread notifications</span>
+            </div>
+            <button id="closeNotifications">×</button>
+        </div>
+
+        <div class="notification-list">
+            <div class="notification-item unread">
+                <div class="notification-dot"></div>
+                <div>
+                    <strong>Parent-Teacher Meeting</strong>
+                    <p>Meeting scheduled for September 20.</p>
+                    <span>2 hours ago</span>
+                </div>
+            </div>
+
+            <div class="notification-item unread">
+                <div class="notification-dot"></div>
+                <div>
+                    <strong>New Homework</strong>
+                    <p>Mathematics homework has been assigned.</p>
+                    <span>5 hours ago</span>
+                </div>
+            </div>
+
+            <div class="notification-item unread">
+                <div class="notification-dot"></div>
+                <div>
+                    <strong>School Announcement</strong>
+                    <p>A new school announcement is available.</p>
+                    <span>Yesterday</span>
+                </div>
+            </div>
+        </div>
+
+        <button class="mark-read" id="markRead">Mark all as read</button>
+    </div>
+
+    <script src="parent-dashboard.js"></script>
+</body>
+</html>
