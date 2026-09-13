@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roles & Permissions - Hamro School</title>
+    <link rel="stylesheet" href="roles-permissions.css">
+</head>
+<body>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-logo">SS</div>
+            <div class="brand-text">
+                <strong>Hamro School</strong>
+                <span>School Management</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <span class="nav-title">MAIN</span>
+                <a href="dashboard.html" class="nav-item">
+                    <span class="nav-icon">⌂</span>
+                    <span>Dashboard</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-title">SCHOOL & ACCOUNTS</span>
+                <a href="school-setup.html" class="nav-item">
+                    <span class="nav-icon">⚙</span>
+                    <span>School Setup</span>
+                </a>
+                <a href="users-accounts.html" class="nav-item">
+                    <span class="nav-icon">◉</span>
+                    <span>Users & Accounts</span>
+                </a>
+                <a href="roles-permissions.html" class="nav-item active">
+                    <span class="nav-icon">♙</span>
+                    <span>Roles & Permissions</span>
+                </a>
+                <a href="students.html" class="nav-item">
+                    <span class="nav-icon">♙</span>
+                    <span>Students</span>
+                </a>
+                <a href="parents.html" class="nav-item">
+                    <span class="nav-icon">♧</span>
+                    <span>Parents</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-title">DAILY OPERATIONS</span>
+                <a href="attendance.html" class="nav-item">
+                    <span class="nav-icon">✓</span>
+                    <span>Attendance</span>
+                </a>
+                <a href="timetable.html" class="nav-item">
+                    <span class="nav-icon">▦</span>
+                    <span>Timetable</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-title">ACADEMIC DELIVERY</span>
+                <a href="class-diary.html" class="nav-item">
+                    <span class="nav-icon">▤</span>
+                    <span>Class Diary</span>
+                </a>
+                <a href="homework.html" class="nav-item">
+                    <span class="nav-icon">▱</span>
+                    <span>Homework</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-title">COMMUNICATION</span>
+                <a href="parent-dashboard.html" class="nav-item">
+                    <span class="nav-icon">⌂</span>
+                    <span>Parent Dashboard</span>
+                </a>
+                <a href="announcements.html" class="nav-item">
+                    <span class="nav-icon">◉</span>
+                    <span>Announcements</span>
+                </a>
+                <a href="school-calendar.html" class="nav-item">
+                    <span class="nav-icon">▣</span>
+                    <span>School Calendar</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="#" class="nav-item">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+            <a href="index.html" class="nav-item logout">
+                <span class="nav-icon">↪</span>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-button" id="menuButton">☰</button>
+                <div>
+                    <h1>Roles & Permissions</h1>
+                    <p>Control access across your school platform</p>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <div class="top-search">
+                    <span>⌕</span>
+                    <input type="text" id="topSearch" placeholder="Search roles...">
+                </div>
+
+                <button class="notification-button">♢<span></span></button>
+
+                <div class="admin-profile">
+                    <div class="admin-avatar">A</div>
+                    <div>
+                        <strong>Administrator</strong>
+                        <small>Super Admin</small>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="page-content">
+            <div class="page-header">
+                <div>
+                    <h2>Roles & Permissions</h2>
+                    <p>Define what each user role can access and manage.</p>
+                </div>
+
+                <button class="primary-button" id="addRoleButton">
+                    <span>+</span>
+                    Add Role
+                </button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">♙</div>
+                    <div>
+                        <span>Total Roles</span>
+                        <strong id="totalRoles">6</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">◉</div>
+                    <div>
+                        <span>Active Roles</span>
+                        <strong id="activeRoles">6</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">▤</div>
+                    <div>
+                        <span>Permission Groups</span>
+                        <strong id="permissionGroups">10</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">♧</div>
+                    <div>
+                        <span>Assigned Users</span>
+                        <strong id="assignedUsers">92</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-layout">
+                <section class="content-card roles-card">
+                    <div class="card-header">
+                        <div>
+                            <h3>System Roles</h3>
+                            <p>Select a role to view its permissions.</p>
+                        </div>
+                    </div>
+
+                    <div class="role-search">
+                        <div class="search-box">
+                            <span>⌕</span>
+                            <input type="text" id="roleSearch" placeholder="Search roles...">
+                        </div>
+                    </div>
+
+                    <div class="roles-list" id="rolesList"></div>
+
+                    <div class="empty-state" id="roleEmptyState">
+                        <div>⌕</div>
+                        <h3>No roles found</h3>
+                        <p>Try changing your search.</p>
+                    </div>
+                </section>
+
+                <section class="content-card permissions-card">
+                    <div class="card-header">
+                        <div>
+                            <h3 id="selectedRoleName">Super Admin</h3>
+                            <p id="selectedRoleDescription">Full system access</p>
+                        </div>
+
+                        <button class="secondary-button" id="editRoleButton">Edit Role</button>
+                    </div>
+
+                    <div class="permission-summary">
+                        <div>
+                            <strong id="selectedPermissionCount">28</strong>
+                            <span>Permissions enabled</span>
+                        </div>
+                        <div>
+                            <strong id="selectedUserCount">1</strong>
+                            <span>Assigned users</span>
+                        </div>
+                    </div>
+
+                    <div class="permission-header">
+                        <div>
+                            <h4>Permission Matrix</h4>
+                            <p>Control access for each module.</p>
+                        </div>
+                        <button class="secondary-button" id="savePermissionsButton">Save Changes</button>
+                    </div>
+
+                    <div class="permission-table-wrapper">
+                        <table class="permission-table">
+                            <thead>
+                                <tr>
+                                    <th>Module</th>
+                                    <th>View</th>
+                                    <th>Create</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody id="permissionTableBody"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <div class="modal" id="roleModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h3 id="modalTitle">Add Role</h3>
+                    <p>Create a custom role and define its access.</p>
+                </div>
+                <button class="close-button" id="closeModal">×</button>
+            </div>
+
+            <form id="roleForm">
+                <div class="form-section">
+                    <h4>Role Information</h4>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="roleName">Role Name</label>
+                            <input type="text" id="roleName" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="roleStatus">Status</label>
+                            <select id="roleStatus">
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="roleDescription">Description</label>
+                            <textarea id="roleDescription" rows="3" required></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h4>Permission Preset</h4>
+
+                    <div class="preset-grid">
+                        <label class="preset-option">
+                            <input type="radio" name="permissionPreset" value="full" checked>
+                            <span>
+                                <strong>Full Access</strong>
+                                <small>View, create, edit and delete</small>
+                            </span>
+                        </label>
+
+                        <label class="preset-option">
+                            <input type="radio" name="permissionPreset" value="view">
+                            <span>
+                                <strong>View Only</strong>
+                                <small>Read-only access</small>
+                            </span>
+                        </label>
+
+                        <label class="preset-option">
+                            <input type="radio" name="permissionPreset" value="academic">
+                            <span>
+                                <strong>Academic</strong>
+                                <small>Academic delivery access</small>
+                            </span>
+                        </label>
+
+                        <label class="preset-option">
+                            <input type="radio" name="permissionPreset" value="custom">
+                            <span>
+                                <strong>Custom</strong>
+                                <small>Configure after creation</small>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="cancel-button" id="cancelModal">Cancel</button>
+                    <button type="submit" class="primary-button">Save Role</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="roles-permissions.js"></script>
+</body>
+</html>
