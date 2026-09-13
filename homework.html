@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework | Hamro School</title>
+    <link rel="stylesheet" href="homework.css">
+</head>
+<body>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-logo">SS</div>
+            <div class="brand-text">
+                <strong>Hamro School</strong>
+                <span>YOUR SCHOOL DIGITAL PLATFORM</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <span class="nav-label">MAIN</span>
+                <a href="dashboard.html">
+                    <span>⌂</span>
+                    Dashboard
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-label">SCHOOL & ACCOUNTS</span>
+                <a href="school-setup.html">
+                    <span>▣</span>
+                    School Setup
+                </a>
+                <a href="users.html">
+                    <span>♙</span>
+                    Users & Accounts
+                </a>
+                <a href="roles.html">
+                    <span>⚿</span>
+                    Roles & Permissions
+                </a>
+                <a href="students.html">
+                    <span>♙</span>
+                    Students
+                </a>
+                <a href="parents.html">
+                    <span>♧</span>
+                    Parents
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-label">DAILY OPERATIONS</span>
+                <a href="attendance.html">
+                    <span>✓</span>
+                    Attendance
+                </a>
+                <a href="timetable.html">
+                    <span>▦</span>
+                    Timetable
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-label">ACADEMIC DELIVERY</span>
+                <a href="class-diary.html">
+                    <span>▤</span>
+                    Class Diary
+                </a>
+                <a href="homework.html" class="active">
+                    <span>▱</span>
+                    Homework
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-label">COMMUNICATION</span>
+                <a href="parent-dashboard.html">
+                    <span>⌂</span>
+                    Parent Dashboard
+                </a>
+                <a href="announcements.html">
+                    <span>◈</span>
+                    Announcements
+                </a>
+                <a href="calendar.html">
+                    <span>□</span>
+                    School Calendar
+                </a>
+            </div>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="settings.html">
+                <span>⚙</span>
+                Settings
+            </a>
+            <a href="index.html">
+                <span>↪</span>
+                Logout
+            </a>
+        </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-button" id="menuButton">☰</button>
+
+                <div>
+                    <h1>Homework</h1>
+                    <p>Create and manage student homework</p>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <div class="top-search">
+                    <span>⌕</span>
+                    <input type="text" id="topSearch" placeholder="Search">
+                </div>
+
+                <button class="notification-button">♢</button>
+
+                <div class="admin-profile">
+                    <div class="admin-avatar">A</div>
+                    <div>
+                        <strong>Administrator</strong>
+                        <span>Super Admin</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="content">
+
+            <div class="page-heading">
+                <div>
+                    <h2>Homework Management</h2>
+                    <p>Create, assign and track homework for classes and sections.</p>
+                </div>
+
+                <button class="primary-button" id="addHomework">
+                    + Create Homework
+                </button>
+            </div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon">▱</div>
+                    <div>
+                        <span>Total Homework</span>
+                        <strong id="totalHomework">124</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">◷</div>
+                    <div>
+                        <span>Active</span>
+                        <strong id="activeHomework">86</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">✓</div>
+                    <div>
+                        <span>Completed</span>
+                        <strong id="completedHomework">31</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">!</div>
+                    <div>
+                        <span>Due Soon</span>
+                        <strong id="dueSoonHomework">7</strong>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="homework-card">
+
+                <div class="card-heading">
+                    <div>
+                        <h3>Homework Records</h3>
+                        <p>View and manage homework assigned to students.</p>
+                    </div>
+
+                    <button class="export-button" id="exportHomework">
+                        Export
+                    </button>
+                </div>
+
+                <div class="filters">
+
+                    <div class="filter-group">
+                        <label for="classFilter">Class</label>
+                        <select id="classFilter">
+                            <option value="all">All Classes</option>
+                            <option value="10">Class 10</option>
+                            <option value="9">Class 9</option>
+                            <option value="8">Class 8</option>
+                            <option value="7">Class 7</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="sectionFilter">Section</label>
+                        <select id="sectionFilter">
+                            <option value="all">All Sections</option>
+                            <option value="A">Section A</option>
+                            <option value="B">Section B</option>
+                            <option value="C">Section C</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="subjectFilter">Subject</label>
+                        <select id="subjectFilter">
+                            <option value="all">All Subjects</option>
+                            <option value="Mathematics">Mathematics</option>
+                            <option value="Science">Science</option>
+                            <option value="English">English</option>
+                            <option value="Nepali">Nepali</option>
+                            <option value="Computer Science">Computer Science</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="statusFilter">Status</label>
+                        <select id="statusFilter">
+                            <option value="all">All Status</option>
+                            <option value="Active">Active</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Overdue">Overdue</option>
+                        </select>
+                    </div>
+
+                    <div class="search-box">
+                        <span>⌕</span>
+                        <input type="text" id="homeworkSearch" placeholder="Search homework">
+                    </div>
+
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Homework</th>
+                                <th>Class</th>
+                                <th>Subject</th>
+                                <th>Teacher</th>
+                                <th>Assigned</th>
+                                <th>Due Date</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="homeworkTableBody">
+
+                            <tr data-class="10" data-section="A" data-subject="Mathematics" data-status="Active">
+                                <td>
+                                    <div class="homework-info">
+                                        <strong>Quadratic Equations</strong>
+                                        <span>Complete Exercise 4.2</span>
+                                    </div>
+                                </td>
+                                <td><span class="class-badge">10 - A</span></td>
+                                <td>Mathematics</td>
+                                <td>Mr. Ramesh Karki</td>
+                                <td>13 Sep 2026</td>
+                                <td>15 Sep 2026</td>
+                                <td><span class="priority-badge normal">Normal</span></td>
+                                <td><span class="status-badge active">Active</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-button">View</button>
+                                        <button class="edit-button">Edit</button>
+                                        <button class="delete-button">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-class="10" data-section="A" data-subject="Science" data-status="Active">
+                                <td>
+                                    <div class="homework-info">
+                                        <strong>Human Nervous System</strong>
+                                        <span>Answer Chapter 8 questions</span>
+                                    </div>
+                                </td>
+                                <td><span class="class-badge">10 - A</span></td>
+                                <td>Science</td>
+                                <td>Ms. Sita Thapa</td>
+                                <td>13 Sep 2026</td>
+                                <td>16 Sep 2026</td>
+                                <td><span class="priority-badge high">High</span></td>
+                                <td><span class="status-badge active">Active</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-button">View</button>
+                                        <button class="edit-button">Edit</button>
+                                        <button class="delete-button">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-class="10" data-section="A" data-subject="English" data-status="Completed">
+                                <td>
+                                    <div class="homework-info">
+                                        <strong>Reported Speech</strong>
+                                        <span>Complete grammar worksheet</span>
+                                    </div>
+                                </td>
+                                <td><span class="class-badge">10 - A</span></td>
+                                <td>English</td>
+                                <td>Ms. Anu Shrestha</td>
+                                <td>11 Sep 2026</td>
+                                <td>13 Sep 2026</td>
+                                <td><span class="priority-badge normal">Normal</span></td>
+                                <td><span class="status-badge completed">Completed</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-button">View</button>
+                                        <button class="edit-button">Edit</button>
+                                        <button class="delete-button">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-class="9" data-section="B" data-subject="Nepali" data-status="Active">
+                                <td>
+                                    <div class="homework-info">
+                                        <strong>नेपाली व्याकरण</strong>
+                                        <span>Complete page 72 exercises</span>
+                                    </div>
+                                </td>
+                                <td><span class="class-badge">9 - B</span></td>
+                                <td>Nepali</td>
+                                <td>Mr. Hari Prasad</td>
+                                <td>13 Sep 2026</td>
+                                <td>17 Sep 2026</td>
+                                <td><span class="priority-badge low">Low</span></td>
+                                <td><span class="status-badge active">Active</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-button">View</button>
+                                        <button class="edit-button">Edit</button>
+                                        <button class="delete-button">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-class="9" data-section="B" data-subject="Computer Science" data-status="Overdue">
+                                <td>
+                                    <div class="homework-info">
+                                        <strong>HTML Forms</strong>
+                                        <span>Build a login form</span>
+                                    </div>
+                                </td>
+                                <td><span class="class-badge">9 - B</span></td>
+                                <td>Computer Science</td>
+                                <td>Mr. Sagar Adhikari</td>
+                                <td>09 Sep 2026</td>
+                                <td>12 Sep 2026</td>
+                                <td><span class="priority-badge high">High</span></td>
+                                <td><span class="status-badge overdue">Overdue</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-button">View</button>
+                                        <button class="edit-button">Edit</button>
+                                        <button class="delete-button">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="empty-state" id="emptyState">
+                    <div>▱</div>
+                    <h3>No homework found</h3>
+                    <p>Try changing your filters or search terms.</p>
+                </div>
+
+            </div>
+
+        </section>
+    </main>
+
+    <div class="modal-overlay" id="modalOverlay">
+
+        <div class="modal">
+
+            <div class="modal-header">
+                <div>
+                    <h3 id="modalTitle">Create Homework</h3>
+                    <p>Assign homework to a class or section.</p>
+                </div>
+
+                <button class="close-button" id="closeModal">×</button>
+            </div>
+
+            <form id="homeworkForm">
+
+                <div class="form-section">
+                    <h4>Assignment Information</h4>
+
+                    <div class="form-grid">
+
+                        <div class="form-group full-width">
+                            <label for="formTitle">Homework Title</label>
+                            <input type="text" id="formTitle" placeholder="Enter homework title" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="formClass">Class</label>
+                            <select id="formClass" required>
+                                <option value="">Select Class</option>
+                                <option value="10">Class 10</option>
+                                <option value="9">Class 9</option>
+                                <option value="8">Class 8</option>
+                                <option value="7">Class 7</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="formSection">Section</label>
+                            <select id="formSection" required>
+                                <option value="">Select Section</option>
+                                <option value="A">Section A</option>
+                                <option value="B">Section B</option>
+                                <option value="C">Section C</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="formSubject">Subject</label>
+                            <select id="formSubject" required>
+                                <option value="">Select Subject</option>
+                                <option value="Mathematics">Mathematics</option>
+                                <option value="Science">Science</option>
+                                <option value="English">English</option>
+                                <option value="Nepali">Nepali</option>
+                                <option value="Computer Science">Computer Science</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="formTeacher">Teacher</label>
+                            <input type="text" id="formTeacher" placeholder="Teacher name" required>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h4>Homework Details</h4>
+
+                    <div class="form-grid">
+
+                        <div class="form-group full-width">
+                            <label for="formDescription">Instructions</label>
+                            <textarea id="formDescription" placeholder="Write homework instructions"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="formAssignedDate">Assigned Date</label>
+                            <input type="date" id="formAssignedDate" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="formDueDate">Due Date</label>
+                            <input type="date" id="formDueDate" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="formPriority">Priority</label>
+                            <select id="formPriority">
+                                <option value="Normal">Normal</option>
+                                <option value="High">High</option>
+                                <option value="Low">Low</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="formStatus">Status</label>
+                            <select id="formStatus">
+                                <option value="Active">Active</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Overdue">Overdue</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="formAttachment">Attachment / Reference</label>
+                            <input type="text" id="formAttachment" placeholder="Book page, file name or reference">
+                        </div>
+
+                        <div class="checkbox-group full-width">
+                            <label>
+                                <input type="checkbox" id="parentVisible" checked>
+                                Visible to parents
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="secondary-button" id="cancelModal">
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="primary-button">
+                        Save Homework
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="view-overlay" id="viewOverlay">
+
+        <div class="view-modal">
+
+            <div class="modal-header">
+                <div>
+                    <h3>Homework Details</h3>
+                    <p>View assignment information</p>
+                </div>
+
+                <button class="close-button" id="closeView">×</button>
+            </div>
+
+            <div class="view-content">
+
+                <div class="view-title">
+                    <div class="view-icon">▱</div>
+
+                    <div>
+                        <h3 id="viewTitle">Quadratic Equations</h3>
+                        <span id="viewSubject">Mathematics</span>
+                    </div>
+                </div>
+
+                <div class="view-grid">
+
+                    <div>
+                        <span>Class</span>
+                        <strong id="viewClass">10 - A</strong>
+                    </div>
+
+                    <div>
+                        <span>Teacher</span>
+                        <strong id="viewTeacher">Mr. Ramesh Karki</strong>
+                    </div>
+
+                    <div>
+                        <span>Assigned Date</span>
+                        <strong id="viewAssigned">13 Sep 2026</strong>
+                    </div>
+
+                    <div>
+                        <span>Due Date</span>
+                        <strong id="viewDue">15 Sep 2026</strong>
+                    </div>
+
+                    <div>
+                        <span>Priority</span>
+                        <strong id="viewPriority">Normal</strong>
+                    </div>
+
+                    <div>
+                        <span>Status</span>
+                        <strong id="viewStatus">Active</strong>
+                    </div>
+
+                </div>
+
+                <div class="view-section">
+                    <span>Instructions</span>
+                    <p id="viewDescription">Complete Exercise 4.2 from the mathematics textbook.</p>
+                </div>
+
+                <div class="view-section">
+                    <span>Attachment / Reference</span>
+                    <p id="viewAttachment">Mathematics textbook — Exercise 4.2</p>
+                </div>
+
+                <div class="parent-visibility">
+                    <span>Parent Visibility</span>
+                    <strong id="viewParentVisibility">Visible to parents</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="homework.js"></script>
+</body>
+</html>
