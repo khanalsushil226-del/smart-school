@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timetable | Hamro School</title>
+    <link rel="stylesheet" href="timetable.css">
+</head>
+<body>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-logo">SS</div>
+            <div class="brand-text">
+                <strong>Hamro School</strong>
+                <span>YOUR SCHOOL DIGITAL PLATFORM</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <span class="nav-label">MAIN</span>
+                <a href="dashboard.html">
+                    <span>⌂</span>
+                    Dashboard
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-label">SCHOOL & ACCOUNTS</span>
+                <a href="school-setup.html">
+                    <span>▣</span>
+                    School Setup
+                </a>
+                <a href="users.html">
+                    <span>♙</span>
+                    Users & Accounts
+                </a>
+                <a href="roles.html">
+                    <span>⚿</span>
+                    Roles & Permissions
+                </a>
+                <a href="students.html">
+                    <span>♙</span>
+                    Students
+                </a>
+                <a href="parents.html">
+                    <span>♧</span>
+                    Parents
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-label">DAILY OPERATIONS</span>
+                <a href="attendance.html">
+                    <span>✓</span>
+                    Attendance
+                </a>
+                <a href="timetable.html" class="active">
+                    <span>▦</span>
+                    Timetable
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-label">ACADEMIC DELIVERY</span>
+                <a href="class-diary.html">
+                    <span>▤</span>
+                    Class Diary
+                </a>
+                <a href="homework.html">
+                    <span>▱</span>
+                    Homework
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-label">COMMUNICATION</span>
+                <a href="parent-dashboard.html">
+                    <span>⌂</span>
+                    Parent Dashboard
+                </a>
+                <a href="announcements.html">
+                    <span>◈</span>
+                    Announcements
+                </a>
+                <a href="calendar.html">
+                    <span>□</span>
+                    School Calendar
+                </a>
+            </div>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="settings.html">
+                <span>⚙</span>
+                Settings
+            </a>
+            <a href="index.html">
+                <span>↪</span>
+                Logout
+            </a>
+        </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-button" id="menuButton">☰</button>
+                <div>
+                    <h1>Timetable</h1>
+                    <p>Manage class schedules and periods</p>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <div class="top-search">
+                    <span>⌕</span>
+                    <input type="text" placeholder="Search" id="topSearch">
+                </div>
+
+                <button class="notification-button">♢</button>
+
+                <div class="admin-profile">
+                    <div class="admin-avatar">A</div>
+                    <div>
+                        <strong>Administrator</strong>
+                        <span>Super Admin</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="content">
+
+            <div class="page-heading">
+                <div>
+                    <h2>Class Timetable</h2>
+                    <p>View and manage weekly class schedules.</p>
+                </div>
+
+                <button class="primary-button" id="addTimetable">
+                    + Add Timetable
+                </button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">▦</div>
+                    <div>
+                        <span>Total Periods</span>
+                        <strong id="totalPeriods">42</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">♙</div>
+                    <div>
+                        <span>Teachers Assigned</span>
+                        <strong id="teachersAssigned">18</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">▣</div>
+                    <div>
+                        <span>Classes Covered</span>
+                        <strong id="classesCovered">12</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">◷</div>
+                    <div>
+                        <span>School Hours</span>
+                        <strong>8:00 AM - 4:00 PM</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timetable-card">
+
+                <div class="card-heading">
+                    <div>
+                        <h3>Weekly Schedule</h3>
+                        <p>Choose a class and section to view its timetable.</p>
+                    </div>
+                </div>
+
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="classFilter">Class</label>
+                        <select id="classFilter">
+                            <option value="10">Class 10</option>
+                            <option value="9">Class 9</option>
+                            <option value="8">Class 8</option>
+                            <option value="7">Class 7</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="sectionFilter">Section</label>
+                        <select id="sectionFilter">
+                            <option value="A">Section A</option>
+                            <option value="B">Section B</option>
+                            <option value="C">Section C</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="academicYear">Academic Year</label>
+                        <select id="academicYear">
+                            <option value="2026">2026</option>
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                        </select>
+                    </div>
+
+                    <button class="export-button" id="exportTimetable">
+                        Export
+                    </button>
+                </div>
+
+                <div class="day-tabs">
+                    <button class="day-tab active" data-day="Monday">Monday</button>
+                    <button class="day-tab" data-day="Tuesday">Tuesday</button>
+                    <button class="day-tab" data-day="Wednesday">Wednesday</button>
+                    <button class="day-tab" data-day="Thursday">Thursday</button>
+                    <button class="day-tab" data-day="Friday">Friday</button>
+                </div>
+
+                <div class="schedule-wrapper">
+                    <div class="schedule-list" id="scheduleList">
+
+                        <div class="period-row">
+                            <div class="period-time">
+                                <strong>8:00</strong>
+                                <span>8:45 AM</span>
+                            </div>
+
+                            <div class="period-card">
+                                <div class="subject-icon">M</div>
+                                <div class="period-details">
+                                    <strong>Mathematics</strong>
+                                    <span>Mr. Ramesh Karki</span>
+                                </div>
+                                <div class="room">
+                                    <span>Room</span>
+                                    <strong>101</strong>
+                                </div>
+                                <div class="period-actions">
+                                    <button class="edit-button">Edit</button>
+                                    <button class="delete-button">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="period-row">
+                            <div class="period-time">
+                                <strong>8:45</strong>
+                                <span>9:30 AM</span>
+                            </div>
+
+                            <div class="period-card">
+                                <div class="subject-icon">S</div>
+                                <div class="period-details">
+                                    <strong>Science</strong>
+                                    <span>Ms. Sita Thapa</span>
+                                </div>
+                                <div class="room">
+                                    <span>Room</span>
+                                    <strong>101</strong>
+                                </div>
+                                <div class="period-actions">
+                                    <button class="edit-button">Edit</button>
+                                    <button class="delete-button">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="period-row break-row">
+                            <div class="period-time">
+                                <strong>9:30</strong>
+                                <span>9:45 AM</span>
+                            </div>
+
+                            <div class="break-card">
+                                <span>☕</span>
+                                <div>
+                                    <strong>Short Break</strong>
+                                    <p>15 minutes</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="period-row">
+                            <div class="period-time">
+                                <strong>9:45</strong>
+                                <span>10:30 AM</span>
+                            </div>
+
+                            <div class="period-card">
+                                <div class="subject-icon">E</div>
+                                <div class="period-details">
+                                    <strong>English</strong>
+                                    <span>Ms. Anu Shrestha</span>
+                                </div>
+                                <div class="room">
+                                    <span>Room</span>
+                                    <strong>101</strong>
+                                </div>
+                                <div class="period-actions">
+                                    <button class="edit-button">Edit</button>
+                                    <button class="delete-button">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="period-row">
+                            <div class="period-time">
+                                <strong>10:30</strong>
+                                <span>11:15 AM</span>
+                            </div>
+
+                            <div class="period-card">
+                                <div class="subject-icon">N</div>
+                                <div class="period-details">
+                                    <strong>Nepali</strong>
+                                    <span>Mr. Hari Prasad</span>
+                                </div>
+                                <div class="room">
+                                    <span>Room</span>
+                                    <strong>101</strong>
+                                </div>
+                                <div class="period-actions">
+                                    <button class="edit-button">Edit</button>
+                                    <button class="delete-button">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="period-row">
+                            <div class="period-time">
+                                <strong>11:15</strong>
+                                <span>12:00 PM</span>
+                            </div>
+
+                            <div class="period-card">
+                                <div class="subject-icon">C</div>
+                                <div class="period-details">
+                                    <strong>Computer Science</strong>
+                                    <span>Mr. Sagar Adhikari</span>
+                                </div>
+                                <div class="room">
+                                    <span>Lab</span>
+                                    <strong>204</strong>
+                                </div>
+                                <div class="period-actions">
+                                    <button class="edit-button">Edit</button>
+                                    <button class="delete-button">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="empty-state" id="emptyState">
+                        <div>▦</div>
+                        <h3>No timetable entries</h3>
+                        <p>Add a timetable entry for this class and section.</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+
+            <div class="modal-header">
+                <div>
+                    <h3 id="modalTitle">Add Timetable Entry</h3>
+                    <p>Create a new class schedule.</p>
+                </div>
+
+                <button class="close-button" id="closeModal">×</button>
+            </div>
+
+            <form id="timetableForm">
+
+                <div class="form-section">
+                    <h4>Schedule Information</h4>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="formDay">Day</label>
+                            <select id="formDay" required>
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="formSubject">Subject</label>
+                            <input type="text" id="formSubject" placeholder="e.g. Mathematics" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="formTeacher">Teacher</label>
+                            <input type="text" id="formTeacher" placeholder="Teacher name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="formRoom">Room / Lab</label>
+                            <input type="text" id="formRoom" placeholder="e.g. 101" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="formStartTime">Start Time</label>
+                            <input type="time" id="formStartTime" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="formEndTime">End Time</label>
+                            <input type="time" id="formEndTime" required>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="secondary-button" id="cancelModal">
+                        Cancel
+                    </button>
+                    <button type="submit" class="primary-button">
+                        Save Entry
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <script src="timetable.js"></script>
+</body>
+</html>
