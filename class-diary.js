@@ -1,575 +1,356 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Class Diary | Hamro School</title>
-    <link rel="stylesheet" href="class-diary.css">
-</head>
-<body>
+const menuButton = document.getElementById("menuButton");
+const sidebar = document.getElementById("sidebar");
+const sidebarOverlay = document.getElementById("sidebarOverlay");
 
-    <aside class="sidebar" id="sidebar">
-        <div class="brand">
-            <div class="brand-logo">SS</div>
-            <div class="brand-text">
-                <strong>Hamro School</strong>
-                <span>YOUR SCHOOL DIGITAL PLATFORM</span>
+menuButton.addEventListener("click", () => {
+    sidebar.classList.toggle("open");
+    sidebarOverlay.classList.toggle("show");
+});
+
+sidebarOverlay.addEventListener("click", () => {
+    sidebar.classList.remove("open");
+    sidebarOverlay.classList.remove("show");
+});
+
+window.addEventListener("resize", () => {
+    if (window.innerWidth > 900) {
+        sidebar.classList.remove("open");
+        sidebarOverlay.classList.remove("show");
+    }
+});
+
+const modalOverlay = document.getElementById("modalOverlay");
+const viewOverlay = document.getElementById("viewOverlay");
+const diaryForm = document.getElementById("diaryForm");
+const diaryTableBody = document.getElementById("diaryTableBody");
+const emptyState = document.getElementById("emptyState");
+
+const dateFilter = document.getElementById("dateFilter");
+const classFilter = document.getElementById("classFilter");
+const sectionFilter = document.getElementById("sectionFilter");
+const subjectFilter = document.getElementById("subjectFilter");
+const diarySearch = document.getElementById("diarySearch");
+const topSearch = document.getElementById("topSearch");
+
+let editingRow = null;
+
+const today = new Date();
+const todayYear = today.getFullYear();
+const todayMonth = String(today.getMonth() + 1).padStart(2, "0");
+const todayDay = String(today.getDate()).padStart(2, "0");
+
+dateFilter.value = `${todayYear}-${todayMonth}-${todayDay}`;
+document.getElementById("formDate").value = `${todayYear}-${todayMonth}-${todayDay}`;
+
+function openModal(row = null) {
+    editingRow = row;
+    modalOverlay.classList.add("show");
+
+    if (row) {
+        document.getElementById("modalTitle").textContent = "Edit Diary Entry";
+
+        const date = row.children[0].textContent;
+        const classSection = row.children[1].textContent.trim();
+        const subject = row.children[2].textContent.trim();
+        const teacher = row.children[3].textContent.trim();
+        const topic = row.querySelector(".topic-info strong").textContent;
+        const homework = row.children[5].textContent.trim();
+        const status = row.querySelector(".status-badge").textContent.trim();
+
+        document.getElementById("formSubject").value = subject;
+        document.getElementById("formTeacher").value = teacher;
+        document.getElementById("formTopic").value = topic;
+        document.getElementById("formHomework").value = homework;
+        document.getElementById("formStatus").value = status;
+
+        const parts = classSection.split("-");
+
+        if (parts.length === 2) {
+            document.getElementById("formClass").value = parts[0].trim();
+            document.getElementById("formSection").value = parts[1].trim();
+        }
+    } else {
+        document.getElementById("modalTitle").textContent = "Add Diary Entry";
+        diaryForm.reset();
+        document.getElementById("formDate").value = `${todayYear}-${todayMonth}-${todayDay}`;
+    }
+}
+
+function closeModalWindow() {
+    modalOverlay.classList.remove("show");
+    diaryForm.reset();
+    document.getElementById("formDate").value = `${todayYear}-${todayMonth}-${todayDay}`;
+    editingRow = null;
+}
+
+document.getElementById("addDiary").addEventListener("click", () => {
+    openModal();
+});
+
+document.getElementById("closeModal").addEventListener("click", closeModalWindow);
+document.getElementById("cancelModal").addEventListener("click", closeModalWindow);
+
+modalOverlay.addEventListener("click", event => {
+    if (event.target === modalOverlay) {
+        closeModalWindow();
+    }
+});
+
+document.getElementById("closeView").addEventListener("click", () => {
+    viewOverlay.classList.remove("show");
+});
+
+viewOverlay.addEventListener("click", event => {
+    if (event.target === viewOverlay) {
+        viewOverlay.classList.remove("show");
+    }
+});
+
+function formatDate(dateValue) {
+    const date = new Date(`${dateValue}T00:00:00`);
+
+    return date.toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+    });
+}
+
+function getStatusClass(status) {
+    if (status === "Completed") {
+        return "completed";
+    }
+
+    if (status === "In Progress") {
+        return "in-progress";
+    }
+
+    return "pending";
+}
+
+function updateStatistics() {
+    const rows = Array.from(diaryTableBody.querySelectorAll("tr"));
+
+    document.getElementById("totalEntries").textContent = rows.length + 81;
+
+    const teachers = new Set();
+    const classes = new Set();
+
+    rows.forEach(row => {
+        teachers.add(row.children[3].textContent.trim());
+        classes.add(row.children[1].textContent.trim());
+    });
+
+    document.getElementById("teacherCount").textContent = teachers.size + 13;
+    document.getElementById("classCount").textContent = classes.size + 8;
+}
+
+function filterDiary() {
+    const selectedDate = dateFilter.value;
+    const selectedClass = classFilter.value;
+    const selectedSection = sectionFilter.value;
+    const selectedSubject = subjectFilter.value;
+    const searchValue = diarySearch.value.trim().toLowerCase();
+
+    let visible = 0;
+
+    Array.from(diaryTableBody.querySelectorAll("tr")).forEach(row => {
+        const rowDate = row.children[0].textContent.trim();
+        const rowClass = row.dataset.class;
+        const rowSection = row.dataset.section;
+        const rowSubject = row.dataset.subject;
+
+        const topic = row.querySelector(".topic-info strong").textContent.toLowerCase();
+        const teacher = row.children[3].textContent.toLowerCase();
+        const subject = row.children[2].textContent.toLowerCase();
+
+        const formattedFilterDate = selectedDate ? formatDate(selectedDate) : "";
+
+        const matchesDate = !selectedDate || rowDate === formattedFilterDate;
+        const matchesClass = selectedClass === "all" || rowClass === selectedClass;
+        const matchesSection = selectedSection === "all" || rowSection === selectedSection;
+        const matchesSubject = selectedSubject === "all" || rowSubject === selectedSubject;
+        const matchesSearch =
+            !searchValue ||
+            topic.includes(searchValue) ||
+            teacher.includes(searchValue) ||
+            subject.includes(searchValue);
+
+        const show = matchesDate && matchesClass && matchesSection && matchesSubject && matchesSearch;
+
+        row.style.display = show ? "" : "none";
+
+        if (show) {
+            visible++;
+        }
+    });
+
+    emptyState.classList.toggle("show", visible === 0);
+}
+
+[dateFilter, classFilter, sectionFilter, subjectFilter, diarySearch].forEach(element => {
+    element.addEventListener("input", filterDiary);
+    element.addEventListener("change", filterDiary);
+});
+
+topSearch.addEventListener("input", () => {
+    diarySearch.value = topSearch.value;
+    filterDiary();
+});
+
+diaryForm.addEventListener("submit", event => {
+    event.preventDefault();
+
+    const date = document.getElementById("formDate").value;
+    const selectedClass = document.getElementById("formClass").value;
+    const section = document.getElementById("formSection").value;
+    const subject = document.getElementById("formSubject").value;
+    const teacher = document.getElementById("formTeacher").value.trim();
+    const topic = document.getElementById("formTopic").value.trim();
+    const notes = document.getElementById("formNotes").value.trim();
+    const homework = document.getElementById("formHomework").value.trim() || "—";
+    const status = document.getElementById("formStatus").value;
+
+    if (!date || !selectedClass || !section || !subject || !teacher || !topic) {
+        return;
+    }
+
+    const statusClass = getStatusClass(status);
+
+    if (editingRow) {
+        editingRow.children[0].textContent = formatDate(date);
+        editingRow.children[1].innerHTML = `<span class="class-badge">${selectedClass} - ${section}</span>`;
+        editingRow.children[2].textContent = subject;
+        editingRow.children[3].textContent = teacher;
+        editingRow.querySelector(".topic-info strong").textContent = topic;
+        editingRow.querySelector(".topic-info span").textContent = notes || "Classroom lesson";
+        editingRow.children[5].textContent = homework;
+
+        const statusBadge = editingRow.querySelector(".status-badge");
+        statusBadge.textContent = status;
+        statusBadge.className = `status-badge ${statusClass}`;
+
+        editingRow.dataset.class = selectedClass;
+        editingRow.dataset.section = section;
+        editingRow.dataset.subject = subject;
+
+        closeModalWindow();
+        filterDiary();
+        updateStatistics();
+        return;
+    }
+
+    const row = document.createElement("tr");
+
+    row.dataset.class = selectedClass;
+    row.dataset.section = section;
+    row.dataset.subject = subject;
+
+    row.innerHTML = `
+        <td>${formatDate(date)}</td>
+        <td>
+            <span class="class-badge">${selectedClass} - ${section}</span>
+        </td>
+        <td>${subject}</td>
+        <td>${teacher}</td>
+        <td>
+            <div class="topic-info">
+                <strong>${topic}</strong>
+                <span>${notes || "Classroom lesson"}</span>
             </div>
-        </div>
-
-        <nav class="sidebar-nav">
-            <div class="nav-section">
-                <span class="nav-label">MAIN</span>
-                <a href="dashboard.html">
-                    <span>⌂</span>
-                    Dashboard
-                </a>
+        </td>
+        <td>${homework}</td>
+        <td>
+            <span class="status-badge ${statusClass}">${status}</span>
+        </td>
+        <td>
+            <div class="action-buttons">
+                <button class="view-button">View</button>
+                <button class="edit-button">Edit</button>
+                <button class="delete-button">Delete</button>
             </div>
-
-            <div class="nav-section">
-                <span class="nav-label">SCHOOL & ACCOUNTS</span>
-                <a href="school-setup.html">
-                    <span>▣</span>
-                    School Setup
-                </a>
-                <a href="users.html">
-                    <span>♙</span>
-                    Users & Accounts
-                </a>
-                <a href="roles.html">
-                    <span>⚿</span>
-                    Roles & Permissions
-                </a>
-                <a href="students.html">
-                    <span>♙</span>
-                    Students
-                </a>
-                <a href="parents.html">
-                    <span>♧</span>
-                    Parents
-                </a>
-            </div>
-
-            <div class="nav-section">
-                <span class="nav-label">DAILY OPERATIONS</span>
-                <a href="attendance.html">
-                    <span>✓</span>
-                    Attendance
-                </a>
-                <a href="timetable.html">
-                    <span>▦</span>
-                    Timetable
-                </a>
-            </div>
-
-            <div class="nav-section">
-                <span class="nav-label">ACADEMIC DELIVERY</span>
-                <a href="class-diary.html" class="active">
-                    <span>▤</span>
-                    Class Diary
-                </a>
-                <a href="homework.html">
-                    <span>▱</span>
-                    Homework
-                </a>
-            </div>
-
-            <div class="nav-section">
-                <span class="nav-label">COMMUNICATION</span>
-                <a href="parent-dashboard.html">
-                    <span>⌂</span>
-                    Parent Dashboard
-                </a>
-                <a href="announcements.html">
-                    <span>◈</span>
-                    Announcements
-                </a>
-                <a href="calendar.html">
-                    <span>□</span>
-                    School Calendar
-                </a>
-            </div>
-        </nav>
-
-        <div class="sidebar-bottom">
-            <a href="settings.html">
-                <span>⚙</span>
-                Settings
-            </a>
-            <a href="index.html">
-                <span>↪</span>
-                Logout
-            </a>
-        </div>
-    </aside>
-
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-    <main class="main-content">
-        <header class="topbar">
-            <div class="topbar-left">
-                <button class="menu-button" id="menuButton">☰</button>
-
-                <div>
-                    <h1>Class Diary</h1>
-                    <p>Record daily classroom activities and lessons</p>
-                </div>
-            </div>
-
-            <div class="topbar-right">
-                <div class="top-search">
-                    <span>⌕</span>
-                    <input type="text" id="topSearch" placeholder="Search">
-                </div>
-
-                <button class="notification-button">♢</button>
-
-                <div class="admin-profile">
-                    <div class="admin-avatar">A</div>
-                    <div>
-                        <strong>Administrator</strong>
-                        <span>Super Admin</span>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <section class="content">
-
-            <div class="page-heading">
-                <div>
-                    <h2>Class Diary</h2>
-                    <p>Keep a daily record of lessons, activities and classroom notes.</p>
-                </div>
-
-                <button class="primary-button" id="addDiary">
-                    + Add Diary Entry
-                </button>
-            </div>
-
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">▤</div>
-                    <div>
-                        <span>Total Entries</span>
-                        <strong id="totalEntries">86</strong>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-icon">✓</div>
-                    <div>
-                        <span>Completed Today</span>
-                        <strong id="todayEntries">8</strong>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-icon">♙</div>
-                    <div>
-                        <span>Teachers</span>
-                        <strong id="teacherCount">18</strong>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-icon">▣</div>
-                    <div>
-                        <span>Classes Covered</span>
-                        <strong id="classCount">12</strong>
-                    </div>
-                </div>
-            </div>
-
-            <div class="diary-card">
-
-                <div class="card-heading">
-                    <div>
-                        <h3>Diary Entries</h3>
-                        <p>Review daily classroom records and lesson progress.</p>
-                    </div>
-
-                    <button class="export-button" id="exportDiary">
-                        Export
-                    </button>
-                </div>
-
-                <div class="filters">
-
-                    <div class="filter-group">
-                        <label for="dateFilter">Date</label>
-                        <input type="date" id="dateFilter">
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="classFilter">Class</label>
-                        <select id="classFilter">
-                            <option value="all">All Classes</option>
-                            <option value="10">Class 10</option>
-                            <option value="9">Class 9</option>
-                            <option value="8">Class 8</option>
-                            <option value="7">Class 7</option>
-                        </select>
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="sectionFilter">Section</label>
-                        <select id="sectionFilter">
-                            <option value="all">All Sections</option>
-                            <option value="A">Section A</option>
-                            <option value="B">Section B</option>
-                            <option value="C">Section C</option>
-                        </select>
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="subjectFilter">Subject</label>
-                        <select id="subjectFilter">
-                            <option value="all">All Subjects</option>
-                            <option value="Mathematics">Mathematics</option>
-                            <option value="Science">Science</option>
-                            <option value="English">English</option>
-                            <option value="Nepali">Nepali</option>
-                            <option value="Computer Science">Computer Science</option>
-                        </select>
-                    </div>
-
-                    <div class="search-box">
-                        <span>⌕</span>
-                        <input type="text" id="diarySearch" placeholder="Search diary entries">
-                    </div>
-
-                </div>
-
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Class</th>
-                                <th>Subject</th>
-                                <th>Teacher</th>
-                                <th>Lesson / Topic</th>
-                                <th>Homework</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-
-                        <tbody id="diaryTableBody">
-
-                            <tr data-class="10" data-section="A" data-subject="Mathematics">
-                                <td>13 Sep 2026</td>
-                                <td>
-                                    <span class="class-badge">10 - A</span>
-                                </td>
-                                <td>Mathematics</td>
-                                <td>Mr. Ramesh Karki</td>
-                                <td>
-                                    <div class="topic-info">
-                                        <strong>Quadratic Equations</strong>
-                                        <span>Solving quadratic equations</span>
-                                    </div>
-                                </td>
-                                <td>Exercise 4.2</td>
-                                <td>
-                                    <span class="status-badge completed">Completed</span>
-                                </td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="view-button">View</button>
-                                        <button class="edit-button">Edit</button>
-                                        <button class="delete-button">Delete</button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr data-class="10" data-section="A" data-subject="Science">
-                                <td>13 Sep 2026</td>
-                                <td>
-                                    <span class="class-badge">10 - A</span>
-                                </td>
-                                <td>Science</td>
-                                <td>Ms. Sita Thapa</td>
-                                <td>
-                                    <div class="topic-info">
-                                        <strong>Human Nervous System</strong>
-                                        <span>Parts and functions</span>
-                                    </div>
-                                </td>
-                                <td>Chapter 8 questions</td>
-                                <td>
-                                    <span class="status-badge completed">Completed</span>
-                                </td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="view-button">View</button>
-                                        <button class="edit-button">Edit</button>
-                                        <button class="delete-button">Delete</button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr data-class="10" data-section="A" data-subject="English">
-                                <td>13 Sep 2026</td>
-                                <td>
-                                    <span class="class-badge">10 - A</span>
-                                </td>
-                                <td>English</td>
-                                <td>Ms. Anu Shrestha</td>
-                                <td>
-                                    <div class="topic-info">
-                                        <strong>Reported Speech</strong>
-                                        <span>Rules and sentence conversion</span>
-                                    </div>
-                                </td>
-                                <td>Grammar worksheet</td>
-                                <td>
-                                    <span class="status-badge completed">Completed</span>
-                                </td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="view-button">View</button>
-                                        <button class="edit-button">Edit</button>
-                                        <button class="delete-button">Delete</button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr data-class="9" data-section="B" data-subject="Nepali">
-                                <td>13 Sep 2026</td>
-                                <td>
-                                    <span class="class-badge">9 - B</span>
-                                </td>
-                                <td>Nepali</td>
-                                <td>Mr. Hari Prasad</td>
-                                <td>
-                                    <div class="topic-info">
-                                        <strong>नेपाली व्याकरण</strong>
-                                        <span>वाक्य संरचना</span>
-                                    </div>
-                                </td>
-                                <td>Page 72</td>
-                                <td>
-                                    <span class="status-badge completed">Completed</span>
-                                </td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="view-button">View</button>
-                                        <button class="edit-button">Edit</button>
-                                        <button class="delete-button">Delete</button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr data-class="9" data-section="B" data-subject="Computer Science">
-                                <td>12 Sep 2026</td>
-                                <td>
-                                    <span class="class-badge">9 - B</span>
-                                </td>
-                                <td>Computer Science</td>
-                                <td>Mr. Sagar Adhikari</td>
-                                <td>
-                                    <div class="topic-info">
-                                        <strong>HTML Forms</strong>
-                                        <span>Form elements and inputs</span>
-                                    </div>
-                                </td>
-                                <td>Build a login form</td>
-                                <td>
-                                    <span class="status-badge completed">Completed</span>
-                                </td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="view-button">View</button>
-                                        <button class="edit-button">Edit</button>
-                                        <button class="delete-button">Delete</button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="empty-state" id="emptyState">
-                    <div>▤</div>
-                    <h3>No diary entries found</h3>
-                    <p>Try changing your filters or search terms.</p>
-                </div>
-
-            </div>
-
-        </section>
-    </main>
-
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal">
-
-            <div class="modal-header">
-                <div>
-                    <h3 id="modalTitle">Add Diary Entry</h3>
-                    <p>Record today's classroom activity.</p>
-                </div>
-
-                <button class="close-button" id="closeModal">×</button>
-            </div>
-
-            <form id="diaryForm">
-
-                <div class="form-section">
-                    <h4>Class Information</h4>
-
-                    <div class="form-grid">
-
-                        <div class="form-group">
-                            <label for="formDate">Date</label>
-                            <input type="date" id="formDate" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="formClass">Class</label>
-                            <select id="formClass" required>
-                                <option value="">Select Class</option>
-                                <option value="10">Class 10</option>
-                                <option value="9">Class 9</option>
-                                <option value="8">Class 8</option>
-                                <option value="7">Class 7</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="formSection">Section</label>
-                            <select id="formSection" required>
-                                <option value="">Select Section</option>
-                                <option value="A">Section A</option>
-                                <option value="B">Section B</option>
-                                <option value="C">Section C</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="formSubject">Subject</label>
-                            <select id="formSubject" required>
-                                <option value="">Select Subject</option>
-                                <option value="Mathematics">Mathematics</option>
-                                <option value="Science">Science</option>
-                                <option value="English">English</option>
-                                <option value="Nepali">Nepali</option>
-                                <option value="Computer Science">Computer Science</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group full-width">
-                            <label for="formTeacher">Teacher</label>
-                            <input type="text" id="formTeacher" placeholder="Teacher name" required>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="form-section">
-                    <h4>Lesson Details</h4>
-
-                    <div class="form-grid">
-
-                        <div class="form-group full-width">
-                            <label for="formTopic">Lesson / Topic</label>
-                            <input type="text" id="formTopic" placeholder="What was taught today?" required>
-                        </div>
-
-                        <div class="form-group full-width">
-                            <label for="formNotes">Class Notes</label>
-                            <textarea id="formNotes" placeholder="Add notes about the lesson, activities or observations"></textarea>
-                        </div>
-
-                        <div class="form-group full-width">
-                            <label for="formHomework">Homework</label>
-                            <input type="text" id="formHomework" placeholder="Homework or assignment">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="formStatus">Status</label>
-                            <select id="formStatus">
-                                <option value="Completed">Completed</option>
-                                <option value="In Progress">In Progress</option>
-                                <option value="Pending">Pending</option>
-                            </select>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="modal-actions">
-                    <button type="button" class="secondary-button" id="cancelModal">
-                        Cancel
-                    </button>
-                    <button type="submit" class="primary-button">
-                        Save Entry
-                    </button>
-                </div>
-
-            </form>
-        </div>
-    </div>
-
-    <div class="view-overlay" id="viewOverlay">
-        <div class="view-modal">
-
-            <div class="modal-header">
-                <div>
-                    <h3>Diary Entry</h3>
-                    <p>Classroom activity details</p>
-                </div>
-
-                <button class="close-button" id="closeView">×</button>
-            </div>
-
-            <div class="view-content">
-                <div class="view-title">
-                    <div class="view-icon">▤</div>
-                    <div>
-                        <h3 id="viewTopic">Quadratic Equations</h3>
-                        <span id="viewSubject">Mathematics</span>
-                    </div>
-                </div>
-
-                <div class="view-grid">
-                    <div>
-                        <span>Date</span>
-                        <strong id="viewDate">13 Sep 2026</strong>
-                    </div>
-
-                    <div>
-                        <span>Class</span>
-                        <strong id="viewClass">10 - A</strong>
-                    </div>
-
-                    <div>
-                        <span>Teacher</span>
-                        <strong id="viewTeacher">Mr. Ramesh Karki</strong>
-                    </div>
-
-                    <div>
-                        <span>Status</span>
-                        <strong id="viewStatus">Completed</strong>
-                    </div>
-                </div>
-
-                <div class="view-section">
-                    <span>Lesson Details</span>
-                    <p id="viewNotes">Solving quadratic equations and understanding different methods.</p>
-                </div>
-
-                <div class="view-section">
-                    <span>Homework</span>
-                    <p id="viewHomework">Exercise 4.2</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <script src="class-diary.js"></script>
-</body>
-</html>
+        </td>
+    `;
+
+    diaryTableBody.prepend(row);
+
+    closeModalWindow();
+    updateStatistics();
+    filterDiary();
+});
+
+document.addEventListener("click", event => {
+    const row = event.target.closest("tr");
+
+    if (!row || !row.parentElement.isSameNode(diaryTableBody)) {
+        return;
+    }
+
+    if (event.target.classList.contains("edit-button")) {
+        openModal(row);
+    }
+
+    if (event.target.classList.contains("delete-button")) {
+        if (confirm("Are you sure you want to delete this diary entry?")) {
+            row.remove();
+            updateStatistics();
+            filterDiary();
+        }
+    }
+
+    if (event.target.classList.contains("view-button")) {
+        const topic = row.querySelector(".topic-info strong").textContent;
+        const notes = row.querySelector(".topic-info span").textContent;
+        const subject = row.children[2].textContent.trim();
+        const teacher = row.children[3].textContent.trim();
+        const date = row.children[0].textContent.trim();
+        const classSection = row.children[1].textContent.trim();
+        const homework = row.children[5].textContent.trim();
+        const status = row.querySelector(".status-badge").textContent.trim();
+
+        document.getElementById("viewTopic").textContent = topic;
+        document.getElementById("viewSubject").textContent = subject;
+        document.getElementById("viewDate").textContent = date;
+        document.getElementById("viewClass").textContent = classSection;
+        document.getElementById("viewTeacher").textContent = teacher;
+        document.getElementById("viewStatus").textContent = status;
+        document.getElementById("viewNotes").textContent = notes;
+        document.getElementById("viewHomework").textContent = homework;
+
+        viewOverlay.classList.add("show");
+    }
+});
+
+document.getElementById("exportDiary").addEventListener("click", () => {
+    const rows = Array.from(diaryTableBody.querySelectorAll("tr"))
+        .filter(row => row.style.display !== "none");
+
+    let csv = "Date,Class,Subject,Teacher,Lesson/Topic,Homework,Status\n";
+
+    rows.forEach(row => {
+        const date = row.children[0].textContent.trim();
+        const className = row.children[1].textContent.trim();
+        const subject = row.children[2].textContent.trim();
+        const teacher = row.children[3].textContent.trim();
+        const topic = row.querySelector(".topic-info strong").textContent.trim();
+        const homework = row.children[5].textContent.trim();
+        const status = row.querySelector(".status-badge").textContent.trim();
+
+        csv += `"${date}","${className}","${subject}","${teacher}","${topic}","${homework}","${status}"\n`;
+    });
+
+    const blob = new Blob([csv], {
+        type: "text/csv;charset=utf-8;"
+    });
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "class-diary.csv";
+    link.click();
+
+    URL.revokeObjectURL(url);
+});
+
+updateStatistics();
