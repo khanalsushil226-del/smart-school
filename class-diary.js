@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Diary | Hamro School</title>
+    <link rel="stylesheet" href="class-diary.css">
+</head>
+<body>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-logo">SS</div>
+            <div class="brand-text">
+                <strong>Hamro School</strong>
+                <span>YOUR SCHOOL DIGITAL PLATFORM</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <span class="nav-label">MAIN</span>
+                <a href="dashboard.html">
+                    <span>⌂</span>
+                    Dashboard
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-label">SCHOOL & ACCOUNTS</span>
+                <a href="school-setup.html">
+                    <span>▣</span>
+                    School Setup
+                </a>
+                <a href="users.html">
+                    <span>♙</span>
+                    Users & Accounts
+                </a>
+                <a href="roles.html">
+                    <span>⚿</span>
+                    Roles & Permissions
+                </a>
+                <a href="students.html">
+                    <span>♙</span>
+                    Students
+                </a>
+                <a href="parents.html">
+                    <span>♧</span>
+                    Parents
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-label">DAILY OPERATIONS</span>
+                <a href="attendance.html">
+                    <span>✓</span>
+                    Attendance
+                </a>
+                <a href="timetable.html">
+                    <span>▦</span>
+                    Timetable
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-label">ACADEMIC DELIVERY</span>
+                <a href="class-diary.html" class="active">
+                    <span>▤</span>
+                    Class Diary
+                </a>
+                <a href="homework.html">
+                    <span>▱</span>
+                    Homework
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <span class="nav-label">COMMUNICATION</span>
+                <a href="parent-dashboard.html">
+                    <span>⌂</span>
+                    Parent Dashboard
+                </a>
+                <a href="announcements.html">
+                    <span>◈</span>
+                    Announcements
+                </a>
+                <a href="calendar.html">
+                    <span>□</span>
+                    School Calendar
+                </a>
+            </div>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="settings.html">
+                <span>⚙</span>
+                Settings
+            </a>
+            <a href="index.html">
+                <span>↪</span>
+                Logout
+            </a>
+        </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-button" id="menuButton">☰</button>
+
+                <div>
+                    <h1>Class Diary</h1>
+                    <p>Record daily classroom activities and lessons</p>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <div class="top-search">
+                    <span>⌕</span>
+                    <input type="text" id="topSearch" placeholder="Search">
+                </div>
+
+                <button class="notification-button">♢</button>
+
+                <div class="admin-profile">
+                    <div class="admin-avatar">A</div>
+                    <div>
+                        <strong>Administrator</strong>
+                        <span>Super Admin</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="content">
+
+            <div class="page-heading">
+                <div>
+                    <h2>Class Diary</h2>
+                    <p>Keep a daily record of lessons, activities and classroom notes.</p>
+                </div>
+
+                <button class="primary-button" id="addDiary">
+                    + Add Diary Entry
+                </button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">▤</div>
+                    <div>
+                        <span>Total Entries</span>
+                        <strong id="totalEntries">86</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">✓</div>
+                    <div>
+                        <span>Completed Today</span>
+                        <strong id="todayEntries">8</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">♙</div>
+                    <div>
+                        <span>Teachers</span>
+                        <strong id="teacherCount">18</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">▣</div>
+                    <div>
+                        <span>Classes Covered</span>
+                        <strong id="classCount">12</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="diary-card">
+
+                <div class="card-heading">
+                    <div>
+                        <h3>Diary Entries</h3>
+                        <p>Review daily classroom records and lesson progress.</p>
+                    </div>
+
+                    <button class="export-button" id="exportDiary">
+                        Export
+                    </button>
+                </div>
+
+                <div class="filters">
+
+                    <div class="filter-group">
+                        <label for="dateFilter">Date</label>
+                        <input type="date" id="dateFilter">
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="classFilter">Class</label>
+                        <select id="classFilter">
+                            <option value="all">All Classes</option>
+                            <option value="10">Class 10</option>
+                            <option value="9">Class 9</option>
+                            <option value="8">Class 8</option>
+                            <option value="7">Class 7</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="sectionFilter">Section</label>
+                        <select id="sectionFilter">
+                            <option value="all">All Sections</option>
+                            <option value="A">Section A</option>
+                            <option value="B">Section B</option>
+                            <option value="C">Section C</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="subjectFilter">Subject</label>
+                        <select id="subjectFilter">
+                            <option value="all">All Subjects</option>
+                            <option value="Mathematics">Mathematics</option>
+                            <option value="Science">Science</option>
+                            <option value="English">English</option>
+                            <option value="Nepali">Nepali</option>
+                            <option value="Computer Science">Computer Science</option>
+                        </select>
+                    </div>
+
+                    <div class="search-box">
+                        <span>⌕</span>
+                        <input type="text" id="diarySearch" placeholder="Search diary entries">
+                    </div>
+
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Class</th>
+                                <th>Subject</th>
+                                <th>Teacher</th>
+                                <th>Lesson / Topic</th>
+                                <th>Homework</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="diaryTableBody">
+
+                            <tr data-class="10" data-section="A" data-subject="Mathematics">
+                                <td>13 Sep 2026</td>
+                                <td>
+                                    <span class="class-badge">10 - A</span>
+                                </td>
+                                <td>Mathematics</td>
+                                <td>Mr. Ramesh Karki</td>
+                                <td>
+                                    <div class="topic-info">
+                                        <strong>Quadratic Equations</strong>
+                                        <span>Solving quadratic equations</span>
+                                    </div>
+                                </td>
+                                <td>Exercise 4.2</td>
+                                <td>
+                                    <span class="status-badge completed">Completed</span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-button">View</button>
+                                        <button class="edit-button">Edit</button>
+                                        <button class="delete-button">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-class="10" data-section="A" data-subject="Science">
+                                <td>13 Sep 2026</td>
+                                <td>
+                                    <span class="class-badge">10 - A</span>
+                                </td>
+                                <td>Science</td>
+                                <td>Ms. Sita Thapa</td>
+                                <td>
+                                    <div class="topic-info">
+                                        <strong>Human Nervous System</strong>
+                                        <span>Parts and functions</span>
+                                    </div>
+                                </td>
+                                <td>Chapter 8 questions</td>
+                                <td>
+                                    <span class="status-badge completed">Completed</span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-button">View</button>
+                                        <button class="edit-button">Edit</button>
+                                        <button class="delete-button">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-class="10" data-section="A" data-subject="English">
+                                <td>13 Sep 2026</td>
+                                <td>
+                                    <span class="class-badge">10 - A</span>
+                                </td>
+                                <td>English</td>
+                                <td>Ms. Anu Shrestha</td>
+                                <td>
+                                    <div class="topic-info">
+                                        <strong>Reported Speech</strong>
+                                        <span>Rules and sentence conversion</span>
+                                    </div>
+                                </td>
+                                <td>Grammar worksheet</td>
+                                <td>
+                                    <span class="status-badge completed">Completed</span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-button">View</button>
+                                        <button class="edit-button">Edit</button>
+                                        <button class="delete-button">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-class="9" data-section="B" data-subject="Nepali">
+                                <td>13 Sep 2026</td>
+                                <td>
+                                    <span class="class-badge">9 - B</span>
+                                </td>
+                                <td>Nepali</td>
+                                <td>Mr. Hari Prasad</td>
+                                <td>
+                                    <div class="topic-info">
+                                        <strong>नेपाली व्याकरण</strong>
+                                        <span>वाक्य संरचना</span>
+                                    </div>
+                                </td>
+                                <td>Page 72</td>
+                                <td>
+                                    <span class="status-badge completed">Completed</span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-button">View</button>
+                                        <button class="edit-button">Edit</button>
+                                        <button class="delete-button">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-class="9" data-section="B" data-subject="Computer Science">
+                                <td>12 Sep 2026</td>
+                                <td>
+                                    <span class="class-badge">9 - B</span>
+                                </td>
+                                <td>Computer Science</td>
+                                <td>Mr. Sagar Adhikari</td>
+                                <td>
+                                    <div class="topic-info">
+                                        <strong>HTML Forms</strong>
+                                        <span>Form elements and inputs</span>
+                                    </div>
+                                </td>
+                                <td>Build a login form</td>
+                                <td>
+                                    <span class="status-badge completed">Completed</span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="view-button">View</button>
+                                        <button class="edit-button">Edit</button>
+                                        <button class="delete-button">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="empty-state" id="emptyState">
+                    <div>▤</div>
+                    <h3>No diary entries found</h3>
+                    <p>Try changing your filters or search terms.</p>
+                </div>
+
+            </div>
+
+        </section>
+    </main>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+
+            <div class="modal-header">
+                <div>
+                    <h3 id="modalTitle">Add Diary Entry</h3>
+                    <p>Record today's classroom activity.</p>
+                </div>
+
+                <button class="close-button" id="closeModal">×</button>
+            </div>
+
+            <form id="diaryForm">
+
+                <div class="form-section">
+                    <h4>Class Information</h4>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="formDate">Date</label>
+                            <input type="date" id="formDate" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="formClass">Class</label>
+                            <select id="formClass" required>
+                                <option value="">Select Class</option>
+                                <option value="10">Class 10</option>
+                                <option value="9">Class 9</option>
+                                <option value="8">Class 8</option>
+                                <option value="7">Class 7</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="formSection">Section</label>
+                            <select id="formSection" required>
+                                <option value="">Select Section</option>
+                                <option value="A">Section A</option>
+                                <option value="B">Section B</option>
+                                <option value="C">Section C</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="formSubject">Subject</label>
+                            <select id="formSubject" required>
+                                <option value="">Select Subject</option>
+                                <option value="Mathematics">Mathematics</option>
+                                <option value="Science">Science</option>
+                                <option value="English">English</option>
+                                <option value="Nepali">Nepali</option>
+                                <option value="Computer Science">Computer Science</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="formTeacher">Teacher</label>
+                            <input type="text" id="formTeacher" placeholder="Teacher name" required>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h4>Lesson Details</h4>
+
+                    <div class="form-grid">
+
+                        <div class="form-group full-width">
+                            <label for="formTopic">Lesson / Topic</label>
+                            <input type="text" id="formTopic" placeholder="What was taught today?" required>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="formNotes">Class Notes</label>
+                            <textarea id="formNotes" placeholder="Add notes about the lesson, activities or observations"></textarea>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="formHomework">Homework</label>
+                            <input type="text" id="formHomework" placeholder="Homework or assignment">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="formStatus">Status</label>
+                            <select id="formStatus">
+                                <option value="Completed">Completed</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Pending">Pending</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="secondary-button" id="cancelModal">
+                        Cancel
+                    </button>
+                    <button type="submit" class="primary-button">
+                        Save Entry
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="view-overlay" id="viewOverlay">
+        <div class="view-modal">
+
+            <div class="modal-header">
+                <div>
+                    <h3>Diary Entry</h3>
+                    <p>Classroom activity details</p>
+                </div>
+
+                <button class="close-button" id="closeView">×</button>
+            </div>
+
+            <div class="view-content">
+                <div class="view-title">
+                    <div class="view-icon">▤</div>
+                    <div>
+                        <h3 id="viewTopic">Quadratic Equations</h3>
+                        <span id="viewSubject">Mathematics</span>
+                    </div>
+                </div>
+
+                <div class="view-grid">
+                    <div>
+                        <span>Date</span>
+                        <strong id="viewDate">13 Sep 2026</strong>
+                    </div>
+
+                    <div>
+                        <span>Class</span>
+                        <strong id="viewClass">10 - A</strong>
+                    </div>
+
+                    <div>
+                        <span>Teacher</span>
+                        <strong id="viewTeacher">Mr. Ramesh Karki</strong>
+                    </div>
+
+                    <div>
+                        <span>Status</span>
+                        <strong id="viewStatus">Completed</strong>
+                    </div>
+                </div>
+
+                <div class="view-section">
+                    <span>Lesson Details</span>
+                    <p id="viewNotes">Solving quadratic equations and understanding different methods.</p>
+                </div>
+
+                <div class="view-section">
+                    <span>Homework</span>
+                    <p id="viewHomework">Exercise 4.2</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="class-diary.js"></script>
+</body>
+</html>
