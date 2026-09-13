@@ -19,102 +19,291 @@ window.addEventListener("resize", () => {
     }
 });
 
+const nepaliMonths = [
+    "बैशाख",
+    "जेठ",
+    "असार",
+    "श्रावण",
+    "भाद्र",
+    "आश्विन",
+    "कार्तिक",
+    "मंसिर",
+    "पौष",
+    "माघ",
+    "फाल्गुण",
+    "चैत्र"
+];
+
+const nepaliWeekdays = [
+    "आइतबार",
+    "सोमबार",
+    "मंगलबार",
+    "बुधबार",
+    "बिहिबार",
+    "शुक्रबार",
+    "शनिबार"
+];
+
+const nepaliWeekdaysShort = [
+    "आइत",
+    "सोम",
+    "मंगल",
+    "बुध",
+    "बिहि",
+    "शुक्र",
+    "शनि"
+];
+
+const nepaliNumbers = [
+    "०",
+    "१",
+    "२",
+    "३",
+    "४",
+    "५",
+    "६",
+    "७",
+    "८",
+    "९"
+];
+
+const bsCalendar = {
+    2080: [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
+    2081: [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
+    2082: [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
+    2083: [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
+    2084: [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 32],
+    2085: [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
+    2086: [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
+    2087: [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
+    2088: [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 32],
+    2089: [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
+    2090: [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31]
+};
+
+function toNepaliNumber(value) {
+    return String(value).replace(/[0-9]/g, digit => nepaliNumbers[Number(digit)]);
+}
+
+function toEnglishNumber(value) {
+    const nepaliDigits = "०१२३४५६७८९";
+
+    return String(value).replace(/[०-९]/g, digit => {
+        return nepaliDigits.indexOf(digit);
+    });
+}
+
+function getBsMonthDays(year, month) {
+    if (bsCalendar[year] && bsCalendar[year][month - 1]) {
+        return bsCalendar[year][month - 1];
+    }
+
+    return 30;
+}
+
+function bsToAd(bsYear, bsMonth, bsDay) {
+    const referenceBs = {
+        year: 2082,
+        month: 1,
+        day: 1
+    };
+
+    const referenceAd = new Date(2025, 3, 14);
+
+    let totalDays = 0;
+
+    if (bsYear >= referenceBs.year) {
+        for (let year = referenceBs.year; year < bsYear; year++) {
+            for (let month = 1; month <= 12; month++) {
+                totalDays += getBsMonthDays(year, month);
+            }
+        }
+    } else {
+        for (let year = bsYear; year < referenceBs.year; year++) {
+            for (let month = 1; month <= 12; month++) {
+                totalDays -= getBsMonthDays(year, month);
+            }
+        }
+    }
+
+    for (let month = 1; month < bsMonth; month++) {
+        totalDays += getBsMonthDays(bsYear, month);
+    }
+
+    totalDays += bsDay - 1;
+
+    const result = new Date(referenceAd);
+    result.setDate(result.getDate() + totalDays);
+
+    return result;
+}
+
+function adToBs(adDate) {
+    const referenceBs = {
+        year: 2082,
+        month: 1,
+        day: 1
+    };
+
+    const referenceAd = new Date(2025, 3, 14);
+    const target = new Date(
+        adDate.getFullYear(),
+        adDate.getMonth(),
+        adDate.getDate()
+    );
+
+    let difference = Math.round(
+        (target - referenceAd) / 86400000
+    );
+
+    let year = referenceBs.year;
+
+    while (difference >= getYearDays(year)) {
+        difference -= getYearDays(year);
+        year++;
+    }
+
+    while (difference < 0) {
+        year--;
+        difference += getYearDays(year);
+    }
+
+    let month = 1;
+
+    while (difference >= getBsMonthDays(year, month)) {
+        difference -= getBsMonthDays(year, month);
+        month++;
+    }
+
+    return {
+        year,
+        month,
+        day: difference + 1
+    };
+}
+
+function getYearDays(year) {
+    let total = 0;
+
+    for (let month = 1; month <= 12; month++) {
+        total += getBsMonthDays(year, month);
+    }
+
+    return total;
+}
+
+function formatBsDate(date) {
+    const bs = adToBs(date);
+
+    return `${toNepaliNumber(bs.day)} ${nepaliMonths[bs.month - 1]} ${toNepaliNumber(bs.year)}`;
+}
+
+function formatBsMonthYear(year, month) {
+    return `${nepaliMonths[month - 1]} ${toNepaliNumber(year)}`;
+}
+
+function getDateKey(date) {
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+}
+
 const events = [
     {
         id: 1,
-        title: "Parent-Teacher Meeting",
+        title: "अभिभावक–शिक्षक बैठक",
         date: "2026-09-18",
         startTime: "10:00",
         endTime: "13:00",
         category: "Meeting",
         audience: "Parents",
         location: "School Hall",
-        description: "Parent-Teacher Meeting for Grade 10 students to discuss academic progress, attendance and classroom performance."
+        description: "कक्षा १० का विद्यार्थीहरूको शैक्षिक प्रगति, उपस्थिति र कक्षागत प्रदर्शनबारे छलफल गर्न अभिभावक–शिक्षक बैठक।"
     },
     {
         id: 2,
-        title: "Monthly Assessment",
+        title: "मासिक परीक्षा",
         date: "2026-09-21",
         startTime: "09:30",
         endTime: "12:00",
         category: "Exam",
         audience: "Students",
         location: "Classrooms",
-        description: "Monthly assessment for selected subjects. Students should follow the published assessment schedule."
+        description: "निर्धारित विषयहरूको मासिक परीक्षा सञ्चालन हुनेछ।"
     },
     {
         id: 3,
-        title: "Science Exhibition",
+        title: "विज्ञान प्रदर्शनी",
         date: "2026-09-24",
         startTime: "10:00",
         endTime: "15:00",
         category: "Event",
         audience: "Students & Parents",
         location: "School Ground",
-        description: "Annual Science Exhibition featuring student projects and practical demonstrations."
+        description: "विद्यार्थीहरूले तयार गरेका विज्ञान परियोजना तथा प्रयोगात्मक सामग्रीहरूको वार्षिक प्रदर्शनी।"
     },
     {
         id: 4,
-        title: "School Holiday",
+        title: "विद्यालय बिदा",
         date: "2026-09-27",
         startTime: "",
         endTime: "",
         category: "Holiday",
         audience: "Everyone",
         location: "School Closed",
-        description: "School will remain closed on this date."
+        description: "यस दिन विद्यालय बन्द रहनेछ।"
     },
     {
         id: 5,
-        title: "Sports Day",
+        title: "खेलकुद दिवस",
         date: "2026-09-30",
         startTime: "09:00",
         endTime: "16:00",
         category: "Event",
         audience: "Students & Parents",
         location: "School Ground",
-        description: "Annual Sports Day with participation from students across different grades."
+        description: "विभिन्न कक्षाका विद्यार्थीहरूको सहभागितामा वार्षिक खेलकुद दिवस।"
     },
     {
         id: 6,
-        title: "Teacher Staff Meeting",
+        title: "शिक्षक कर्मचारी बैठक",
         date: "2026-09-16",
         startTime: "14:00",
         endTime: "15:30",
         category: "Meeting",
         audience: "Teachers",
         location: "Staff Room",
-        description: "Monthly staff meeting to review academic activities and upcoming school programs."
+        description: "शैक्षिक गतिविधि तथा आगामी कार्यक्रमहरूको समीक्षा गर्न मासिक कर्मचारी बैठक।"
     },
     {
         id: 7,
-        title: "Dashain Holiday",
+        title: "दशैं बिदा",
         date: "2026-10-17",
         startTime: "",
         endTime: "",
         category: "Holiday",
         audience: "Everyone",
         location: "School Closed",
-        description: "School holiday for the Dashain festival period."
+        description: "दशैं पर्वको अवसरमा विद्यालय बिदा।"
     },
     {
         id: 8,
-        title: "School Photo Day",
+        title: "विद्यालय फोटो दिवस",
         date: "2026-10-05",
         startTime: "09:00",
         endTime: "14:00",
         category: "Event",
         audience: "Students",
         location: "School Hall",
-        description: "Annual student photograph session arranged class by class."
+        description: "विद्यार्थीहरूको वार्षिक फोटो खिच्ने कार्यक्रम।"
     }
 ];
 
-let currentDate = new Date(2026, 8, 1);
+let currentBsYear = 2083;
+let currentBsMonth = 5;
 let editingEventId = null;
 
 const calendarGrid = document.getElementById("calendarGrid");
 const calendarMonth = document.getElementById("calendarMonth");
+const calendarSubtitle = document.getElementById("calendarSubtitle");
 const eventsList = document.getElementById("eventsList");
 const eventsEmpty = document.getElementById("eventsEmpty");
 const eventSearch = document.getElementById("eventSearch");
@@ -123,31 +312,6 @@ const categoryFilter = document.getElementById("categoryFilter");
 const eventModal = document.getElementById("eventModal");
 const viewModal = document.getElementById("viewModal");
 const eventForm = document.getElementById("eventForm");
-
-const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-];
-
-function formatDate(dateString) {
-    const date = new Date(`${dateString}T00:00:00`);
-
-    return date.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric"
-    });
-}
 
 function formatTime(time) {
     if (!time) {
@@ -169,84 +333,130 @@ function getEventClass(category) {
     return category.toLowerCase();
 }
 
-function renderCalendar() {
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth();
+function getMonthEvents(year, month) {
+    return events.filter(event => {
+        const bs = adToBs(new Date(`${event.date}T00:00:00`));
 
-    calendarMonth.textContent = `${monthNames[month]} ${year}`;
+        return bs.year === year && bs.month === month;
+    });
+}
+
+function renderCalendar() {
+    calendarMonth.textContent =
+        formatBsMonthYear(currentBsYear, currentBsMonth);
+
+    calendarSubtitle.textContent =
+        `वि.सं. ${toNepaliNumber(currentBsYear)} · ${nepaliMonths[currentBsMonth - 1]}`;
 
     calendarGrid.innerHTML = "";
 
-    const firstDay = new Date(year, month, 1).getDay();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const daysInPreviousMonth = new Date(year, month, 0).getDate();
+    const monthStart = bsToAd(currentBsYear, currentBsMonth, 1);
+    const firstDay = monthStart.getDay();
+    const daysInMonth = getBsMonthDays(currentBsYear, currentBsMonth);
+
+    const previousMonth =
+        currentBsMonth === 1 ? 12 : currentBsMonth - 1;
+
+    const previousYear =
+        currentBsMonth === 1 ? currentBsYear - 1 : currentBsYear;
+
+    const previousMonthDays =
+        getBsMonthDays(previousYear, previousMonth);
+
+    const todayBs = adToBs(new Date());
 
     const totalCells = Math.ceil((firstDay + daysInMonth) / 7) * 7;
 
-    const today = new Date();
-    const todayString =
-        `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
-
     for (let i = 0; i < totalCells; i++) {
-        const day = document.createElement("div");
-        day.className = "calendar-day";
+        const dayElement = document.createElement("div");
+        dayElement.className = "calendar-day";
 
-        let cellDate;
-        let dayNumber;
+        let displayDay;
+        let cellBsYear;
+        let cellBsMonth;
 
         if (i < firstDay) {
-            dayNumber = daysInPreviousMonth - firstDay + i + 1;
-            cellDate = new Date(year, month - 1, dayNumber);
-            day.classList.add("other-month");
+            displayDay = previousMonthDays - firstDay + i + 1;
+            cellBsYear = previousYear;
+            cellBsMonth = previousMonth;
+            dayElement.classList.add("other-month");
         } else if (i >= firstDay + daysInMonth) {
-            dayNumber = i - firstDay - daysInMonth + 1;
-            cellDate = new Date(year, month + 1, dayNumber);
-            day.classList.add("other-month");
+            displayDay = i - firstDay - daysInMonth + 1;
+
+            cellBsYear =
+                currentBsMonth === 12
+                    ? currentBsYear + 1
+                    : currentBsYear;
+
+            cellBsMonth =
+                currentBsMonth === 12
+                    ? 1
+                    : currentBsMonth + 1;
+
+            dayElement.classList.add("other-month");
         } else {
-            dayNumber = i - firstDay + 1;
-            cellDate = new Date(year, month, dayNumber);
+            displayDay = i - firstDay + 1;
+            cellBsYear = currentBsYear;
+            cellBsMonth = currentBsMonth;
         }
 
-        const dateString =
-            `${cellDate.getFullYear()}-${String(cellDate.getMonth() + 1).padStart(2, "0")}-${String(cellDate.getDate()).padStart(2, "0")}`;
+        const cellAdDate = bsToAd(
+            cellBsYear,
+            cellBsMonth,
+            displayDay
+        );
 
-        if (dateString === todayString) {
-            day.classList.add("today");
+        const dateKey = getDateKey(cellAdDate);
+
+        if (
+            todayBs.year === cellBsYear &&
+            todayBs.month === cellBsMonth &&
+            todayBs.day === displayDay
+        ) {
+            dayElement.classList.add("today");
         }
 
-        const number = document.createElement("div");
-        number.className = "day-number";
-        number.textContent = dayNumber;
+        const dayNumber = document.createElement("div");
+        dayNumber.className = "day-number";
+        dayNumber.textContent = toNepaliNumber(displayDay);
 
-        day.appendChild(number);
+        dayElement.appendChild(dayNumber);
 
-        const dayEvents = events.filter(event => event.date === dateString);
+        const dayEvents = events.filter(event => {
+            return event.date === dateKey;
+        });
 
         dayEvents.slice(0, 3).forEach(event => {
             const eventElement = document.createElement("div");
-            eventElement.className = `calendar-event ${getEventClass(event.category)}`;
+
+            eventElement.className =
+                `calendar-event ${getEventClass(event.category)}`;
+
             eventElement.textContent = event.title;
 
-            eventElement.addEventListener("click", eventClick => {
-                eventClick.stopPropagation();
+            eventElement.addEventListener("click", clickEvent => {
+                clickEvent.stopPropagation();
                 openViewModal(event);
             });
 
-            day.appendChild(eventElement);
+            dayElement.appendChild(eventElement);
         });
 
         if (dayEvents.length > 3) {
             const more = document.createElement("div");
+
             more.className = "calendar-event";
-            more.textContent = `+${dayEvents.length - 3} more`;
-            day.appendChild(more);
+            more.textContent =
+                `+${toNepaliNumber(dayEvents.length - 3)} थप`;
+
+            dayElement.appendChild(more);
         }
 
-        day.addEventListener("click", () => {
-            openCreateModal(dateString);
+        dayElement.addEventListener("click", () => {
+            openCreateModal(dateKey);
         });
 
-        calendarGrid.appendChild(day);
+        calendarGrid.appendChild(dayElement);
     }
 }
 
@@ -264,13 +474,18 @@ function renderEvents() {
                 event.description
             ].join(" ").toLowerCase();
 
-            const matchesSearch = !search || searchableText.includes(search);
+            const matchesSearch =
+                !search || searchableText.includes(search);
+
             const matchesCategory =
-                category === "all" || event.category === category;
+                category === "all" ||
+                event.category === category;
 
             return matchesSearch && matchesCategory;
         })
-        .sort((a, b) => new Date(a.date) - new Date(b.date));
+        .sort((a, b) => {
+            return new Date(a.date) - new Date(b.date);
+        });
 
     eventsList.innerHTML = "";
 
@@ -278,17 +493,25 @@ function renderEvents() {
         const item = document.createElement("div");
         item.className = "event-item";
 
+        const bs = adToBs(
+            new Date(`${event.date}T00:00:00`)
+        );
+
         const time = event.startTime
             ? `${formatTime(event.startTime)}${event.endTime ? ` - ${formatTime(event.endTime)}` : ""}`
-            : "All day";
+            : "पूरै दिन";
 
         item.innerHTML = `
             <div class="event-date-row">
-                <span class="event-date">${formatDate(event.date)}</span>
+                <span class="event-date">
+                    ${toNepaliNumber(bs.day)} ${nepaliMonths[bs.month - 1]} ${toNepaliNumber(bs.year)}
+                </span>
                 <span class="event-category">${event.category}</span>
             </div>
             <div class="event-item-title">${event.title}</div>
-            <div class="event-item-details">${time} · ${event.location || "School"}</div>
+            <div class="event-item-details">
+                ${time} · ${event.location || "विद्यालय"}
+            </div>
         `;
 
         item.addEventListener("click", () => {
@@ -298,23 +521,21 @@ function renderEvents() {
         eventsList.appendChild(item);
     });
 
-    eventsEmpty.classList.toggle("show", filteredEvents.length === 0);
+    eventsEmpty.classList.toggle(
+        "show",
+        filteredEvents.length === 0
+    );
 }
 
 function updateStatistics() {
     const total = events.length;
 
-    const currentMonth = currentDate.getMonth();
-    const currentYear = currentDate.getFullYear();
-
-    const monthCount = events.filter(event => {
-        const date = new Date(`${event.date}T00:00:00`);
-        return date.getMonth() === currentMonth &&
-            date.getFullYear() === currentYear;
-    }).length;
+    const monthEvents = getMonthEvents(
+        currentBsYear,
+        currentBsMonth
+    ).length;
 
     const today = new Date();
-
     today.setHours(0, 0, 0, 0);
 
     const upcoming = events.filter(event => {
@@ -326,16 +547,25 @@ function updateStatistics() {
         return event.category === "Holiday";
     }).length;
 
-    document.getElementById("totalEvents").textContent = total;
-    document.getElementById("monthEvents").textContent = monthCount;
-    document.getElementById("upcomingEvents").textContent = upcoming;
-    document.getElementById("holidayEvents").textContent = holidays;
+    document.getElementById("totalEvents").textContent =
+        toNepaliNumber(total);
+
+    document.getElementById("monthEvents").textContent =
+        toNepaliNumber(monthEvents);
+
+    document.getElementById("upcomingEvents").textContent =
+        toNepaliNumber(upcoming);
+
+    document.getElementById("holidayEvents").textContent =
+        toNepaliNumber(holidays);
 }
 
 function openCreateModal(date = "") {
     editingEventId = null;
 
-    document.getElementById("modalTitle").textContent = "Add Calendar Event";
+    document.getElementById("modalTitle").textContent =
+        "नयाँ कार्यक्रम थप्नुहोस्";
+
     eventForm.reset();
 
     if (date) {
@@ -351,15 +581,32 @@ function openCreateModal(date = "") {
 function openEditModal(event) {
     editingEventId = event.id;
 
-    document.getElementById("modalTitle").textContent = "Edit Calendar Event";
-    document.getElementById("eventTitle").value = event.title;
-    document.getElementById("eventDate").value = event.date;
-    document.getElementById("eventCategory").value = event.category;
-    document.getElementById("eventStartTime").value = event.startTime;
-    document.getElementById("eventEndTime").value = event.endTime;
-    document.getElementById("eventAudience").value = event.audience;
-    document.getElementById("eventLocation").value = event.location;
-    document.getElementById("eventDescription").value = event.description;
+    document.getElementById("modalTitle").textContent =
+        "कार्यक्रम सम्पादन गर्नुहोस्";
+
+    document.getElementById("eventTitle").value =
+        event.title;
+
+    document.getElementById("eventDate").value =
+        event.date;
+
+    document.getElementById("eventCategory").value =
+        event.category;
+
+    document.getElementById("eventStartTime").value =
+        event.startTime;
+
+    document.getElementById("eventEndTime").value =
+        event.endTime;
+
+    document.getElementById("eventAudience").value =
+        event.audience;
+
+    document.getElementById("eventLocation").value =
+        event.location;
+
+    document.getElementById("eventDescription").value =
+        event.description;
 
     eventModal.classList.add("show");
 }
@@ -370,36 +617,125 @@ function closeEventModal() {
 }
 
 function openViewModal(event) {
-    document.getElementById("viewCategory").textContent = event.category;
-    document.getElementById("viewTitle").textContent = event.title;
-    document.getElementById("viewDate").textContent = formatDate(event.date);
+    const bs = adToBs(
+        new Date(`${event.date}T00:00:00`)
+    );
+
+    document.getElementById("viewCategory").textContent =
+        event.category;
+
+    document.getElementById("viewTitle").textContent =
+        event.title;
+
+    document.getElementById("viewDate").textContent =
+        `${toNepaliNumber(bs.day)} ${nepaliMonths[bs.month - 1]} ${toNepaliNumber(bs.year)}`;
 
     const time = event.startTime
         ? `${formatTime(event.startTime)}${event.endTime ? ` - ${formatTime(event.endTime)}` : ""}`
-        : "All day";
+        : "पूरै दिन";
 
-    document.getElementById("viewTime").textContent = time;
-    document.getElementById("viewAudience").textContent = event.audience;
-    document.getElementById("viewLocation").textContent = event.location || "Not specified";
+    document.getElementById("viewTime").textContent =
+        time;
+
+    document.getElementById("viewAudience").textContent =
+        event.audience;
+
+    document.getElementById("viewLocation").textContent =
+        event.location || "उल्लेख गरिएको छैन";
+
     document.getElementById("viewDescription").textContent =
-        event.description || "No description provided.";
+        event.description || "कुनै विवरण उपलब्ध छैन।";
+
+    const existingActions =
+        document.querySelector(".view-actions");
+
+    if (existingActions) {
+        existingActions.remove();
+    }
+
+    const actions = document.createElement("div");
+    actions.className = "view-actions";
+    actions.style.cssText =
+        "display:flex;gap:8px;margin-right:auto;";
+
+    const editButton = document.createElement("button");
+    editButton.className = "secondary-button";
+    editButton.textContent = "Edit";
+
+    const deleteButton = document.createElement("button");
+    deleteButton.className = "secondary-button";
+    deleteButton.textContent = "Delete";
+    deleteButton.style.color = "#dc3545";
+
+    editButton.addEventListener("click", () => {
+        closeViewModal();
+        openEditModal(event);
+    });
+
+    deleteButton.addEventListener("click", () => {
+        const confirmed =
+            confirm("Are you sure you want to delete this event?");
+
+        if (!confirmed) {
+            return;
+        }
+
+        const index =
+            events.findIndex(item => item.id === event.id);
+
+        if (index !== -1) {
+            events.splice(index, 1);
+        }
+
+        closeViewModal();
+        renderCalendar();
+        renderEvents();
+        updateStatistics();
+
+        alert("Calendar event deleted successfully.");
+    });
+
+    const footer =
+        viewModal.querySelector(".modal-footer");
+
+    footer.insertBefore(
+        actions,
+        footer.firstChild
+    );
+
+    actions.appendChild(editButton);
+    actions.appendChild(deleteButton);
 
     viewModal.classList.add("show");
 }
 
 function closeViewModal() {
     viewModal.classList.remove("show");
+
+    const actions =
+        document.querySelector(".view-actions");
+
+    if (actions) {
+        actions.remove();
+    }
 }
 
-document.getElementById("addEventButton").addEventListener("click", () => {
-    openCreateModal();
-});
+document.getElementById("addEventButton")
+    .addEventListener("click", () => {
+        openCreateModal();
+    });
 
-document.getElementById("closeModal").addEventListener("click", closeEventModal);
-document.getElementById("cancelModal").addEventListener("click", closeEventModal);
+document.getElementById("closeModal")
+    .addEventListener("click", closeEventModal);
 
-document.getElementById("closeViewModal").addEventListener("click", closeViewModal);
-document.getElementById("closeViewButton").addEventListener("click", closeViewModal);
+document.getElementById("cancelModal")
+    .addEventListener("click", closeEventModal);
+
+document.getElementById("closeViewModal")
+    .addEventListener("click", closeViewModal);
+
+document.getElementById("closeViewButton")
+    .addEventListener("click", closeViewModal);
 
 eventModal.addEventListener("click", event => {
     if (event.target === eventModal) {
@@ -416,17 +752,35 @@ viewModal.addEventListener("click", event => {
 eventForm.addEventListener("submit", event => {
     event.preventDefault();
 
-    const title = document.getElementById("eventTitle").value.trim();
-    const date = document.getElementById("eventDate").value;
-    const startTime = document.getElementById("eventStartTime").value;
-    const endTime = document.getElementById("eventEndTime").value;
-    const category = document.getElementById("eventCategory").value;
-    const audience = document.getElementById("eventAudience").value;
-    const location = document.getElementById("eventLocation").value.trim();
-    const description = document.getElementById("eventDescription").value.trim();
+    const title =
+        document.getElementById("eventTitle").value.trim();
+
+    const date =
+        document.getElementById("eventDate").value;
+
+    const startTime =
+        document.getElementById("eventStartTime").value;
+
+    const endTime =
+        document.getElementById("eventEndTime").value;
+
+    const category =
+        document.getElementById("eventCategory").value;
+
+    const audience =
+        document.getElementById("eventAudience").value;
+
+    const location =
+        document.getElementById("eventLocation").value.trim();
+
+    const description =
+        document.getElementById("eventDescription").value.trim();
 
     if (editingEventId) {
-        const index = events.findIndex(event => event.id === editingEventId);
+        const index =
+            events.findIndex(event =>
+                event.id === editingEventId
+            );
 
         if (index !== -1) {
             events[index] = {
@@ -442,7 +796,7 @@ eventForm.addEventListener("submit", event => {
             };
         }
 
-        alert("Calendar event updated successfully.");
+        alert("कार्यक्रम सफलतापूर्वक अपडेट भयो।");
     } else {
         events.push({
             id: Date.now(),
@@ -456,7 +810,7 @@ eventForm.addEventListener("submit", event => {
             description
         });
 
-        alert("Calendar event added successfully.");
+        alert("कार्यक्रम सफलतापूर्वक थपियो।");
     }
 
     renderCalendar();
@@ -465,53 +819,70 @@ eventForm.addEventListener("submit", event => {
     closeEventModal();
 });
 
-document.getElementById("previousMonth").addEventListener("click", () => {
-    currentDate.setMonth(currentDate.getMonth() - 1);
-    renderCalendar();
-    renderEvents();
-    updateStatistics();
-});
+document.getElementById("previousMonth")
+    .addEventListener("click", () => {
+        currentBsMonth--;
 
-document.getElementById("nextMonth").addEventListener("click", () => {
-    currentDate.setMonth(currentDate.getMonth() + 1);
-    renderCalendar();
-    renderEvents();
-    updateStatistics();
-});
+        if (currentBsMonth < 1) {
+            currentBsMonth = 12;
+            currentBsYear--;
+        }
 
-document.getElementById("todayButton").addEventListener("click", () => {
-    currentDate = new Date();
-    currentDate.setDate(1);
+        renderCalendar();
+        renderEvents();
+        updateStatistics();
+    });
 
-    renderCalendar();
-    renderEvents();
-    updateStatistics();
-});
+document.getElementById("nextMonth")
+    .addEventListener("click", () => {
+        currentBsMonth++;
+
+        if (currentBsMonth > 12) {
+            currentBsMonth = 1;
+            currentBsYear++;
+        }
+
+        renderCalendar();
+        renderEvents();
+        updateStatistics();
+    });
+
+document.getElementById("todayButton")
+    .addEventListener("click", () => {
+        const todayBs = adToBs(new Date());
+
+        currentBsYear = todayBs.year;
+        currentBsMonth = todayBs.month;
+
+        renderCalendar();
+        renderEvents();
+        updateStatistics();
+    });
 
 eventSearch.addEventListener("input", renderEvents);
+
 categoryFilter.addEventListener("change", renderEvents);
 
-document.getElementById("topSearch").addEventListener("input", event => {
-    eventSearch.value = event.target.value;
-    renderEvents();
-});
-
-document.querySelector(".notification-button").addEventListener("click", () => {
-    alert("You have 3 unread notifications.");
-});
-
-document.querySelectorAll(".nav-item").forEach(item => {
-    item.addEventListener("click", () => {
-        if (window.innerWidth <= 900) {
-            sidebar.classList.remove("open");
-            sidebarOverlay.classList.remove("show");
-        }
+document.getElementById("topSearch")
+    .addEventListener("input", event => {
+        eventSearch.value = event.target.value;
+        renderEvents();
     });
-});
 
-eventsList.addEventListener("contextmenu", event => {
-    event.preventDefault();
-});
+document.querySelector(".notification-button")
+    .addEventListener("click", () => {
+        alert("तपाईंका ३ वटा नयाँ सूचनाहरू छन्।");
+    });
+
+document.querySelectorAll(".nav-item")
+    .forEach(item => {
+        item.addEventListener("click", () => {
+            if (window.innerWidth <= 900) {
+                sidebar.classList.remove("open");
+                sidebarOverlay.classList.remove("show");
+            }
+        });
+    });
 
 renderCalendar();
 renderEvents();
