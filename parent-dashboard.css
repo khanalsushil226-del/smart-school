@@ -6,21 +6,19 @@
 
 :root {
     --primary: #056c24;
-    --primary-dark: #04571d;
-    --primary-light: #eaf6ee;
+    --primary-dark: #04551c;
+    --primary-light: #eaf7ee;
     --text: #17201a;
     --muted: #68736c;
-    --border: #e5e9e6;
-    --background: #f5f7f6;
+    --border: #e2e8e4;
+    --background: #f6f8f7;
     --white: #ffffff;
-    --danger: #dc3545;
-    --warning: #d98b00;
-    --blue: #2778d4;
-    --sidebar-width: 260px;
+    --danger: #c62828;
+    --warning: #a46a00;
 }
 
 body {
-    font-family: Inter, Arial, Helvetica, sans-serif;
+    font-family: Inter, Arial, sans-serif;
     background: var(--background);
     color: var(--text);
     font-size: 15px;
