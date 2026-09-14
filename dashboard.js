@@ -18,10 +18,7 @@ const navLinks = document.querySelectorAll(".nav-link");
 
 navLinks.forEach(link => {
     link.addEventListener("click", () => {
-        navLinks.forEach(item => item.classList.remove("active"));
-        link.classList.add("active");
-
-        if (window.innerWidth <= 900) {
+        if (window.innerWidth <= 900 && sidebar && sidebarOverlay) {
             sidebar.classList.remove("open");
             sidebarOverlay.classList.remove("show");
         }
@@ -47,6 +44,10 @@ const attendanceData = {
 };
 
 function renderAttendanceChart(period) {
+    if (!attendanceBars || !attendanceData[period]) {
+        return;
+    }
+
     const data = attendanceData[period];
 
     attendanceBars.innerHTML = "";
@@ -64,6 +65,7 @@ function renderAttendanceChart(period) {
 
         group.appendChild(bar);
         group.appendChild(labelElement);
+
         attendanceBars.appendChild(group);
     });
 }
