@@ -331,11 +331,15 @@ a {
     border: none;
     background: var(--primary);
     color: var(--white);
-    height: 42px;
+    height: 48px;
     padding: 0 20px;
     border-radius: 8px;
     font-size: 12px;
     font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     transition: 0.2s ease;
 }
 
