@@ -15,6 +15,7 @@
     --white: #ffffff;
     --danger: #dc3545;
     --warning: #d98b00;
+    --sidebar-width: 260px;
 }
 
 body {
@@ -44,103 +45,114 @@ a {
     position: fixed;
     top: 0;
     left: 0;
-    width: 255px;
+    width: var(--sidebar-width);
     height: 100vh;
     background: var(--white);
     border-right: 1px solid var(--border);
     z-index: 1000;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .brand {
     height: 82px;
-    padding: 0 20px;
+    padding: 0 22px;
     display: flex;
     align-items: center;
     gap: 12px;
     border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
 }
 
 .brand-logo {
     width: 42px;
     height: 42px;
-    border-radius: 10px;
+    border-radius: 11px;
     background: var(--primary);
-    color: white;
+    color: var(--white);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 800;
+    flex-shrink: 0;
 }
 
 .brand h2 {
     font-size: 17px;
-    font-weight: 700;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.2;
 }
 
 .brand span {
     display: block;
     color: var(--muted);
-    font-size: 11px;
+    font-size: 10px;
     margin-top: 3px;
     font-weight: 600;
+    white-space: nowrap;
 }
 
 .sidebar-nav {
     flex: 1;
-    padding: 18px 12px;
+    padding: 20px 14px;
     overflow-y: auto;
 }
 
 .nav-group {
-    margin-bottom: 22px;
+    margin-bottom: 18px;
 }
 
 .nav-label {
     padding: 0 12px;
-    margin-bottom: 7px;
-    color: #8a938d;
+    margin-bottom: 8px;
+    color: #98a49d;
     font-size: 10px;
     font-weight: 800;
-    letter-spacing: .8px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
 }
 
 .nav-item {
-    min-height: 43px;
+    width: 100%;
+    height: 43px;
     padding: 0 12px;
     display: flex;
     align-items: center;
-    gap: 12px;
-    border-radius: 8px;
-    color: #4d5750;
+    gap: 13px;
+    border-radius: 9px;
+    color: #5c6b62;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 3px;
-    transition: .2s;
+    transition: 0.2s ease;
 }
 
 .nav-item:hover {
-    background: #f2f6f3;
+    background: var(--primary-light);
     color: var(--primary);
 }
 
 .nav-item.active {
-    background: var(--primary-light);
-    color: var(--primary);
+    background: var(--primary);
+    color: var(--white);
     font-weight: 700;
 }
 
 .nav-icon {
     width: 20px;
+    min-width: 20px;
     text-align: center;
     font-size: 17px;
+    font-weight: 700;
 }
 
 .sidebar-bottom {
-    padding: 12px;
+    padding: 14px;
     border-top: 1px solid var(--border);
+    flex-shrink: 0;
 }
 
 .logout {
@@ -148,7 +160,7 @@ a {
 }
 
 .main-content {
-    margin-left: 255px;
+    margin-left: var(--sidebar-width);
     min-height: 100vh;
 }
 
@@ -190,7 +202,7 @@ a {
     width: 40px;
     height: 40px;
     border: 1px solid var(--border);
-    background: white;
+    background: var(--white);
     border-radius: 8px;
     font-size: 19px;
 }
@@ -240,7 +252,7 @@ a {
     padding: 0 4px;
     border-radius: 20px;
     background: var(--primary);
-    color: white;
+    color: var(--white);
     font-size: 9px;
     display: flex;
     align-items: center;
@@ -329,7 +341,7 @@ a {
 
 .primary-button {
     background: var(--primary);
-    color: white;
+    color: var(--white);
 }
 
 .primary-button:hover {
@@ -342,7 +354,7 @@ a {
 }
 
 .secondary-button {
-    background: white;
+    background: var(--white);
     color: #4d5750;
     border-color: var(--border);
 }
@@ -360,7 +372,7 @@ a {
 }
 
 .stat-card {
-    background: white;
+    background: var(--white);
     border: 1px solid var(--border);
     border-radius: 11px;
     padding: 18px;
@@ -408,7 +420,7 @@ a {
 }
 
 .announcement-section {
-    background: white;
+    background: var(--white);
     border: 1px solid var(--border);
     border-radius: 11px;
     overflow: hidden;
@@ -469,7 +481,7 @@ a {
     border: 1px solid var(--border);
     border-radius: 8px;
     padding: 0 10px;
-    background: white;
+    background: var(--white);
     color: #4d5750;
     font-size: 11px;
     font-weight: 600;
@@ -497,7 +509,7 @@ th {
     font-size: 10px;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: .4px;
+    letter-spacing: 0.4px;
     white-space: nowrap;
 }
 
@@ -671,7 +683,7 @@ td {
 .modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(20, 30, 23, .45);
+    background: rgba(20, 30, 23, 0.45);
     display: none;
     align-items: center;
     justify-content: center;
@@ -688,9 +700,9 @@ td {
     max-width: 100%;
     max-height: 90vh;
     overflow-y: auto;
-    background: white;
+    background: var(--white);
     border-radius: 12px;
-    box-shadow: 0 20px 60px rgba(0,0,0,.2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
 }
 
 .modal-header {
@@ -759,7 +771,7 @@ form {
     padding: 10px 11px;
     outline: none;
     color: var(--text);
-    background: white;
+    background: var(--white);
     font-size: 12px;
     font-weight: 600;
 }
@@ -773,7 +785,7 @@ form {
 .form-group select:focus,
 .form-group textarea:focus {
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(5,108,36,.08);
+    box-shadow: 0 0 0 3px rgba(5, 108, 36, 0.08);
 }
 
 .checkbox-label {
@@ -886,8 +898,9 @@ form {
 
 @media (max-width: 900px) {
     .sidebar {
+        width: 240px;
         transform: translateX(-100%);
-        transition: transform .25s ease;
+        transition: transform 0.25s ease;
     }
 
     .sidebar.open {
@@ -905,7 +918,7 @@ form {
     .sidebar-overlay {
         position: fixed;
         inset: 0;
-        background: rgba(0,0,0,.3);
+        background: rgba(0, 0, 0, 0.3);
         z-index: 900;
     }
 
