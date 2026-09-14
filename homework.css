@@ -15,6 +15,7 @@
     --white: #ffffff;
     --danger: #c62828;
     --warning: #a86a00;
+    --sidebar-width: 260px;
 }
 
 body {
@@ -44,7 +45,7 @@ a {
     position: fixed;
     left: 0;
     top: 0;
-    width: 255px;
+    width: var(--sidebar-width);
     height: 100vh;
     background: var(--white);
     border-right: 1px solid var(--border);
@@ -55,7 +56,7 @@ a {
 
 .brand {
     height: 82px;
-    padding: 18px 20px;
+    padding: 22px;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -63,16 +64,16 @@ a {
 }
 
 .brand-logo {
-    width: 45px;
-    height: 45px;
-    border-radius: 10px;
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
     background: var(--primary);
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 800;
-    font-size: 17px;
+    font-size: 15px;
 }
 
 .brand-text {
@@ -82,24 +83,24 @@ a {
 }
 
 .brand-text strong {
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 800;
 }
 
 .brand-text span {
     color: var(--muted);
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 600;
 }
 
 .sidebar-nav {
-    padding: 18px 12px;
+    padding: 20px 14px;
     overflow-y: auto;
     flex: 1;
 }
 
 .nav-section {
-    margin-bottom: 22px;
+    margin-bottom: 18px;
 }
 
 .nav-label {
@@ -115,21 +116,24 @@ a {
 .sidebar-bottom a {
     display: flex;
     align-items: center;
-    gap: 12px;
-    min-height: 42px;
-    padding: 9px 12px;
-    border-radius: 8px;
-    color: #536058;
+    gap: 13px;
+    height: 43px;
+    padding: 0 12px;
+    border-radius: 9px;
+    color: #5c6b62;
     font-size: 14px;
     font-weight: 700;
+    margin-bottom: 3px;
     transition: 0.2s;
 }
 
 .sidebar-nav a span,
 .sidebar-bottom a span {
     width: 20px;
+    min-width: 20px;
     text-align: center;
     font-size: 17px;
+    font-weight: 700;
 }
 
 .sidebar-nav a:hover,
@@ -139,17 +143,17 @@ a {
 }
 
 .sidebar-nav a.active {
-    background: var(--primary-light);
-    color: var(--primary);
+    background: var(--primary);
+    color: white;
 }
 
 .sidebar-bottom {
-    padding: 12px;
+    padding: 14px;
     border-top: 1px solid var(--border);
 }
 
 .main-content {
-    margin-left: 255px;
+    margin-left: var(--sidebar-width);
     min-height: 100vh;
 }
 
@@ -901,6 +905,7 @@ td {
 
 @media (max-width: 900px) {
     .sidebar {
+        width: 240px;
         transform: translateX(-100%);
         transition: transform 0.25s ease;
     }

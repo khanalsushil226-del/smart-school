@@ -16,6 +16,7 @@
     --danger: #dc3545;
     --warning: #d98b00;
     --blue: #2778d4;
+    --sidebar-width: 260px;
 }
 
 body {
@@ -44,7 +45,7 @@ a {
     position: fixed;
     top: 0;
     left: 0;
-    width: 255px;
+    width: var(--sidebar-width);
     height: 100vh;
     background: var(--white);
     border-right: 1px solid var(--border);
@@ -55,7 +56,7 @@ a {
 
 .brand {
     height: 82px;
-    padding: 0 20px;
+    padding: 0 22px;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -65,13 +66,13 @@ a {
 .brand-logo {
     width: 42px;
     height: 42px;
-    border-radius: 10px;
+    border-radius: 11px;
     background: var(--primary);
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 800;
 }
 
@@ -83,19 +84,19 @@ a {
 .brand span {
     display: block;
     color: var(--muted);
-    font-size: 11px;
+    font-size: 10px;
     margin-top: 3px;
     font-weight: 600;
 }
 
 .sidebar-nav {
     flex: 1;
-    padding: 18px 12px;
+    padding: 20px 14px;
     overflow-y: auto;
 }
 
 .nav-group {
-    margin-bottom: 22px;
+    margin-bottom: 18px;
 }
 
 .nav-label {
@@ -108,15 +109,15 @@ a {
 }
 
 .nav-item {
-    min-height: 43px;
+    height: 43px;
     padding: 0 12px;
     display: flex;
     align-items: center;
-    gap: 12px;
-    border-radius: 8px;
+    gap: 13px;
+    border-radius: 9px;
     color: #4d5750;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 3px;
     transition: .2s;
 }
@@ -127,19 +128,21 @@ a {
 }
 
 .nav-item.active {
-    background: var(--primary-light);
-    color: var(--primary);
+    background: var(--primary);
+    color: white;
     font-weight: 700;
 }
 
 .nav-icon {
     width: 20px;
+    min-width: 20px;
     text-align: center;
     font-size: 17px;
+    font-weight: 700;
 }
 
 .sidebar-bottom {
-    padding: 12px;
+    padding: 14px;
     border-top: 1px solid var(--border);
 }
 
@@ -148,7 +151,7 @@ a {
 }
 
 .main-content {
-    margin-left: 255px;
+    margin-left: var(--sidebar-width);
     min-height: 100vh;
 }
 
@@ -1121,6 +1124,7 @@ a {
 
 @media (max-width: 900px) {
     .sidebar {
+        width: 240px;
         transform: translateX(-100%);
         transition: transform .25s ease;
     }
