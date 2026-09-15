@@ -7,18 +7,19 @@
 :root {
     --primary: #056c24;
     --primary-dark: #04551c;
-    --primary-light: #eaf7ee;
-    --text: #17201a;
+    --primary-light: #eaf6ee;
+    --text: #17231b;
     --muted: #68736c;
-    --border: #e2e8e4;
+    --border: #e4e9e5;
     --background: #f6f8f7;
     --white: #ffffff;
     --danger: #c62828;
-    --warning: #a46a00;
+    --warning: #a86a00;
+    --sidebar-width: 260px;
 }
 
 body {
-    font-family: Inter, Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     background: var(--background);
     color: var(--text);
     font-size: 15px;
